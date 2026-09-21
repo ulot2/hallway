@@ -23,8 +23,16 @@ if (!key) {
   );
   process.exit(1);
 }
-const masked = `${key.slice(0, 6)}…${key.slice(-4)} (${key.length} chars)`;
-console.log(`Using key ${masked}`);
+// Print nothing derived from the key's secret material. GitHub masks only exact
+// matches of a secret, so a "first 6 / last 4" preview would survive into a public
+// Actions log. Length and shape are enough to catch a truncated or whitespace-padded
+// paste, which is what this line is for.
+const shape = [
+  `${key.length} chars`,
+  /\s/.test(key) ? 'CONTAINS WHITESPACE — likely a bad paste' : 'no whitespace',
+  /^[\x20-\x7e]+$/.test(key) ? 'printable ASCII' : 'NON-ASCII CHARACTERS',
+].join(', ');
+console.log(`Key loaded: ${shape}`);
 console.log(`POST ${ENDPOINT}  model=${MODEL}\n`);
 
 // One of each question type, against a state whose right answers are obvious.

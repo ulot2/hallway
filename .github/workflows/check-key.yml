@@ -1,0 +1,65 @@
+# Manual only. Runs the live Jev check from a GitHub runner, which has open internet
+# access, for people working from a cloud session with no local checkout.
+#
+# workflow_dispatch means only someone with write access can start it — a fork pull
+# request cannot. NOTE: on a public repository these logs are world-readable. The key
+# itself is masked by GitHub and this script never prints key material, but the Jev
+# response is printed in full, so do not point it at anything confidential.
+
+name: Check Jev key
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_example:
+        description: 'Also run the full review against the example Storybook'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Verify the key and show the response shape
+        env:
+          JEV_API_KEY: ${{ secrets.JEV_API_KEY }}
+        run: |
+          if [ -z "$JEV_API_KEY" ]; then
+            echo "::error::No JEV_API_KEY secret is set. Add it under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          npm run check-key
+
+      - name: Build the example Storybook
+        if: inputs.run_example
+        run: npm install && npm run build-storybook
+        working-directory: example
+
+      - name: Full review against the example
+        if: inputs.run_example
+        env:
+          JEV_API_KEY: ${{ secrets.JEV_API_KEY }}
+          JEV_DEBUG: '1'
+        run: |
+          npx playwright install --with-deps chromium
+          npm run example
+
+      - name: Upload the raw Jev exchange
+        if: always() && inputs.run_example
+        uses: actions/upload-artifact@v4
+        with:
+          name: jev-exchange
+          path: example/.jev-review/
+          retention-days: 7

@@ -133,8 +133,30 @@ path from fork code to the key.
 
 ## Adding your API key
 
-**Locally**, put it in a `.env` file. It is gitignored, and every script loads it
-automatically:
+### No local checkout?
+
+If you are working from a cloud session and have no machine to clone onto, use GitHub
+Actions as the runner — it has open internet access and you need nothing but a browser:
+
+1. Add the key at **Settings → Secrets and variables → Actions → New repository
+   secret**, named `JEV_API_KEY`.
+2. Go to **Actions → Check Jev key → Run workflow**. Tick *run_example* to run the
+   whole pipeline against the example Storybook as well.
+3. Read the output in the run log. The raw request and response are printed, and the
+   full exchange is uploaded as an artifact.
+
+The workflow is `workflow_dispatch` only, so a fork pull request can never trigger it.
+On a **public** repository the run log is world-readable: GitHub masks the secret and
+this script never prints key material, but the Jev response is printed in full, so do
+not point it at anything confidential.
+
+The other option is to allow `api.typesafe.ai` in your cloud environment's network
+egress settings, after which the scripts work directly in the session. See the
+[Claude Code on the web docs](https://code.claude.com/docs/en/claude-code-on-the-web).
+
+### Locally
+
+Put it in a `.env` file. It is gitignored, and every script loads it automatically:
 
 ```bash
 cp .env.example .env
