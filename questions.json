@@ -1,12 +1,38 @@
 {
-  "version": 1,
-  "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer.",
+  "version": 2,
+  "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies. They ride along in the same call, so they cost no extra latency.",
   "questions": [
+    {
+      "id": "shows_empty_state",
+      "type": "noul",
+      "gate": true,
+      "question": "Does this component currently show an empty state \u2014 a list, table or section with no content in it?",
+      "rationale": "Real empty states rarely contain the words 'empty' or 'no results', so a keyword test misses them."
+    },
+    {
+      "id": "shows_error_message",
+      "type": "noul",
+      "gate": true,
+      "question": "Does this component currently display an error or validation message to the user?",
+      "rationale": "Distinguishes an actual error from ordinary help text, which keyword matching cannot do."
+    },
+    {
+      "id": "offers_destructive_action",
+      "type": "noul",
+      "gate": true,
+      "question": "Does this component offer an action that destroys data or is otherwise hard to undo?",
+      "rationale": "Catches destructive actions whose labels do not use an obvious verb."
+    },
     {
       "id": "primary_action_obvious",
       "type": "score",
       "question": "How obvious is the single primary action a first-time user should take in this component?",
-      "levels": ["not discoverable", "ambiguous", "clear", "unmistakable"],
+      "levels": [
+        "not discoverable",
+        "ambiguous",
+        "clear",
+        "unmistakable"
+      ],
       "fail_when": "below",
       "fail_at": 1.5,
       "rationale": "A linter can confirm a button exists; it cannot judge whether the user can tell which one matters."
@@ -16,7 +42,10 @@
       "type": "noul",
       "question": "Do the error messages in this component tell the user how to fix the problem, rather than only stating that something is wrong?",
       "fail_when": "false",
-      "applies_when": "has_error_text",
+      "applies_when": {
+        "question": "shows_error_message",
+        "min_probability": 0.5
+      },
       "rationale": "Presence of an error message is checkable; whether it is useful is not."
     },
     {
@@ -24,7 +53,10 @@
       "type": "noul",
       "question": "If this component shows an empty state, does it offer the user a clear next step rather than being a dead end?",
       "fail_when": "false",
-      "applies_when": "has_empty_state",
+      "applies_when": {
+        "question": "shows_empty_state",
+        "min_probability": 0.5
+      },
       "rationale": "Dead-end empty states are a common, invisible-to-tooling UX failure."
     },
     {
@@ -36,14 +68,22 @@
         "generic (Submit, OK, Continue)",
         "ambiguous or unlabeled"
       ],
-      "fail_options": ["generic (Submit, OK, Continue)", "ambiguous or unlabeled"],
+      "fail_options": [
+        "generic (Submit, OK, Continue)",
+        "ambiguous or unlabeled"
+      ],
       "rationale": "jsx-a11y can require an accessible name; it cannot tell you the name is meaningless."
     },
     {
       "id": "purpose_clear_from_text",
       "type": "score",
       "question": "From the visible text alone, how clearly could a first-time user say what this component is for?",
-      "levels": ["no idea", "guessable", "clear", "unmistakable"],
+      "levels": [
+        "no idea",
+        "guessable",
+        "clear",
+        "unmistakable"
+      ],
       "fail_when": "below",
       "fail_at": 1.5,
       "rationale": "Comprehension is the whole point of the UI and nothing in CI currently measures it."
@@ -53,7 +93,10 @@
       "type": "noul",
       "question": "Are destructive or irreversible actions in this component visually distinguished and guarded by a confirmation step?",
       "fail_when": "false",
-      "applies_when": "has_destructive_action",
+      "applies_when": {
+        "question": "offers_destructive_action",
+        "min_probability": 0.5
+      },
       "rationale": "Requires reading intent from copy, which static analysis cannot do."
     }
   ]

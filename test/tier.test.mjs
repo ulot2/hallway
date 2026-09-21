@@ -75,11 +75,37 @@ test('a finding decays a tier at a time rather than vanishing', () => {
   assert.equal(tierWithHysteresis(0.3, 'blocking'), 'silent');
 });
 
-test('preconditions skip questions that do not apply', () => {
+test('keyword preconditions skip questions that do not apply', () => {
   const spec = { ...noul, applies_when: 'has_error_text' };
   assert.equal(applies(spec, { has_error_text: false }), false);
   assert.equal(applies(spec, { has_error_text: true }), true);
   assert.equal(applies(noul, {}), true);
+});
+
+test('a gate question decides whether a question applies', () => {
+  const spec = { ...noul, applies_when: { question: 'shows_empty_state', min_probability: 0.5 } };
+  assert.equal(applies(spec, {}, { shows_empty_state: { value: 0.9 } }), true);
+  assert.equal(applies(spec, {}, { shows_empty_state: { value: 0.2 } }), false);
+});
+
+test('a missing or unparseable gate answer skips the question', () => {
+  const spec = { ...noul, applies_when: { question: 'shows_empty_state' } };
+  assert.equal(applies(spec, {}, {}), false);
+  assert.equal(applies(spec, {}, { shows_empty_state: { value: 'huh' } }), false);
+});
+
+test('gate questions never become findings', () => {
+  const specs = [
+    { id: 'g', type: 'noul', gate: true, question: 'Is there an empty state?' },
+    { ...noul, id: 'real', applies_when: { question: 'g' } },
+  ];
+  const findings = assess({
+    answers: { g: { value: 0.9 }, real: { value: 0.1 } },
+    specs,
+    signals: {},
+  });
+  assert.equal(findings.length, 1);
+  assert.equal(findings[0].id, 'real');
 });
 
 test('assess records skipped questions rather than dropping them', () => {
@@ -87,6 +113,12 @@ test('assess records skipped questions rather than dropping them', () => {
   const findings = assess({ answers: {}, specs, signals: { has_empty_state: false } });
   assert.equal(findings.length, 1);
   assert.match(findings[0].skipped, /precondition/);
+});
+
+test('a gated skip explains which gate closed it', () => {
+  const specs = [{ ...noul, applies_when: { question: 'shows_empty_state', min_probability: 0.5 } }];
+  const findings = assess({ answers: { shows_empty_state: { value: 0.1 } }, specs, signals: {} });
+  assert.match(findings[0].skipped, /shows_empty_state below 0.5/);
 });
 
 test('calibration is applied and flagged', () => {

@@ -8,39 +8,64 @@ const DESTRUCTIVE = /\b(delete|remove|destroy|erase|wipe|revoke|cancel subscript
 const ERROR_HINT = /\b(error|invalid|required|failed|must be|cannot|not allowed|try again|wrong)\b/i;
 const EMPTY_HINT = /\b(no results|nothing here|no items|empty|none found|no data|you have no|get started)\b/i;
 
-/** Collect the accessibility tree, visible copy and control inventory for a page. */
-export async function extractState(page, { url, name } = {}) {
-  const aria = await page.locator('body').ariaSnapshot();
+// Storybook renders the story into its own root and keeps scaffolding (a controls
+// table template, documentation links) elsewhere in the same document. Scanning the
+// whole body scoops that up and feeds it to the model as if it were the component.
+const ROOT_CANDIDATES = ['#storybook-root', '#root', 'body'];
 
-  const text = await page.evaluate(() => {
+export async function resolveRoot(page, rootSelector) {
+  if (rootSelector) return rootSelector;
+  for (const sel of ROOT_CANDIDATES) {
+    if (await page.locator(sel).count()) return sel;
+  }
+  return 'body';
+}
+
+/** Collect the accessibility tree, visible copy and control inventory for a page. */
+export async function extractState(page, { url, name, rootSelector } = {}) {
+  const root = await resolveRoot(page, rootSelector);
+  const aria = await page.locator(root).ariaSnapshot();
+
+  const { text, controls } = await page.evaluate((sel) => {
+    const scope = document.querySelector(sel) ?? document.body;
+
+    // `checkVisibility` walks the ancestor chain, so it catches a hidden wrapper that
+    // a computed-style check on the immediate parent would miss.
+    const visible = (el) => {
+      if (!el) return false;
+      if (typeof el.checkVisibility === 'function') {
+        if (!el.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return false;
+      }
+      const rect = el.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    };
+
     const out = [];
-    const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    const walk = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
     for (let n = walk.nextNode(); n; n = walk.nextNode()) {
-      const parent = n.parentElement;
-      if (!parent) continue;
-      const style = getComputedStyle(parent);
-      if (style.display === 'none' || style.visibility === 'hidden') continue;
+      if (!visible(n.parentElement)) continue;
       const t = n.textContent.replace(/\s+/g, ' ').trim();
       if (t) out.push(t);
     }
-    return out;
-  });
 
-  const controls = await page.evaluate(() => {
-    const sel = 'button, a[href], input, select, textarea, [role="button"], [role="link"]';
-    return [...document.querySelectorAll(sel)].map((el) => ({
-      tag: el.tagName.toLowerCase(),
-      type: el.getAttribute('type') || null,
-      label: (
-        el.getAttribute('aria-label') ||
-        el.labels?.[0]?.textContent ||
-        el.textContent ||
-        el.getAttribute('placeholder') ||
-        ''
-      ).replace(/\s+/g, ' ').trim(),
-      disabled: el.disabled === true,
-    }));
-  });
+    const controlSel = 'button, a[href], input, select, textarea, [role="button"], [role="link"]';
+    const ctrls = [...scope.querySelectorAll(controlSel)]
+      .filter(visible)
+      .map((el) => ({
+        tag: el.tagName.toLowerCase(),
+        type: el.getAttribute('type') || null,
+        label: (
+          el.getAttribute('aria-label') ||
+          el.labels?.[0]?.textContent ||
+          el.textContent ||
+          el.getAttribute('placeholder') ||
+          ''
+        ).replace(/\s+/g, ' ').trim(),
+        disabled: el.disabled === true,
+      }));
+
+    return { text: out, controls: ctrls };
+  }, root);
 
   const joined = text.join(' ');
   const signals = {
@@ -50,7 +75,7 @@ export async function extractState(page, { url, name } = {}) {
       DESTRUCTIVE.test(joined) || controls.some((c) => DESTRUCTIVE.test(c.label)),
   };
 
-  return { name: name ?? url, url, aria, text, controls, signals };
+  return { name: name ?? url, url, root, aria, text, controls, signals };
 }
 
 /** Run the deterministic pass. Jev never sees questions axe can already answer. */

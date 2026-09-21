@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Scoping fixture</title>
+<body>
+  <!-- Mirrors how Storybook lays out its iframe: the story in its own root, with
+       scaffolding as a sibling in the same document. -->
+  <div id="storybook-root">
+    <p>Real text</p>
+    <button>Real button</button>
+    <div style="display:none">
+      <p>Display-none text</p>
+      <button>Display-none button</button>
+    </div>
+    <div style="visibility:hidden">
+      <button>Visibility-hidden button</button>
+    </div>
+    <div style="opacity:0">
+      <button>Transparent button</button>
+    </div>
+    <div hidden>
+      <button>Hidden-attribute button</button>
+    </div>
+  </div>
+  <div id="storybook-docs">
+    <p>Scaffolding text</p>
+    <button>Scaffolding button</button>
+    <a href="https://example.com">Scaffolding documentation</a>
+  </div>
+</body>

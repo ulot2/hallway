@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,3 +18,21 @@ jobs:
       - run: npm test
       - name: Calibration harness smoke test
         run: npm run calibrate -- --demo
+
+  integration:
+    # Proves the pipeline still works against a real Storybook build, not just fixtures.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Build the example Storybook
+        run: npm install && npm run build-storybook
+        working-directory: example
+      - name: Review the example end to end
+        run: npm run example

@@ -4,14 +4,18 @@
   "private": true,
   "type": "module",
   "description": "Judgment-level UI review for pull requests, powered by Jev's typed, calibrated decisions.",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "extract:demo": "node scripts/extract-demo.mjs",
     "review:demo": "node scripts/review-demo.mjs",
     "calibrate": "node scripts/calibrate.mjs",
     "label": "node scripts/label.mjs",
     "stability": "node scripts/stability.mjs",
-    "test": "node --test \"test/*.test.mjs\""
+    "test": "node --test \"test/*.test.mjs\"",
+    "test:browser": "node --test \"test/*.browser.test.mjs\"",
+    "example": "node scripts/example.mjs"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",

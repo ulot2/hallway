@@ -5,9 +5,9 @@ pull request, using [Jev](https://docs.typesafe.ai/api) — TypeSafe AI's System
 model — for the judgment calls, and `axe-core` for everything that can be decided
 deterministically.
 
-> **Status: scaffold.** The pipeline runs end to end today against local fixtures with
-> a deterministic mock. It has not yet been pointed at a real Storybook or a live Jev
-> key. See [What is not done yet](#what-is-not-done-yet).
+> **Status: works end to end against a real Storybook, with a mock in place of Jev.**
+> The one remaining gap is a live API key. See
+> [What is not done yet](#what-is-not-done-yet).
 
 ## The argument
 
@@ -38,7 +38,15 @@ pipeline is runnable and reproducible offline.
 npm install
 npm run extract:demo   # what the components look like as state
 npm run review:demo    # the full pipeline, prints the PR comment it would post
-npm test               # 35 unit tests
+npm test               # 44 unit tests
+npm run test:browser   # 5 browser-backed tests
+```
+
+Against a real Storybook:
+
+```bash
+cd example && npm install && npm run build-storybook && cd ..
+npm run example        # simulates a PR that changes a shared component
 ```
 
 To use a real key:
@@ -46,6 +54,33 @@ To use a real key:
 ```bash
 JEV_API_KEY=sk-... npm run review:demo
 ```
+
+## The example app
+
+`example/` is a small React + Storybook 10 project with three components: a shared
+`Button`, a deliberately confusing `SettingsPanel`, and a clear `InviteForm`. It exists
+so the pipeline can be exercised against a genuine Storybook build rather than fixtures,
+and `npm run example` runs that as an integration check in CI.
+
+It simulates a pull request that changes `example/src/Button.jsx` — a file neither story
+file mentions and neither story imports directly. Both stories are still reviewed,
+which is the import-graph claim below, demonstrated rather than asserted.
+
+### What the real integration caught
+
+Both of these passed every fixture test and would have silently degraded every review:
+
+**Storybook's own chrome was being fed to the model.** The extractor scanned the whole
+`<body>`, and Storybook 10 keeps a controls-table template and documentation links in
+the same document as the story. The model was reading "propertyName", "Set string" and
+"Decorators documentation" as if they were part of the component. Extraction is now
+scoped to the story root, and hidden elements are filtered with `checkVisibility()`
+rather than a computed-style check on the immediate parent.
+
+**Keyword preconditions missed the cases that mattered.** The empty state
+"No one else has access yet. Invite a teammate to collaborate" matches no plausible
+keyword list, so the empty-state question was being skipped exactly when it had
+something to say. That is what motivated gate questions.
 
 ## How it works
 
@@ -159,9 +194,14 @@ design, and it should not be described as doing more.
 ## Configuration
 
 Questions live in `questions.json` so they can be edited without touching code. Each
-entry declares its type (`noul` / `choice` / `score`), what counts as failure, and an
-optional `applies_when` precondition so questions about error messages are not asked of
-components that have none.
+entry declares its type (`noul` / `choice` / `score`) and what counts as failure.
+
+Some questions only make sense sometimes — there is no point asking whether an empty
+state is a dead end if there is no empty state. Those declare an `applies_when`
+precondition pointing at a **gate question**: a cheap yes/no question, marked
+`"gate": true`, that Jev answers in the same call and that never produces a finding of
+its own. Gates cost no extra latency, since every question for a component goes in one
+request.
 
 Action inputs: `mode`, `storybook-dir`, `questions`, `calibration`, `max-stories`,
 `blocking-at`, `look-at`, `base-ref`, `set-check`, `jev-api-key`, `github-token`.
@@ -171,15 +211,19 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- Never run against a real Storybook build — only the local HTML fixtures.
-- Never run against the live Jev API. The wire format was derived from published docs
-  and examples, not verified against a live response; `normalizeAnswer()` is
-  deliberately tolerant for this reason.
+- **Never run against the live Jev API.** This is the big one. The wire format was
+  derived from published docs and examples, not verified against a live response;
+  `normalizeAnswer()` is deliberately tolerant for that reason. Until a real key goes
+  in, the answers in any demo output are deterministic noise — if they happen to land
+  on the right component, that is luck, not judgment.
 - No calibration data from a real repo, so the default thresholds (0.85 / 0.55) are
   guesses. They are marked as such in every uncalibrated comment.
+- Story rendering waits on `networkidle`, which is not the same as "the component has
+  finished its own async work". Components that fetch on mount may be captured mid-load.
+- The example app is three components on one Storybook version. Nothing has been tried
+  against Vue, Svelte, Storybook 7/8, or a repo with hundreds of stories.
 - No published Marketplace release. That waits until it has run green on a repo that
   isn't this one.
-- `applies_when` preconditions are keyword heuristics, not semantic checks.
 
 ## Layout
 
@@ -197,5 +241,6 @@ src/report.js           sticky comment rendering and state round-trip
 src/extract-main.js     phase 1 entrypoint (no secrets)
 src/review-main.js      phase 2 entrypoint (secrets, no PR code)
 scripts/                demo, labeling, calibration and stability harnesses
-fixtures/               a deliberately bad component and its fixed version
+fixtures/               a deliberately bad component, its fixed version, a scoping case
+example/                a real React + Storybook app used as an integration check
 ```

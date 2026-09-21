@@ -6,9 +6,24 @@ import { applyIsotonic } from './calibrate.js';
 
 const sigmoid = (x) => 1 / (1 + Math.exp(-x));
 
-/** Skip questions whose precondition is not present in the component. */
-export function applies(spec, signals = {}) {
-  return !spec.applies_when || signals[spec.applies_when] === true;
+/**
+ * Skip questions whose precondition is not met.
+ *
+ * A precondition is either the name of a cheap keyword signal, or — preferably — another
+ * question in the set, marked `gate`, that Jev answers in the same call. Keyword tests
+ * miss empty states phrased as "No one else has access yet", which is precisely when the
+ * question matters, so a gate question is the better instrument.
+ */
+export function applies(spec, signals = {}, answers = {}) {
+  const cond = spec.applies_when;
+  if (!cond) return true;
+  if (typeof cond === 'string') return signals[cond] === true;
+
+  const gate = answers[cond.question];
+  if (!gate) return false;
+  const p = Number(gate.value);
+  if (!Number.isFinite(p)) return false;
+  return p >= (cond.min_probability ?? 0.5);
 }
 
 /**
@@ -89,8 +104,12 @@ export function tierWithHysteresis(p, previousTier, thresholds = {}, margin = 0.
 export function assess({ answers, specs, signals, calibration = {}, thresholds = {}, previous = {} }) {
   const findings = [];
   for (const spec of specs) {
-    if (!applies(spec, signals)) {
-      findings.push({ id: spec.id, skipped: `precondition "${spec.applies_when}" not present` });
+    // Gate questions decide whether other questions apply; they are never findings.
+    if (spec.gate) continue;
+    if (!applies(spec, signals, answers)) {
+      const cond = spec.applies_when;
+      const why = typeof cond === 'string' ? cond : `${cond.question} below ${cond.min_probability ?? 0.5}`;
+      findings.push({ id: spec.id, skipped: `precondition "${why}" not met` });
       continue;
     }
     const answer = answers[spec.id];
