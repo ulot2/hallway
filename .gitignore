@@ -2,3 +2,8 @@ node_modules/
 storybook-static/
 .jev-review/
 *.log
+
+# Secrets. Never commit these.
+.env
+.env.local
+.env.*.local

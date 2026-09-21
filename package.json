@@ -8,14 +8,15 @@
     "node": ">=20"
   },
   "scripts": {
-    "extract:demo": "node scripts/extract-demo.mjs",
-    "review:demo": "node scripts/review-demo.mjs",
-    "calibrate": "node scripts/calibrate.mjs",
-    "label": "node scripts/label.mjs",
-    "stability": "node scripts/stability.mjs",
+    "extract:demo": "node --env-file-if-exists=.env scripts/extract-demo.mjs",
+    "review:demo": "node --env-file-if-exists=.env scripts/review-demo.mjs",
+    "calibrate": "node --env-file-if-exists=.env scripts/calibrate.mjs",
+    "label": "node --env-file-if-exists=.env scripts/label.mjs",
+    "stability": "node --env-file-if-exists=.env scripts/stability.mjs",
     "test": "node --test \"test/*.test.mjs\"",
     "test:browser": "node --test \"test/*.browser.test.mjs\"",
-    "example": "node scripts/example.mjs"
+    "example": "node --env-file-if-exists=.env scripts/example.mjs",
+    "check-key": "node --env-file-if-exists=.env scripts/check-key.mjs"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",

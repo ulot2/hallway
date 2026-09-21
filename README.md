@@ -131,13 +131,41 @@ Phase 1 builds Storybook, renders the components and writes a JSON artifact. Pha
 runs from the default branch, downloads only that JSON, calls Jev and posts. There is no
 path from fork code to the key.
 
+## Adding your API key
+
+**Locally**, put it in a `.env` file. It is gitignored, and every script loads it
+automatically:
+
+```bash
+cp .env.example .env
+# then edit .env and set JEV_API_KEY=...
+npm run check-key
+```
+
+`npm run check-key` makes one small call and reports three things: whether the key
+works, what a real response actually looks like, and whether this repo's parser
+understands it. Run it before anything else — it isolates key problems from pipeline
+problems, and distinguishes a network or proxy block from a genuine auth failure, which
+otherwise look identical.
+
+For a single command without a file: `JEV_API_KEY=... npm run check-key`. Prefer the
+`.env` file for repeat use, so the key stays out of your shell history.
+
+**In GitHub Actions**, add it as a repository secret named `JEV_API_KEY`:
+Settings → Secrets and variables → Actions → New repository secret. The workflows
+already reference `secrets.JEV_API_KEY`, and only the phase-2 workflow — the one that
+never runs pull request code — can read it.
+
+Never commit the key or paste it into an issue, a pull request or a chat window. If one
+leaks, revoke it rather than deleting the message; it is already in the logs.
+
 ## Your first live run
 
 Nothing in the code needs changing — set the key and the mock steps aside:
 
 ```bash
 cd example && npm install && npm run build-storybook && cd ..
-JEV_API_KEY=sk-... JEV_DEBUG=1 npm run example
+JEV_DEBUG=1 npm run example
 ```
 
 `JEV_DEBUG=1` writes the exact request and response to
