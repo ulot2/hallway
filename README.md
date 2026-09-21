@@ -131,6 +131,33 @@ Phase 1 builds Storybook, renders the components and writes a JSON artifact. Pha
 runs from the default branch, downloads only that JSON, calls Jev and posts. There is no
 path from fork code to the key.
 
+## Your first live run
+
+Nothing in the code needs changing — set the key and the mock steps aside:
+
+```bash
+cd example && npm install && npm run build-storybook && cd ..
+JEV_API_KEY=sk-... JEV_DEBUG=1 npm run example
+```
+
+`JEV_DEBUG=1` writes the exact request and response to
+`example/.jev-review/jev-exchange-*.json`. Keep it on for the first run.
+
+The likeliest first failure is the response shape, since it was never verified against
+a live API. If nothing parses, the run stops with the actual payload printed and points
+at `toWire()` / `normalizeAnswer()` in `src/jev.js` — the only two functions that need
+to change. A partial failure warns and names the questions it could not read.
+
+Then, in order:
+
+1. **Does it discriminate?** The findings should land on `Settings/Panel`, not on
+   `Members/Invite form`. With the mock they land there by coincidence; with a real key
+   it means something.
+2. **Is it stable?** `npm run stability -- 10` — a standard deviation near zero, and no
+   question crossing the threshold in both directions.
+3. **Is it calibrated?** `npm run label`, then `npm run calibrate`. This replaces the
+   guessed 0.85 / 0.55 thresholds with measured ones.
+
 ## Calibration
 
 Confidence thresholds are worthless if the probabilities are not calibrated, and

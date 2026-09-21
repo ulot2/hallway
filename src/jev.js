@@ -8,6 +8,8 @@
 // If the API changes, fix `toWire()` and `normalizeAnswer()` and nothing else.
 
 import { createHash } from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const ENDPOINT = process.env.JEV_ENDPOINT || 'https://api.typesafe.ai/v1/systemone';
 const MODEL = process.env.JEV_MODEL || 'jev-latest';
@@ -72,12 +74,45 @@ export async function evaluate({ state, specs, apiKey, timeoutMs = 30_000 }) {
   }
 
   const json = await res.json();
+  debugDump({ request: body, response: json });
+
   const answers = json.answers ?? json.questions ?? json.results ?? json;
   const out = {};
+  const unparsed = [];
   for (const spec of specs) {
-    out[spec.id] = normalizeAnswer(answers[spec.id], spec);
+    const norm = normalizeAnswer(answers[spec.id], spec);
+    if (!norm || norm.value == null) unparsed.push(spec.id);
+    out[spec.id] = norm;
+  }
+
+  // The wire format is unverified against a live response. If nothing parsed, say so
+  // loudly with the actual payload rather than reporting a component with no findings.
+  if (unparsed.length === specs.length) {
+    throw new Error(
+      `Jev responded, but no answer could be parsed for any of ${specs.length} question(s).\n` +
+        `This usually means the response shape differs from what normalizeAnswer() expects.\n` +
+        `Response was:\n${JSON.stringify(json, null, 2).slice(0, 2000)}\n` +
+        `Fix toWire()/normalizeAnswer() in src/jev.js to match.`
+    );
+  }
+  if (unparsed.length) {
+    console.warn(`Jev: could not parse an answer for: ${unparsed.join(', ')}`);
   }
   return out;
+}
+
+/** With JEV_DEBUG=1, persist the exact request and response for inspection. */
+function debugDump(payload) {
+  if (process.env.JEV_DEBUG !== '1') return;
+  const dir = process.env.JEV_OUT || '.jev-review';
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    const file = path.join(dir, `jev-exchange-${Date.now()}.json`);
+    fs.writeFileSync(file, JSON.stringify(payload, null, 2));
+    console.log(`Jev exchange written to ${file}`);
+  } catch (err) {
+    console.warn(`Could not write Jev debug dump: ${err.message}`);
+  }
 }
 
 /**
