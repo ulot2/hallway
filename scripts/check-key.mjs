@@ -65,6 +65,16 @@ try {
 } catch (err) {
   console.error(`Could not reach ${ENDPOINT}: ${err.message}`);
   console.error('A network or proxy block looks like this. A bad key does not.');
+  // Only relevant when the request hung with no proxy response at all. Setting this
+  // flag where the proxy already works makes things worse: it replaces the proxy's
+  // explanatory body with an opaque "fetch failed", so it is a hint, not a default.
+  if (process.env.HTTPS_PROXY && /timeout|timed out|cancelled/i.test(err.message + (err.cause?.message ?? ''))) {
+    console.error(
+      '\nHTTPS_PROXY is set and this timed out rather than being refused. On some Node\n' +
+        'versions the built-in fetch ignores HTTPS_PROXY and bypasses the proxy. If that\n' +
+        'is what happened, retry with: NODE_USE_ENV_PROXY=1 npm run check-key'
+    );
+  }
   process.exit(1);
 }
 
