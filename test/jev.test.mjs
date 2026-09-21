@@ -55,3 +55,24 @@ test('mock score stays inside the level range', () => {
   const { c } = mockEvaluate({ state: 's', specs });
   assert.ok(c.value >= 0 && c.value <= specs[2].levels.length - 1);
 });
+
+test('JEV_LIVE=1 prevents the silent fall back to the mock', async () => {
+  // A proxy-injected credential means no key is present in the session. Without this
+  // escape hatch, evaluate() would quietly return made-up answers.
+  const { evaluate } = await import('../src/jev.js');
+  process.env.JEV_LIVE = '1';
+  try {
+    await assert.rejects(
+      evaluate({ state: 's', specs, apiKey: undefined, timeoutMs: 1 }),
+      (err) => !/mock/i.test(err.message)
+    );
+  } finally {
+    delete process.env.JEV_LIVE;
+  }
+});
+
+test('without JEV_LIVE, a missing key still yields the mock', async () => {
+  const { evaluate } = await import('../src/jev.js');
+  const out = await evaluate({ state: 's', specs, apiKey: undefined });
+  assert.equal(out.a.raw.mock, true);
+});

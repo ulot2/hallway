@@ -46,7 +46,13 @@ export function normalizeAnswer(raw, spec) {
  */
 export async function evaluate({ state, specs, apiKey, timeoutMs = 30_000 }) {
   if (!specs.length) return {};
-  if (!apiKey || apiKey === 'mock' || process.env.JEV_MOCK === '1') {
+
+  // JEV_LIVE=1 forces a real request even with no key in the environment. A gateway or
+  // proxy may inject the Authorization header after the request leaves this machine —
+  // Claude Code's cloud "API credentials" work exactly that way — in which case the key
+  // is deliberately absent here and falling back to the mock would be wrong.
+  const live = process.env.JEV_LIVE === '1';
+  if (!live && (!apiKey || apiKey === 'mock' || process.env.JEV_MOCK === '1')) {
     return mockEvaluate({ state, specs });
   }
 
@@ -59,8 +65,10 @@ export async function evaluate({ state, specs, apiKey, timeoutMs = 30_000 }) {
     res = await fetch(ENDPOINT, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
+        // Omitted entirely when absent, so an injecting proxy can add its own rather
+        // than receiving a literal "Bearer undefined".
+        ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
       },
       body: JSON.stringify(body),
       signal: controller.signal,

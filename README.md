@@ -133,6 +133,19 @@ path from fork code to the key.
 
 ## Adding your API key
 
+### The key is injected by a proxy
+
+If the `Authorization` header is added after the request leaves your machine — a
+gateway, or a Claude Code cloud environment **API credential** — then no key exists in
+the session, and the client would otherwise fall back silently to the mock. Set
+`JEV_LIVE=1` instead of a key. The request then goes out with no `Authorization`
+header for the proxy to fill in.
+
+```bash
+JEV_LIVE=1 npm run check-key
+JEV_LIVE=1 npm run example
+```
+
 ### No local checkout?
 
 If you are working from a cloud session and have no machine to clone onto, use GitHub

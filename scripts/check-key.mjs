@@ -14,12 +14,17 @@ const ENDPOINT = process.env.JEV_ENDPOINT || 'https://api.typesafe.ai/v1/systemo
 const MODEL = process.env.JEV_MODEL || 'jev-latest';
 const key = process.env.JEV_API_KEY;
 
-if (!key) {
+const live = process.env.JEV_LIVE === '1';
+
+if (!key && !live) {
   console.error(
     'No JEV_API_KEY found.\n\n' +
       '  cp .env.example .env     then put the key in .env\n' +
       '  # or, for one command only:\n' +
-      '  JEV_API_KEY=... npm run check-key\n'
+      '  JEV_API_KEY=... npm run check-key\n\n' +
+      'If the key is injected by a proxy or gateway rather than set here — for example\n' +
+      'a cloud environment API credential — run with JEV_LIVE=1 instead, and this will\n' +
+      'send the request with no Authorization header for the proxy to fill in.\n'
   );
   process.exit(1);
 }
@@ -27,12 +32,17 @@ if (!key) {
 // matches of a secret, so a "first 6 / last 4" preview would survive into a public
 // Actions log. Length and shape are enough to catch a truncated or whitespace-padded
 // paste, which is what this line is for.
-const shape = [
-  `${key.length} chars`,
-  /\s/.test(key) ? 'CONTAINS WHITESPACE — likely a bad paste' : 'no whitespace',
-  /^[\x20-\x7e]+$/.test(key) ? 'printable ASCII' : 'NON-ASCII CHARACTERS',
-].join(', ');
-console.log(`Key loaded: ${shape}`);
+if (key) {
+  const shape = [
+    `${key.length} chars`,
+    /\s/.test(key) ? 'CONTAINS WHITESPACE — likely a bad paste' : 'no whitespace',
+    /^[\x20-\x7e]+$/.test(key) ? 'printable ASCII' : 'NON-ASCII CHARACTERS',
+  ].join(', ');
+  console.log(`Key loaded: ${shape}`);
+} else {
+  console.log('No key in this environment; JEV_LIVE=1, so the Authorization header is');
+  console.log('left for a proxy to inject.');
+}
 console.log(`POST ${ENDPOINT}  model=${MODEL}\n`);
 
 // One of each question type, against a state whose right answers are obvious.
@@ -58,7 +68,10 @@ let res;
 try {
   res = await fetch(ENDPOINT, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(key ? { Authorization: `Bearer ${key}` } : {}),
+    },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(30_000),
   });
