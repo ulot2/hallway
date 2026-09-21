@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Project settings (after)</title>
+<body>
+  <main>
+    <h1>Project settings</h1>
+    <p>Rename your project and manage who can access it.</p>
+    <form>
+      <label for="name">Project name</label>
+      <input id="name" type="text">
+      <label for="email">Billing email</label>
+      <input id="email" type="email" aria-describedby="email-error">
+      <p id="email-error">Enter a full email address, including the part after the @.</p>
+      <button type="submit">Save project settings</button>
+      <button type="button">Discard changes</button>
+    </form>
+    <h2>Members</h2>
+    <p>No one else has access yet. Invite a teammate to collaborate on this project.</p>
+    <button type="button">Invite a teammate</button>
+    <h2>Danger zone</h2>
+    <button type="button" aria-describedby="delete-warning">Delete this project…</button>
+    <p id="delete-warning">You will be asked to type the project name to confirm. This cannot be undone.</p>
+  </main>
+</body>

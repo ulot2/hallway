@@ -1,0 +1,22 @@
+{
+  "name": "jev-ui-review",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Judgment-level UI review for pull requests, powered by Jev's typed, calibrated decisions.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "extract:demo": "node scripts/extract-demo.mjs",
+    "review:demo": "node scripts/review-demo.mjs",
+    "calibrate": "node scripts/calibrate.mjs",
+    "label": "node scripts/label.mjs",
+    "stability": "node scripts/stability.mjs",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@axe-core/playwright": "^4.10.2",
+    "playwright": "^1.55.0"
+  }
+}

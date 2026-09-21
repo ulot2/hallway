@@ -1,0 +1,100 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { failureProbability, tierFor, tierWithHysteresis, applies, assess } from '../src/tier.js';
+
+const noul = { id: 'q', type: 'noul', question: '?', fail_when: 'false' };
+const choice = {
+  id: 'c', type: 'choice', question: '?',
+  options: ['good', 'bad'], fail_options: ['bad'],
+};
+const score = {
+  id: 's', type: 'score', question: '?',
+  levels: ['none', 'some', 'lots'], fail_when: 'below', fail_at: 1.5,
+};
+
+test('noul fail_when=false inverts the probability', () => {
+  assert.ok(Math.abs(failureProbability({ value: 0.9 }, noul).p - 0.1) < 1e-9);
+});
+
+test('noul fail_when=true passes it through', () => {
+  const spec = { ...noul, fail_when: 'true' };
+  assert.equal(failureProbability({ value: 0.9 }, spec).p, 0.9);
+});
+
+test('choice sums the probability mass of the failing options', () => {
+  const answer = { value: 'good', probabilities: { good: 0.3, bad: 0.7 } };
+  const { p, basis } = failureProbability(answer, choice);
+  assert.equal(p, 0.7);
+  assert.equal(basis, 'distribution');
+  // Note this disagrees with the argmax: the distribution is the point.
+});
+
+test('choice without a distribution falls back and says so', () => {
+  const { p, basis } = failureProbability({ value: 'bad', confidence: 0.8 }, choice);
+  assert.equal(p, 0.8);
+  assert.equal(basis, 'point-estimate');
+});
+
+test('score below the threshold yields a high failure probability', () => {
+  const { p } = failureProbability({ value: 0.2, confidence: 0.9 }, score);
+  assert.ok(p > 0.9, `expected > 0.9, got ${p}`);
+});
+
+test('score above the threshold yields a low one', () => {
+  const { p } = failureProbability({ value: 2.4, confidence: 0.9 }, score);
+  assert.ok(p < 0.1, `expected < 0.1, got ${p}`);
+});
+
+test('low confidence flattens the score curve toward 0.5', () => {
+  const confident = failureProbability({ value: 1.2, confidence: 1 }, score).p;
+  const unsure = failureProbability({ value: 1.2, confidence: 0 }, score).p;
+  assert.ok(Math.abs(unsure - 0.5) < Math.abs(confident - 0.5));
+});
+
+test('missing or unparseable answers are not reported', () => {
+  assert.equal(failureProbability(null, noul).p, null);
+  assert.equal(failureProbability({ value: 'wat' }, noul).p, null);
+  assert.equal(tierFor(null), 'silent');
+});
+
+test('tiers respect their thresholds', () => {
+  assert.equal(tierFor(0.9), 'blocking');
+  assert.equal(tierFor(0.6), 'look');
+  assert.equal(tierFor(0.2), 'silent');
+});
+
+test('hysteresis keeps a finding reported just below its threshold', () => {
+  assert.equal(tierWithHysteresis(0.82, 'blocking'), 'blocking');
+  assert.equal(tierWithHysteresis(0.82, undefined), 'look');
+});
+
+test('a finding decays a tier at a time rather than vanishing', () => {
+  // Was blocking, now mid-band: step down to "look", do not disappear outright.
+  assert.equal(tierWithHysteresis(0.52, 'blocking'), 'look');
+  // Well clear of both thresholds: drop it.
+  assert.equal(tierWithHysteresis(0.3, 'blocking'), 'silent');
+});
+
+test('preconditions skip questions that do not apply', () => {
+  const spec = { ...noul, applies_when: 'has_error_text' };
+  assert.equal(applies(spec, { has_error_text: false }), false);
+  assert.equal(applies(spec, { has_error_text: true }), true);
+  assert.equal(applies(noul, {}), true);
+});
+
+test('assess records skipped questions rather than dropping them', () => {
+  const specs = [{ ...noul, applies_when: 'has_empty_state' }];
+  const findings = assess({ answers: {}, specs, signals: { has_empty_state: false } });
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].skipped, /precondition/);
+});
+
+test('calibration is applied and flagged', () => {
+  const calibration = { q: { knots: [{ x: 0, y: 0 }, { x: 1, y: 0.5 }] } };
+  const [f] = assess({
+    answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration,
+  });
+  assert.equal(f.rawP, 1);
+  assert.equal(f.p, 0.5);
+  assert.equal(f.calibrated, true);
+});

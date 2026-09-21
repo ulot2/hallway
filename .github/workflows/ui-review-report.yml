@@ -1,0 +1,44 @@
+# Phase 2 of 2. Holds the Jev key, never checks out or runs pull request code.
+#
+# `workflow_run` runs from the default branch with access to secrets. It reads only the
+# JSON artifact produced by phase 1, so a malicious pull request has no path to the key.
+
+name: UI review (report)
+
+on:
+  workflow_run:
+    workflows: ['UI review (extract)']
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  report:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Download state from the untrusted job
+        uses: actions/download-artifact@v4
+        with:
+          name: jev-ui-review-state
+          path: .jev-review
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./
+        with:
+          mode: review
+          jev-api-key: ${{ secrets.JEV_API_KEY }}
+          set-check: 'true'
