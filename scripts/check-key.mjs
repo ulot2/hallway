@@ -47,11 +47,19 @@ console.log(`POST ${ENDPOINT}  model=${MODEL}\n`);
 
 // One of each question type, against a state whose right answers are obvious.
 const specs = [
-  { id: 'is_urgent', type: 'noul', question: 'Is this message urgent?' },
+  {
+    id: 'is_urgent', type: 'noul',
+    question: 'Is this message urgent?',
+    instructions: 'Answer yes if the user is blocked or losing money right now.',
+  },
   {
     id: 'topic', type: 'choice',
     question: 'What is this message about?',
-    options: ['billing', 'technical', 'sales'],
+    criteria: {
+      billing: 'Payments, invoices, payouts or refunds',
+      technical: 'Bugs, outages or integration problems',
+      sales: 'Pricing, plans or buying',
+    },
   },
   {
     id: 'frustration', type: 'score',
@@ -81,11 +89,12 @@ try {
   // Only relevant when the request hung with no proxy response at all. Setting this
   // flag where the proxy already works makes things worse: it replaces the proxy's
   // explanatory body with an opaque "fetch failed", so it is a hint, not a default.
-  if (process.env.HTTPS_PROXY && /timeout|timed out|cancelled/i.test(err.message + (err.cause?.message ?? ''))) {
+  if (process.env.HTTPS_PROXY) {
     console.error(
-      '\nHTTPS_PROXY is set and this timed out rather than being refused. On some Node\n' +
-        'versions the built-in fetch ignores HTTPS_PROXY and bypasses the proxy. If that\n' +
-        'is what happened, retry with: NODE_USE_ENV_PROXY=1 npm run check-key'
+      '\nHTTPS_PROXY is set. Through a proxy, a cancelled or failed request usually means\n' +
+        'the host is not on the egress allowlist — the proxy drops the tunnel rather than\n' +
+        'returning a readable error. Allow the host, or check it with:\n' +
+        `  curl -sS -o /dev/null -w '%{http_code}\\n' -X POST ${ENDPOINT}`
     );
   }
   process.exit(1);

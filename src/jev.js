@@ -1,11 +1,25 @@
 // The ONLY module that knows Jev's wire format.
 //
-// Jev is in beta and the request/response shape may still move. Everything
-// downstream consumes the normalized shape returned by `evaluate()`:
+// Verified against the live API (jev-1.13.0). Request:
 //
-//   { [questionId]: { type, value, confidence, probabilities } }
+//   { model, state, questions: { <id>: { type, question, criteria | instructions } } }
 //
-// If the API changes, fix `toWire()` and `normalizeAnswer()` and nothing else.
+//   noul    criteria or instructions is REQUIRED; a 400 explains if it is missing
+//   choice  criteria is an OBJECT mapping each option to a description of it
+//   score   criteria is an ORDERED ARRAY of level names, lowest first
+//
+// Response:
+//
+//   { model, answers: { <id>: {...} }, usage }
+//
+//   noul    { type, noul: <probability the statement is true> }   — no confidence
+//   choice  { type, choice, confidence, probabilities: {option: p} }
+//   score   { type, score, confidence, legend: {index: name}, probabilities: {index: p} }
+//
+// Note that a score's probabilities are keyed by STRING INDEX, not level name, and the
+// legend maps them back. Everything downstream consumes the normalized shape from
+// `evaluate()`: { [questionId]: { type, value, confidence, probabilities } }, where
+// score probabilities have been re-keyed to level names.
 
 import { createHash } from 'node:crypto';
 import fs from 'node:fs';
@@ -19,11 +33,31 @@ export function toWire(specs) {
   const questions = {};
   for (const spec of specs) {
     if (spec.type === 'noul') {
-      questions[spec.id] = { type: 'noul', question: spec.question };
+      // The API rejects a noul question with neither, so fall back to the rationale
+      // we already keep for humans rather than failing the whole request.
+      const instructions = spec.instructions ?? spec.rationale;
+      if (!instructions && !spec.criteria) {
+        throw new Error(
+          `Question "${spec.id}" is a noul and needs "instructions" (or "criteria"). ` +
+            'The API rejects noul questions that have neither.'
+        );
+      }
+      questions[spec.id] = {
+        type: 'noul',
+        question: spec.question,
+        ...(spec.criteria ? { criteria: spec.criteria } : { instructions }),
+      };
     } else if (spec.type === 'choice') {
-      questions[spec.id] = { type: 'choice', question: spec.question, options: spec.options };
+      // criteria is an object: each option mapped to a description of when it applies.
+      const criteria = spec.criteria ?? Object.fromEntries((spec.options ?? []).map((o) => [o, o]));
+      questions[spec.id] = { type: 'choice', question: spec.question, criteria };
     } else if (spec.type === 'score') {
-      questions[spec.id] = { type: 'score', question: spec.question, levels: spec.levels };
+      // criteria is an ordered array of level names, lowest first.
+      questions[spec.id] = {
+        type: 'score',
+        question: spec.question,
+        criteria: spec.criteria ?? spec.levels,
+      };
     } else {
       throw new Error(`Unknown question type "${spec.type}" for question "${spec.id}"`);
     }
@@ -34,9 +68,32 @@ export function toWire(specs) {
 /** Tolerant parse: beta APIs rename fields, and we would rather degrade than crash. */
 export function normalizeAnswer(raw, spec) {
   if (raw == null) return null;
-  const value = raw.value ?? raw.answer ?? raw.score ?? raw.choice ?? raw.probability ?? null;
-  const confidence = raw.confidence ?? raw.certainty ?? null;
-  const probabilities = raw.probabilities ?? raw.probs ?? raw.distribution ?? null;
+
+  // The live API returns the answer under a key named after the question type
+  // (noul/choice/score). The other spellings are kept as a cushion against the beta
+  // renaming things again.
+  const value =
+    raw.noul ?? raw.choice ?? raw.score ??
+    raw.value ?? raw.answer ?? raw.probability ?? null;
+
+  // A noul answer carries no confidence field: the probability IS the answer, and how
+  // far it sits from 0.5 is the only confidence there is.
+  const confidence =
+    raw.confidence ?? raw.certainty ??
+    (spec.type === 'noul' && Number.isFinite(Number(value))
+      ? Math.abs(Number(value) - 0.5) * 2
+      : null);
+
+  let probabilities = raw.probabilities ?? raw.probs ?? raw.distribution ?? null;
+
+  // Score probabilities come keyed by string index with a separate legend. Re-key them
+  // to level names so downstream code never has to know about the legend.
+  if (probabilities && raw.legend) {
+    probabilities = Object.fromEntries(
+      Object.entries(probabilities).map(([k, v]) => [raw.legend[k] ?? k, v])
+    );
+  }
+
   return { type: spec.type, value, confidence, probabilities, raw };
 }
 

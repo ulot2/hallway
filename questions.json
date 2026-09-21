@@ -1,27 +1,30 @@
 {
-  "version": 2,
-  "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies. They ride along in the same call, so they cost no extra latency.",
+  "version": 3,
+  "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies, and ride along in the same call. Wire format: noul needs \"instructions\"; choice needs \"criteria\" as an object mapping each option to a description; score needs ordered \"levels\" (sent as criteria). See src/jev.js.",
   "questions": [
     {
       "id": "shows_empty_state",
       "type": "noul",
       "gate": true,
       "question": "Does this component currently show an empty state \u2014 a list, table or section with no content in it?",
-      "rationale": "Real empty states rarely contain the words 'empty' or 'no results', so a keyword test misses them."
+      "rationale": "Real empty states rarely contain the words 'empty' or 'no results', so a keyword test misses them.",
+      "instructions": "Answer yes if any list, table or section in this component is currently rendering with no items in it. Ignore whether the wording is good; judge only whether the empty condition is present."
     },
     {
       "id": "shows_error_message",
       "type": "noul",
       "gate": true,
       "question": "Does this component currently display an error or validation message to the user?",
-      "rationale": "Distinguishes an actual error from ordinary help text, which keyword matching cannot do."
+      "rationale": "Distinguishes an actual error from ordinary help text, which keyword matching cannot do.",
+      "instructions": "Answer yes only for a message reporting that something went wrong or that input is invalid. Ordinary help or hint text describing what to enter is NOT an error."
     },
     {
       "id": "offers_destructive_action",
       "type": "noul",
       "gate": true,
       "question": "Does this component offer an action that destroys data or is otherwise hard to undo?",
-      "rationale": "Catches destructive actions whose labels do not use an obvious verb."
+      "rationale": "Catches destructive actions whose labels do not use an obvious verb.",
+      "instructions": "Answer yes if any control deletes data, cancels a subscription, revokes access, or is otherwise hard or impossible to undo. Judge by what the action does, not by whether the label uses a particular verb."
     },
     {
       "id": "primary_action_obvious",
@@ -35,7 +38,8 @@
       ],
       "fail_when": "below",
       "fail_at": 1.5,
-      "rationale": "A linter can confirm a button exists; it cannot judge whether the user can tell which one matters."
+      "rationale": "A linter can confirm a button exists; it cannot judge whether the user can tell which one matters.",
+      "instructions": "Judge how quickly a first-time user could identify the single most important action. Consider whether one action stands out from the others in prominence and wording."
     },
     {
       "id": "error_message_actionable",
@@ -46,7 +50,8 @@
         "question": "shows_error_message",
         "min_probability": 0.5
       },
-      "rationale": "Presence of an error message is checkable; whether it is useful is not."
+      "rationale": "Presence of an error message is checkable; whether it is useful is not.",
+      "instructions": "Answer yes only if the message tells the user what to do about the problem. A message that merely reports a failure (\"Error: invalid\", \"Something went wrong\") is not actionable. Naming the specific field and the expected format counts as actionable."
     },
     {
       "id": "empty_state_actionable",
@@ -57,22 +62,28 @@
         "question": "shows_empty_state",
         "min_probability": 0.5
       },
-      "rationale": "Dead-end empty states are a common, invisible-to-tooling UX failure."
+      "rationale": "Dead-end empty states are a common, invisible-to-tooling UX failure.",
+      "instructions": "Answer yes if the empty state points the user at a next step, such as an action to take or an explanation of how content gets here. A bare \"No results\" with nothing to do is a dead end, so answer no."
     },
     {
       "id": "button_label_quality",
       "type": "choice",
       "question": "How do the interactive control labels in this component read?",
       "options": [
-        "outcome verbs (Save changes, Delete account)",
-        "generic (Submit, OK, Continue)",
+        "outcome verbs",
+        "generic",
         "ambiguous or unlabeled"
       ],
       "fail_options": [
-        "generic (Submit, OK, Continue)",
+        "generic",
         "ambiguous or unlabeled"
       ],
-      "rationale": "jsx-a11y can require an accessible name; it cannot tell you the name is meaningless."
+      "rationale": "jsx-a11y can require an accessible name; it cannot tell you the name is meaningless.",
+      "criteria": {
+        "outcome verbs": "Labels name what will happen, such as \"Save changes\", \"Send invitation\" or \"Delete project\". A user could predict the result from the label alone.",
+        "generic": "Labels are non-specific defaults such as \"Submit\", \"OK\", \"Continue\" or \"Yes\". They say a button exists but not what it does.",
+        "ambiguous or unlabeled": "Labels are missing, are icons with no accessible name, or are so vague that the effect cannot be guessed."
+      }
     },
     {
       "id": "purpose_clear_from_text",
@@ -86,7 +97,8 @@
       ],
       "fail_when": "below",
       "fail_at": 1.5,
-      "rationale": "Comprehension is the whole point of the UI and nothing in CI currently measures it."
+      "rationale": "Comprehension is the whole point of the UI and nothing in CI currently measures it.",
+      "instructions": "Judge only from the words visible in the component. Do not assume context from the component name or surrounding application."
     },
     {
       "id": "destructive_action_guarded",
@@ -97,7 +109,8 @@
         "question": "offers_destructive_action",
         "min_probability": 0.5
       },
-      "rationale": "Requires reading intent from copy, which static analysis cannot do."
+      "rationale": "Requires reading intent from copy, which static analysis cannot do.",
+      "instructions": "Answer yes only if the component both marks the destructive action as dangerous and indicates a confirmation step before it takes effect. A bare button that deletes immediately is not guarded."
     }
   ]
 }

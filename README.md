@@ -5,8 +5,9 @@ pull request, using [Jev](https://docs.typesafe.ai/api) — TypeSafe AI's System
 model — for the judgment calls, and `axe-core` for everything that can be decided
 deterministically.
 
-> **Status: works end to end against a real Storybook, with a mock in place of Jev.**
-> The one remaining gap is a live API key. See
+> **Status: verified end to end against a real Storybook and the live Jev API**
+> (`jev-1.13.0`). On the example app it flags the deliberately-bad component on four
+> questions and leaves the good one completely clean. Not yet calibrated — see
 > [What is not done yet](#what-is-not-done-yet).
 
 ## The argument
@@ -65,6 +66,24 @@ and `npm run example` runs that as an integration check in CI.
 It simulates a pull request that changes `example/src/Button.jsx` — a file neither story
 file mentions and neither story imports directly. Both stories are still reviewed,
 which is the import-graph claim below, demonstrated rather than asserted.
+
+### What the live API run established
+
+Running against `jev-1.13.0` on the example app produced a clean split: every finding
+landed on the confusing component, and the well-written one produced none.
+
+| Question | Settings/Panel (bad) | Invite form (good) |
+| :--- | :--- | :--- |
+| `error_message_actionable` | 0.05 → blocking | gate closed, not asked |
+| `button_label_quality` | `generic` → blocking | silent |
+| `destructive_action_guarded` | 0.03 → blocking | gate closed, not asked |
+| `empty_state_actionable` | 0.24 → worth a look | 0.98 → silent |
+
+The last row is the gate-question design paying off. `shows_empty_state` scored **0.87**
+on the good component — Jev recognised "No one has been invited yet" as an empty state,
+which the keyword heuristic scored `false`. It then asked the follow-up and answered
+0.98: the empty state points somewhere, so no finding. The heuristic would have skipped
+that question entirely.
 
 ### What the real integration caught
 
@@ -301,13 +320,13 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- **Never run against the live Jev API.** This is the big one. The wire format was
-  derived from published docs and examples, not verified against a live response;
-  `normalizeAnswer()` is deliberately tolerant for that reason. Until a real key goes
-  in, the answers in any demo output are deterministic noise — if they happen to land
-  on the right component, that is luck, not judgment.
-- No calibration data from a real repo, so the default thresholds (0.85 / 0.55) are
-  guesses. They are marked as such in every uncalibrated comment.
+- **No calibration data yet**, so the default thresholds (0.85 / 0.55) are guesses.
+  They are marked as such in every uncalibrated comment. This is now the biggest gap.
+- **Stability is unmeasured.** The answers look decisive, but nobody has yet run the
+  same component ten times to see whether they hold still.
+- **One live sample proves nothing about the distribution.** The example app has two
+  components chosen to be obviously good and obviously bad. Real components live in
+  the middle, which is exactly where calibration matters.
 - Story rendering waits on `networkidle`, which is not the same as "the component has
   finished its own async work". Components that fetch on mount may be captured mid-load.
 - The example app is three components on one Storybook version. Nothing has been tried
