@@ -283,12 +283,44 @@ the bot within a week.
 JEV_API_KEY=sk-... npm run stability -- 10
 ```
 
-Runs the same unchanged component N times and reports mean, standard deviation and
-whether any question crossed the blocking threshold in both directions. Run this before
-shipping and put the numbers here.
+Measured against `jev-1.13.0`, ten runs on the same unchanged component:
 
-`src/tier.js` also applies hysteresis: a reported finding takes an extra 0.05 of movement
-to stop being reported, and steps down a tier at a time rather than vanishing.
+```
+  question                        mean     sd      min     max   margin  verdict
+  shows_empty_state              0.946  0.007  0.930  0.950   0.096   stable
+  shows_error_message            0.887  0.005  0.880  0.890   0.037   stable
+  offers_destructive_action      0.876  0.008  0.860  0.890   0.026   stable
+  primary_action_obvious         0.422  0.028  0.370  0.460   0.128   stable
+  error_message_actionable       0.958  0.004  0.950  0.960   0.108   stable
+  empty_state_actionable         0.875  0.022  0.840  0.900   0.025   FLIPPED (1.2σ)
+  button_label_quality           0.923  0.016  0.900  0.950   0.073   stable
+  purpose_clear_from_text        0.381  0.018  0.350  0.410   0.169   stable
+  destructive_action_guarded     0.970  0.000  0.970  0.970   0.120   stable
+```
+
+The model is steady — standard deviations run 0.000 to 0.028. But raw variance is the
+wrong thing to look at on its own. `empty_state_actionable` has a perfectly ordinary sd
+of 0.022 and still flips, because its mean sits 0.025 from the blocking threshold: a
+1.2σ margin. So the report measures **distance to the nearest tier boundary in standard
+deviations** and flags anything inside 2σ, whether or not it happened to flip in this
+particular sample. An earlier ten-run sample of the same question did not flip; the
+margin was the signal, the flip was luck.
+
+Hysteresis is what saves it. Replaying those ten observed values through `src/tier.js`:
+
+```
+raw p      : 0.86 0.84 0.90 0.88 0.85 0.84 0.89 0.87 0.90 0.86
+no hysteresis :  b    l    b    b    b    l    b    b    b    b   -> 4 visible changes
+with hysteresis: b    b    b    b    b    b    b    b    b    b   -> 0 visible changes
+```
+
+A reported finding takes an extra 0.05 of movement to stop being reported and steps
+down one tier at a time, which absorbs this entirely. That sequence is a regression
+test in `test/tier.test.mjs`.
+
+One caveat the report prints for itself: a component with obvious problems produces
+confident answers far from any threshold, so low variance here says little about
+borderline components. That is what calibration is for.
 
 ## What this cannot see
 

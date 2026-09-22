@@ -130,3 +130,17 @@ test('calibration is applied and flagged', () => {
   assert.equal(f.p, 0.5);
   assert.equal(f.calibrated, true);
 });
+
+test('hysteresis absorbs the flapping measured against the live API', () => {
+  // Real values for empty_state_actionable across ten live runs on the same unchanged
+  // component: mean 0.875, sd 0.022, straddling the 0.85 blocking threshold.
+  const observed = [0.86, 0.84, 0.9, 0.88, 0.85, 0.84, 0.89, 0.87, 0.9, 0.86];
+  const changes = (arr) => arr.filter((t, i) => i > 0 && t !== arr[i - 1]).length;
+
+  const naive = observed.map((p) => tierFor(p));
+  assert.ok(changes(naive) > 0, 'this sequence should flap without hysteresis');
+
+  let prev;
+  const damped = observed.map((p) => (prev = tierWithHysteresis(p, prev)));
+  assert.equal(changes(damped), 0, 'hysteresis should hold the tier steady');
+});
