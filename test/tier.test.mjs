@@ -144,3 +144,20 @@ test('hysteresis absorbs the flapping measured against the live API', () => {
   const damped = observed.map((p) => (prev = tierWithHysteresis(p, prev)));
   assert.equal(changes(damped), 0, 'hysteresis should hold the tier steady');
 });
+
+test('a question without its own calibration falls back to the pooled model', () => {
+  const calibration = { '*': { knots: [{ x: 0, y: 0 }, { x: 1, y: 0.4 }] } };
+  const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration });
+  assert.equal(f.rawP, 1);
+  assert.equal(f.p, 0.4);
+  assert.equal(f.calibrated, true);
+});
+
+test("a question's own calibration beats the pooled one", () => {
+  const calibration = {
+    q: { knots: [{ x: 0, y: 0 }, { x: 1, y: 0.9 }] },
+    '*': { knots: [{ x: 0, y: 0 }, { x: 1, y: 0.4 }] },
+  };
+  const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration });
+  assert.equal(f.p, 0.9);
+});

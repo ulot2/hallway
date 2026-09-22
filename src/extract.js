@@ -26,7 +26,7 @@ export async function extractState(page, { url, name, rootSelector } = {}) {
   const root = await resolveRoot(page, rootSelector);
   const aria = await page.locator(root).ariaSnapshot();
 
-  const { text, controls } = await page.evaluate((sel) => {
+  const { text, controls, html } = await page.evaluate((sel) => {
     const scope = document.querySelector(sel) ?? document.body;
 
     // `checkVisibility` walks the ancestor chain, so it catches a hidden wrapper that
@@ -64,7 +64,18 @@ export async function extractState(page, { url, name, rootSelector } = {}) {
         disabled: el.disabled === true,
       }));
 
-    return { text: out, controls: ctrls };
+    // The rendered markup, so a human labeler sees the component rather than its
+    // accessibility tree. Scripts and inline handlers are stripped here and again at
+    // render time; nothing downstream executes it.
+    const clone = scope.cloneNode(true);
+    clone.querySelectorAll('script, style, iframe, object, embed').forEach((n) => n.remove());
+    clone.querySelectorAll('*').forEach((el) => {
+      for (const attr of [...el.attributes]) {
+        if (/^on/i.test(attr.name) || /^\s*javascript:/i.test(attr.value)) el.removeAttribute(attr.name);
+      }
+    });
+
+    return { text: out, controls: ctrls, html: clone.innerHTML };
   }, root);
 
   const joined = text.join(' ');
@@ -75,7 +86,7 @@ export async function extractState(page, { url, name, rootSelector } = {}) {
       DESTRUCTIVE.test(joined) || controls.some((c) => DESTRUCTIVE.test(c.label)),
   };
 
-  return { name: name ?? url, url, root, aria, text, controls, signals };
+  return { name: name ?? url, url, root, aria, text, controls, html, signals };
 }
 
 /** Run the deterministic pass. Jev never sees questions axe can already answer. */

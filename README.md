@@ -274,6 +274,32 @@ Once `calibration.json` exists it is applied to every probability automatically,
 PR comment says findings are calibrated. Without it, the comment carries a visible
 warning that the thresholds are unmeasured defaults.
 
+### Labeling, blind
+
+`npm run label` is a terminal prompt, which is no use from a phone. The labeling set is
+instead served by a small page, **Calibration Bench** (`calibration/bench.html`),
+published as a claude.ai artifact that saves each answer as you go.
+
+It is built to keep the labels honest:
+
+- **Jev's answers are never shown.** `scripts/build-label-set.mjs` writes what the
+  labeler sees (`calibration/items.json`) and what Jev predicted
+  (`calibration/predictions.json`) to separate files, and only the first is published.
+  A labeler shown "95% likely a problem" tends to agree, which makes calibration look
+  better than it is.
+- **Yes and No look identical.** Red for "problem" and green for "fine" would nudge.
+- **Components are shown unstyled**, because Jev only reads text and structure.
+- **The 28 calibration cases have neutral names** ("Case 07"). The story name is part of
+  the state Jev reads, and a name like "VagueError" would hand it the answer.
+
+Then `scripts/import-labels.mjs` joins the saved answers to the hidden predictions and
+writes `calibration-set.jsonl`. "Not sure" answers are dropped.
+
+Per-question calibration needs ~30 labels per question, and questions that apply only
+sometimes (error messages, empty states) rarely get that many. So `calibrate` also fits
+one **pooled** correction across all questions, and `tier.js` uses it for any question
+without a model of its own.
+
 ### Stability
 
 If a finding flips on and off across pushes of identical code, developers stop trusting

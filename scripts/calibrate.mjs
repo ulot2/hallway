@@ -88,6 +88,35 @@ for (const [id, rows] of byQuestion) {
   calibration[id] = fitIsotonic(rows);
 }
 
+// Pooled fallback. Per-question fitting needs ~30 labels each, and gated questions
+// (only asked when, say, an error is showing) rarely get that many. One map fitted
+// across every question is less specific but actually fittable, and tier.js uses it
+// for any question without a model of its own.
+const all = [...byQuestion.values()].flat();
+if (all.length >= MIN_SAMPLES) {
+  console.log(`\n${'='.repeat(72)}\nALL QUESTIONS POOLED  (n=${all.length})\n${'='.repeat(72)}`);
+  console.log(asciiDiagram(all));
+  const heldOutRaw = [];
+  const heldOutFixed = [];
+  for (const { train, test } of kFold(all, 5)) {
+    const m = fitIsotonic(train);
+    for (const r of test) {
+      heldOutRaw.push(r);
+      heldOutFixed.push({ p: applyIsotonic(m, r.p), y: r.y });
+    }
+  }
+  console.log(
+    `\n  held out, 5-fold:` +
+      `\n  ECE    ${ece(heldOutRaw).toFixed(4)}  ->  ${ece(heldOutFixed).toFixed(4)}` +
+      `\n  Brier  ${brier(heldOutRaw).toFixed(4)}  ->  ${brier(heldOutFixed).toFixed(4)}`
+  );
+  if (ece(heldOutFixed) < ece(heldOutRaw)) {
+    calibration['*'] = fitIsotonic(all);
+  } else {
+    console.log('  NOTE: pooled correction does not help out of sample. Not saved.');
+  }
+}
+
 if (Object.keys(calibration).length) {
   fs.writeFileSync('calibration.json', JSON.stringify(calibration, null, 2));
   console.log(`\nWrote calibration.json for ${Object.keys(calibration).length} question(s).`);

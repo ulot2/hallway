@@ -7,3 +7,5 @@ storybook-static/
 .env
 .env.local
 .env.*.local
+.jev-calibration/
+calibration-set.jsonl.bak

@@ -114,7 +114,8 @@ export function assess({ answers, specs, signals, calibration = {}, thresholds =
     }
     const answer = answers[spec.id];
     const { p: raw, basis } = failureProbability(answer, spec);
-    const model = calibration[spec.id];
+    // A question's own model if it has enough labels, else the pooled one.
+    const model = calibration[spec.id] ?? calibration['*'];
     const p = raw == null ? null : applyIsotonic(model, raw);
     findings.push({
       id: spec.id,

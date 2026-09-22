@@ -73,6 +73,7 @@ async function main() {
         storyId: story.id,
         importPath: story.importPath,
         root: state.root,
+        html: state.html,
         signals: state.signals,
         axe,
         // The exact text Jev will evaluate, persisted so every finding is auditable.

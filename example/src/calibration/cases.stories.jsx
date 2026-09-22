@@ -1,0 +1,32 @@
+import * as C from './cases';
+
+export default { title: 'Calibration' };
+
+export const Case01 = { name: 'Case 01', render: () => <C.Case01 /> };
+export const Case02 = { name: 'Case 02', render: () => <C.Case02 /> };
+export const Case03 = { name: 'Case 03', render: () => <C.Case03 /> };
+export const Case04 = { name: 'Case 04', render: () => <C.Case04 /> };
+export const Case05 = { name: 'Case 05', render: () => <C.Case05 /> };
+export const Case06 = { name: 'Case 06', render: () => <C.Case06 /> };
+export const Case07 = { name: 'Case 07', render: () => <C.Case07 /> };
+export const Case08 = { name: 'Case 08', render: () => <C.Case08 /> };
+export const Case09 = { name: 'Case 09', render: () => <C.Case09 /> };
+export const Case10 = { name: 'Case 10', render: () => <C.Case10 /> };
+export const Case11 = { name: 'Case 11', render: () => <C.Case11 /> };
+export const Case12 = { name: 'Case 12', render: () => <C.Case12 /> };
+export const Case13 = { name: 'Case 13', render: () => <C.Case13 /> };
+export const Case14 = { name: 'Case 14', render: () => <C.Case14 /> };
+export const Case15 = { name: 'Case 15', render: () => <C.Case15 /> };
+export const Case16 = { name: 'Case 16', render: () => <C.Case16 /> };
+export const Case17 = { name: 'Case 17', render: () => <C.Case17 /> };
+export const Case18 = { name: 'Case 18', render: () => <C.Case18 /> };
+export const Case19 = { name: 'Case 19', render: () => <C.Case19 /> };
+export const Case20 = { name: 'Case 20', render: () => <C.Case20 /> };
+export const Case21 = { name: 'Case 21', render: () => <C.Case21 /> };
+export const Case22 = { name: 'Case 22', render: () => <C.Case22 /> };
+export const Case23 = { name: 'Case 23', render: () => <C.Case23 /> };
+export const Case24 = { name: 'Case 24', render: () => <C.Case24 /> };
+export const Case25 = { name: 'Case 25', render: () => <C.Case25 /> };
+export const Case26 = { name: 'Case 26', render: () => <C.Case26 /> };
+export const Case27 = { name: 'Case 27', render: () => <C.Case27 /> };
+export const Case28 = { name: 'Case 28', render: () => <C.Case28 /> };

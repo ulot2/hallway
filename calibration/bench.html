@@ -1,0 +1,604 @@
+<title>Calibration Bench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #E9EDEA;
+    --surface: #F7F9F7;
+    --ink: #17202A;
+    --muted: #56616D;
+    --line: #C9D1CC;
+    --accent: #2446C7;
+    --sel: #DCE4FF;
+    --specimen: #FFFFFF;
+    --grid: rgba(36, 70, 199, 0.07);
+    --sp-ink: #121820;
+    --sp-line: #98A2AB;
+    --sp-btn: #F0F2F4;
+    --sp-field: #FFFFFF;
+    --warn: #9A3412;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0F1417;
+      --surface: #151C20;
+      --ink: #E4EAEE;
+      --muted: #97A3AD;
+      --line: #2B363D;
+      --accent: #93A9FF;
+      --sel: #1F2B57;
+      --specimen: #1A2227;
+      --grid: rgba(147, 169, 255, 0.07);
+      --sp-ink: #E6EBEE;
+      --sp-line: #56626C;
+      --sp-btn: #222B31;
+      --sp-field: #10171B;
+      --warn: #FDBA74;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0F1417;
+    --surface: #151C20;
+    --ink: #E4EAEE;
+    --muted: #97A3AD;
+    --line: #2B363D;
+    --accent: #93A9FF;
+    --sel: #1F2B57;
+    --specimen: #1A2227;
+    --grid: rgba(147, 169, 255, 0.07);
+    --sp-ink: #E6EBEE;
+    --sp-line: #56626C;
+    --sp-btn: #222B31;
+    --sp-field: #10171B;
+    --warn: #FDBA74;
+  }
+
+  html, body { background: var(--bg); color: var(--ink); }
+  body { font: 16px/1.5 var(--sans); }
+
+  .bar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 2;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar-inner {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 12px 16px 10px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .brand { font-weight: 600; font-size: 15px; letter-spacing: 0.01em; }
+  .count {
+    font: 500 14px/1 var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .count b { color: var(--ink); font-weight: 500; }
+  .track { height: 3px; background: var(--line); }
+  .track > span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.25s ease;
+  }
+
+  .wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 16px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .lede { margin: 0; color: var(--muted); font-size: 14px; text-wrap: pretty; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .notice {
+    margin: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--warn);
+    border-radius: 8px;
+    color: var(--warn);
+    font-size: 14px;
+  }
+
+  .card { display: flex; flex-direction: column; gap: 16px; }
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font: 500 12px/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta .case { color: var(--ink); }
+
+  .specimen {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background-color: var(--specimen);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 16px 16px;
+    overflow: hidden;
+  }
+  .specimen figcaption {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+    font: 500 11px/1.2 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  #specimen-host { display: block; padding: 18px 16px 20px; overflow-x: auto; }
+
+  .prompt {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .answer {
+    min-height: 56px;
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    background: var(--surface);
+    color: var(--ink);
+    font: 600 18px/1 var(--sans);
+    cursor: pointer;
+    transition: background 0.12s ease, border-color 0.12s ease;
+  }
+  .answer:hover { background: var(--sel); }
+  .answer[aria-pressed="true"] { background: var(--sel); border-color: var(--accent); color: var(--ink); }
+  .answer:disabled { opacity: 0.45; cursor: not-allowed; }
+  .unsure {
+    grid-column: 1 / -1;
+    min-height: 44px;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: 500 15px/1 var(--sans);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .unsure[aria-pressed="true"] { color: var(--accent); }
+  .unsure:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 4px;
+    border-top: 1px solid var(--line);
+  }
+  .link {
+    border: 0;
+    background: none;
+    padding: 10px 0;
+    color: var(--accent);
+    font: 500 15px/1 var(--sans);
+    cursor: pointer;
+  }
+  .link:disabled { color: var(--muted); opacity: 0.5; cursor: default; }
+  .status { font: 500 12px/1 var(--mono); color: var(--muted); min-height: 1em; text-align: right; }
+  .status.bad { color: var(--warn); }
+
+  .keys { margin: 0; font-size: 13px; color: var(--muted); display: none; }
+  .keys kbd {
+    font: 500 12px/1 var(--mono);
+    padding: 2px 6px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+  }
+  @media (hover: hover) and (pointer: fine) { .keys { display: block; } }
+
+  .done { display: flex; flex-direction: column; gap: 14px; padding-top: 8px; }
+  .done h1 { margin: 0; font-size: 26px; line-height: 1.2; text-wrap: balance; }
+  .done p { margin: 0; text-wrap: pretty; }
+  .tally {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font: 500 14px/1 var(--mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .tally li { padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+
+  .about { font-size: 14px; color: var(--muted); }
+  .about summary { cursor: pointer; color: var(--ink); font-weight: 500; }
+  .about p { margin: 8px 0 0; text-wrap: pretty; }
+
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    .track > span, .answer { transition: none; }
+  }
+</style>
+
+<header class="bar">
+  <div class="bar-inner">
+    <span class="brand">Calibration Bench</span>
+    <span class="count" id="count" aria-live="polite">loading</span>
+  </div>
+  <div class="track" aria-hidden="true"><span id="track"></span></div>
+</header>
+
+<main class="wrap">
+  <p class="lede" id="lede">
+    Answer each question from what you see. <strong>Yes means the problem is there.</strong>
+    Jev’s answers are hidden so they can’t sway you. Everything saves as you go, so you can stop and come back.
+  </p>
+
+  <p class="notice" id="notice" hidden></p>
+
+  <section class="card" id="card" hidden>
+    <div class="meta">
+      <span class="case" id="case">Case</span>
+      <span id="qpos"></span>
+    </div>
+
+    <figure class="specimen">
+      <figcaption>Specimen · rendered, styling stripped</figcaption>
+      <div id="specimen-host"></div>
+    </figure>
+
+    <h1 class="prompt" id="prompt"></h1>
+
+    <div class="answers" role="group" aria-labelledby="prompt">
+      <button class="answer" id="ans-yes" type="button" data-answer="yes" aria-pressed="false">Yes</button>
+      <button class="answer" id="ans-no" type="button" data-answer="no" aria-pressed="false">No</button>
+      <button class="unsure" id="ans-unsure" type="button" data-answer="unsure" aria-pressed="false">Not sure, skip it</button>
+    </div>
+
+    <div class="nav">
+      <button class="link" id="back" type="button">← Previous</button>
+      <span class="status" id="status" aria-live="polite"></span>
+    </div>
+
+    <p class="keys"><kbd>Y</kbd> yes · <kbd>N</kbd> no · <kbd>S</kbd> skip · <kbd>←</kbd> previous</p>
+  </section>
+
+  <section class="done" id="done" hidden>
+    <h1>All cases answered</h1>
+    <p>Go back to your conversation with Claude and say you’re done. It will compare your answers with Jev’s and fit the calibration.</p>
+    <ul class="tally" id="tally"></ul>
+    <p><button class="link" id="review" type="button">Review or change answers</button></p>
+  </section>
+
+  <details class="about">
+    <summary>Why can’t I see what Jev said?</summary>
+    <p>This measures whether Jev’s confidence means what it says. If you saw “95% likely a problem” before answering, you’d lean toward agreeing, and Jev would look more accurate than it is. Your answers are compared with Jev’s afterwards, not here.</p>
+    <p>The component is shown without its styling because Jev only reads its text and structure. You both judge the same thing.</p>
+  </details>
+</main>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const el = {
+    count: $('count'), track: $('track'), notice: $('notice'), card: $('card'), done: $('done'),
+    caseLabel: $('case'), qpos: $('qpos'), host: $('specimen-host'), prompt: $('prompt'),
+    yes: $('ans-yes'), no: $('ans-no'), unsure: $('ans-unsure'), back: $('back'),
+    status: $('status'), tally: $('tally'), review: $('review'),
+  };
+
+  const state = {
+    items: [],
+    groups: {},          // item index -> { pos, size }
+    labels: {},          // item id -> "yes" | "no" | "unsure"
+    cur: 0,
+    view: 'card',
+    db: null,
+    canWrite: false,
+    firstSnapshot: true,
+    renderedCase: null,
+  };
+  const pending = new Map();   // optimistic answers not yet confirmed by the store
+  const chains = new Map();    // one write at a time per document
+
+  // --- specimen rendering ---------------------------------------------------
+
+  const SPECIMEN_CSS = `
+    :host { display: block; }
+    .s { font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--sp-ink);
+         display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .s form, .s section, .s div, .s ul, .s li { display: flex; flex-direction: column;
+         align-items: flex-start; gap: 10px; margin: 0; padding: 0; }
+    .s ul { list-style: none; width: 100%; }
+    .s li { flex-direction: row; align-items: center; flex-wrap: wrap; }
+    .s h1, .s h2, .s h3, .s h4, .s h5 { margin: 0; line-height: 1.25; font-weight: 700; }
+    .s h1 { font-size: 21px; } .s h2 { font-size: 19px; } .s h3 { font-size: 17px; }
+    .s h4, .s h5 { font-size: 15px; }
+    .s p { margin: 0; }
+    .s label { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+    .s input:not([type=checkbox]):not([type=radio]), .s select, .s textarea {
+      font: inherit; color: var(--sp-ink); background: var(--sp-field);
+      border: 1px solid var(--sp-line); border-radius: 4px; padding: 6px 8px;
+      width: min(100%, 280px); box-sizing: border-box; }
+    .s button { font: inherit; color: var(--sp-ink); background: var(--sp-btn);
+      border: 1px solid var(--sp-line); border-radius: 6px; padding: 6px 12px; cursor: default; }
+    .s a { color: inherit; text-decoration: underline; cursor: default; }
+  `;
+
+  // The markup was already stripped of scripts and handlers during extraction. Do it
+  // again here: this page renders it, so it does not take that on trust.
+  function sanitize(html) {
+    const doc = new DOMParser().parseFromString(`<div>${html}</div>`, 'text/html');
+    const root = doc.body.firstElementChild;
+    root.querySelectorAll('script, style, iframe, object, embed, link, meta, base').forEach((n) => n.remove());
+    root.querySelectorAll('*').forEach((node) => {
+      for (const attr of [...node.attributes]) {
+        const name = attr.name.toLowerCase();
+        if (name.startsWith('on') || name === 'action' || name === 'formaction' ||
+            /^\s*javascript:/i.test(attr.value)) {
+          node.removeAttribute(attr.name);
+        }
+      }
+    });
+    return root;
+  }
+
+  const shadow = el.host.attachShadow({ mode: 'open' });
+  // The specimen is for looking at: submitting its forms or following its links would
+  // navigate the frame away, so both are stopped at the boundary.
+  shadow.addEventListener('submit', (e) => e.preventDefault());
+  shadow.addEventListener('click', (e) => {
+    if (e.target.closest && e.target.closest('a, button')) e.preventDefault();
+  });
+
+  function renderSpecimen(item) {
+    if (state.renderedCase === item.case) return;
+    const style = document.createElement('style');
+    style.textContent = SPECIMEN_CSS;
+    const wrap = document.createElement('div');
+    wrap.className = 's';
+    const clean = document.importNode(sanitize(item.html), true);
+    wrap.append(...clean.childNodes);
+    shadow.replaceChildren(style, wrap);
+    state.renderedCase = item.case;
+  }
+
+  // --- navigation -----------------------------------------------------------
+
+  function buildGroups() {
+    let i = 0;
+    while (i < state.items.length) {
+      let j = i;
+      while (j < state.items.length && state.items[j].case === state.items[i].case) j += 1;
+      for (let k = i; k < j; k += 1) state.groups[k] = { pos: k - i + 1, size: j - i };
+      i = j;
+    }
+  }
+
+  const answered = (i) => Boolean(state.labels[state.items[i].id]);
+  const answeredCount = () => state.items.reduce((n, _, i) => n + (answered(i) ? 1 : 0), 0);
+
+  function nextUnanswered(from) {
+    const n = state.items.length;
+    for (let step = 0; step < n; step += 1) {
+      const i = (from + step) % n;
+      if (!answered(i)) return i;
+    }
+    return -1;
+  }
+
+  function goTo(i) {
+    state.cur = i;
+    state.view = 'card';
+    render();
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  function advance() {
+    const next = nextUnanswered(state.cur + 1);
+    if (next === -1) {
+      state.view = 'done';
+      render();
+      window.scrollTo(0, 0);
+    } else {
+      goTo(next);
+    }
+  }
+
+  // --- saving ---------------------------------------------------------------
+
+  function setStatus(text, bad = false) {
+    el.status.textContent = text;
+    el.status.classList.toggle('bad', bad);
+  }
+
+  function setNotice(text) {
+    el.notice.textContent = text;
+    el.notice.hidden = !text;
+  }
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  async function write(item, answer, retried = false) {
+    setStatus('saving');
+    try {
+      await state.db.collection('labels').doc(item.id).set({
+        answer,
+        question_id: item.question_id,
+        case: item.case,
+        at: new Date().toISOString(),
+      });
+      if (pending.get(item.id) === answer) pending.delete(item.id);
+      setStatus('saved');
+    } catch (err) {
+      const code = err && err.code;
+      if (code === 'unavailable' && !retried) {
+        await sleep(400 + Math.random() * 600);
+        return write(item, answer, true);
+      }
+      if (code === 'invalid_argument' || code === 'not_granted') {
+        state.canWrite = false;
+        setNotice('You can look at these cases, but your answers can’t be saved. Ask the page’s owner for edit access.');
+        render();
+        return;
+      }
+      if (code === 'revoked') {
+        state.canWrite = false;
+        render();
+        return;
+      }
+      setStatus('not saved, check your connection', true);
+    }
+  }
+
+  function save(item, answer) {
+    const prev = chains.get(item.id) || Promise.resolve();
+    const run = prev.then(() => write(item, answer));
+    chains.set(item.id, run);
+    run.finally(() => { if (chains.get(item.id) === run) chains.delete(item.id); });
+  }
+
+  function choose(answer) {
+    if (!state.canWrite || state.view !== 'card') return;
+    const item = state.items[state.cur];
+    state.labels[item.id] = answer;
+    pending.set(item.id, answer);
+    save(item, answer);
+    advance();
+  }
+
+  // --- render ---------------------------------------------------------------
+
+  function render() {
+    const total = state.items.length;
+    const done = answeredCount();
+    el.count.innerHTML = total
+      ? `<b>${String(done).padStart(String(total).length, '0')}</b> / ${total} answered`
+      : 'loading';
+    el.track.style.width = total ? `${(done / total) * 100}%` : '0';
+
+    el.card.hidden = state.view !== 'card' || !total;
+    el.done.hidden = state.view !== 'done';
+
+    if (state.view === 'done') {
+      const tally = { yes: 0, no: 0, unsure: 0 };
+      for (const a of Object.values(state.labels)) if (a in tally) tally[a] += 1;
+      el.tally.replaceChildren(
+        ...[['Yes', tally.yes], ['No', tally.no], ['Skipped', tally.unsure]].map(([k, v]) => {
+          const li = document.createElement('li');
+          li.textContent = `${k} ${v}`;
+          return li;
+        })
+      );
+      return;
+    }
+    if (!total) return;
+
+    const item = state.items[state.cur];
+    const group = state.groups[state.cur];
+    el.caseLabel.textContent = item.case;
+    el.qpos.textContent = group.size > 1 ? `Question ${group.pos} of ${group.size}` : 'One question';
+    el.prompt.textContent = item.prompt;
+    renderSpecimen(item);
+
+    const current = state.labels[item.id];
+    for (const btn of [el.yes, el.no, el.unsure]) {
+      btn.setAttribute('aria-pressed', String(btn.dataset.answer === current));
+      btn.disabled = !state.canWrite;
+    }
+    el.back.disabled = state.cur === 0;
+  }
+
+  // --- input ----------------------------------------------------------------
+
+  for (const btn of [el.yes, el.no, el.unsure]) {
+    btn.addEventListener('click', () => choose(btn.dataset.answer));
+  }
+  el.back.addEventListener('click', () => { if (state.cur > 0) goTo(state.cur - 1); });
+  el.review.addEventListener('click', () => goTo(0));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    // Typing into the specimen's own fields must not count as an answer.
+    const origin = e.composedPath()[0];
+    if (origin && /^(INPUT|SELECT|TEXTAREA)$/.test(origin.tagName)) return;
+    const key = e.key.toLowerCase();
+    if (key === 'y') choose('yes');
+    else if (key === 'n') choose('no');
+    else if (key === 's') choose('unsure');
+    else if (e.key === 'ArrowLeft' && state.view === 'card' && state.cur > 0) goTo(state.cur - 1);
+  });
+
+  // --- boot -----------------------------------------------------------------
+
+  async function boot() {
+    try {
+      const res = await fetch('items.json');
+      if (!res.ok) throw new Error(String(res.status));
+      state.items = await res.json();
+    } catch {
+      setNotice('The cases didn’t load. Reload the page to try again.');
+      el.count.textContent = '';
+      return;
+    }
+    buildGroups();
+    render();
+
+    const db = window.claude ? await window.claude.use('db') : null;
+    if (!db) {
+      setNotice('Answers can’t be saved in this view. Open the page from claude.ai while signed in.');
+      render();
+      return;
+    }
+    state.db = db;
+    state.canWrite = true;
+    render();
+
+    db.collection('labels').onSnapshot(
+      (snap) => {
+        const next = {};
+        for (const doc of snap.docs) {
+          const body = doc.data();
+          if (body && typeof body.answer === 'string') next[doc.id] = body.answer;
+        }
+        // Keep answers this page has sent but the store hasn't echoed yet.
+        for (const [id, answer] of pending) next[id] = answer;
+        state.labels = next;
+        if (state.firstSnapshot) {
+          state.firstSnapshot = false;
+          const resume = nextUnanswered(0);
+          if (resume === -1) state.view = 'done';
+          else state.cur = resume;
+        }
+        render();
+      },
+      () => {
+        state.canWrite = false;
+        setNotice('Lost the connection to saved answers. Reload the page to carry on.');
+        render();
+      }
+    );
+  }
+
+  boot();
+</script>

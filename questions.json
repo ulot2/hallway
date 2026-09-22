@@ -39,7 +39,8 @@
       "fail_when": "below",
       "fail_at": 1.5,
       "rationale": "A linter can confirm a button exists; it cannot judge whether the user can tell which one matters.",
-      "instructions": "Judge how quickly a first-time user could identify the single most important action. Consider whether one action stands out from the others in prominence and wording."
+      "instructions": "Judge how quickly a first-time user could identify the single most important action. Consider whether one action stands out from the others in prominence and wording.",
+      "label_prompt": "Is it unclear which action is the main one you're supposed to take?"
     },
     {
       "id": "error_message_actionable",
@@ -51,7 +52,8 @@
         "min_probability": 0.5
       },
       "rationale": "Presence of an error message is checkable; whether it is useful is not.",
-      "instructions": "Answer yes only if the message tells the user what to do about the problem. A message that merely reports a failure (\"Error: invalid\", \"Something went wrong\") is not actionable. Naming the specific field and the expected format counts as actionable."
+      "instructions": "Answer yes only if the message tells the user what to do about the problem. A message that merely reports a failure (\"Error: invalid\", \"Something went wrong\") is not actionable. Naming the specific field and the expected format counts as actionable.",
+      "label_prompt": "Does the error message fail to tell you how to fix the problem?"
     },
     {
       "id": "empty_state_actionable",
@@ -63,7 +65,8 @@
         "min_probability": 0.5
       },
       "rationale": "Dead-end empty states are a common, invisible-to-tooling UX failure.",
-      "instructions": "Answer yes if the empty state points the user at a next step, such as an action to take or an explanation of how content gets here. A bare \"No results\" with nothing to do is a dead end, so answer no."
+      "instructions": "Answer yes if the empty state points the user at a next step, such as an action to take or an explanation of how content gets here. A bare \"No results\" with nothing to do is a dead end, so answer no.",
+      "label_prompt": "Is the empty state a dead end, with no clear next step?"
     },
     {
       "id": "button_label_quality",
@@ -83,7 +86,8 @@
         "outcome verbs": "Labels name what will happen, such as \"Save changes\", \"Send invitation\" or \"Delete project\". A user could predict the result from the label alone.",
         "generic": "Labels are non-specific defaults such as \"Submit\", \"OK\", \"Continue\" or \"Yes\". They say a button exists but not what it does.",
         "ambiguous or unlabeled": "Labels are missing, are icons with no accessible name, or are so vague that the effect cannot be guessed."
-      }
+      },
+      "label_prompt": "Are the button or link labels generic or unclear, rather than saying what they do?"
     },
     {
       "id": "purpose_clear_from_text",
@@ -98,7 +102,8 @@
       "fail_when": "below",
       "fail_at": 1.5,
       "rationale": "Comprehension is the whole point of the UI and nothing in CI currently measures it.",
-      "instructions": "Judge only from the words visible in the component. Do not assume context from the component name or surrounding application."
+      "instructions": "Judge only from the words visible in the component. Do not assume context from the component name or surrounding application.",
+      "label_prompt": "From the text alone, is it hard to tell what this is for?"
     },
     {
       "id": "destructive_action_guarded",
@@ -110,7 +115,8 @@
         "min_probability": 0.5
       },
       "rationale": "Requires reading intent from copy, which static analysis cannot do.",
-      "instructions": "Answer yes only if the component both marks the destructive action as dangerous and indicates a confirmation step before it takes effect. A bare button that deletes immediately is not guarded."
+      "instructions": "Answer yes only if the component both marks the destructive action as dangerous and indicates a confirmation step before it takes effect. A bare button that deletes immediately is not guarded.",
+      "label_prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?"
     }
   ]
 }
