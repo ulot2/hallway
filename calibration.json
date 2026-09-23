@@ -7,8 +7,8 @@
     },
     "competing_actions": {
       "n": 15,
-      "auc": 0.661,
-      "blocking": false
+      "auc": 0.89,
+      "blocking": true
     },
     "error_message_actionable": {
       "n": 11,
@@ -23,6 +23,11 @@
     "empty_state_actionable": {
       "n": 17,
       "auc": 0.864,
+      "blocking": true
+    },
+    "destructive_action_protected": {
+      "n": 16,
+      "auc": 0.8,
       "blocking": true
     }
   }

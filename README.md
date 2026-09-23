@@ -11,10 +11,9 @@ model — for the judgment calls, and `axe-core` for everything that can be deci
 deterministically.
 
 > **Status: verified end to end against a real Storybook and the live Jev API**
-> (`jev-1.13.0`). On the example app it flags the deliberately-bad component on four
-> questions and leaves the good one completely clean. Measured against two rounds
-> of blind human labels: only questions that agree well with human review may fail a
-> build. See [Calibration results](#calibration-results).
+> (`jev-1.13.0`), and measured against four rounds of blind human labels. Five of six
+> questions agree with human review well enough to fail a build; the sixth appears
+> as advice only. See [Calibration results](#calibration-results).
 
 ## The argument
 
@@ -470,6 +469,37 @@ scale, so the team (here, the labeler) chose the definitions:
 Labels given under the flawed conditions are **superseded, not mixed**: round four tags
 its items `case::question@r4`, and `src/labels.js` keeps only the latest round per item.
 
+### Round four: the two definitions, re-measured
+
+31 items, relabeled under the new definitions; the round-four labels supersede the 15
+earlier competing-action labels given under the misleading view.
+
+| Question | n | AUC | Before | May block? |
+| :--- | --: | --: | --: | :--- |
+| `destructive_action_protected` | 16 | **0.80** | 0.51 | yes |
+| `competing_actions` | 15 | **0.89** | 0.66 | yes |
+
+Neither produced a single false alarm. Destructive actions missed one case, a 10-second
+undo that Jev counts as protection and the labeler did not. Competing actions missed
+two: "Continue / Cancel" and two unexplained "Remove" buttons.
+
+Round four also confirmed the double-negative explanation. The two most thoroughly
+guarded destructive cases, labeled as problems under the old prompt, were labeled fine
+under the plain one.
+
+The overall pattern across four rounds: no probability correction ever survived
+held-out testing, and none was needed. Every question that reached blocking did so by
+fixing **what was asked or what was shown**, never by rescaling scores:
+
+| Question | Fix | AUC |
+| :--- | :--- | --: |
+| `error_message_actionable` | none needed | 0.94 |
+| `competing_actions` | show the labeler the primary action; tell Jev too | 0.66 → 0.89 |
+| `empty_state_actionable` | more labels | 0.86 |
+| `destructive_action_protected` | adopt the team's definition; plain-language prompt | 0.51 → 0.80 |
+| `purpose_clear_from_text` | none needed | 0.78 |
+| `button_labels_predictable` | rewritten once; limited by labeler self-agreement | 0.61 → 0.65 |
+
 Two lessons came out of the labeling that no amount of unit testing would have found:
 
 - **Asking about button labels on a component with no buttons.** Jev answered
@@ -562,10 +592,11 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- **Three of six questions are advisory only.** Round three showed why: for
-  `destructive_action_guarded` and `competing_actions`, the definition Jev was given
-  differs from the one the human reviewer applies. More labels will not fix that;
-  choosing whose definition the tool enforces will.
+- **`button_labels_predictable` is advisory only** (AUC 0.65). The labeler agreed with
+  themselves only 75% of the time on near-identical button questions, so this may be
+  as good as it gets without a second labeler to settle what the team means.
+- **One labeler.** Every number here is one person's judgment. A second labeler would
+  show whether the definitions hold across people, which is the weakest point left.
 - **One labeler, 96 labels.** The numbers below are indicative, not definitive, and
   the 28 cases were written by the same project that tests them.
 - **Stability is unmeasured.** The answers look decisive, but nobody has yet run the
