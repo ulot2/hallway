@@ -274,7 +274,13 @@ synthetic overconfident data so you can see it work before labeling anything:
 Those numbers are **cross-validated, not in-sample**. Isotonic regression fits its own
 training data perfectly, so an in-sample ECE of 0.0000 would mean nothing; the harness
 reports 5-fold held-out numbers and refuses to save a correction that does not help out
-of sample.
+of sample — on **both** ECE and Brier score. ECE alone is not enough: it is binned and
+noisy, and a small-sample isotonic fit can lower it by flattening probabilities while
+making them worse as forecasts. Brier is a proper scoring rule and cannot be gamed that
+way. This was learned the hard way: a pooled fit over 96 labels cut held-out ECE from
+0.126 to 0.074 while Brier rose from 0.184 to 0.188, and it was briefly saved, promoting
+an empty-state finding to blocking on the strength of a model that failed the stricter
+test.
 
 Once `calibration.json` exists it is applied to every probability automatically, and the
 PR comment says findings are calibrated. Without it, the comment carries a visible

@@ -35,6 +35,18 @@ function loadSamples() {
   return fs.readFileSync(file, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l));
 }
 
+/**
+ * A correction is kept only if it improves BOTH measures on held-out data. ECE alone is
+ * not enough: it is a binned, noisy metric, and an isotonic fit on a small sample can
+ * lower it by flattening probabilities into a few steps while making them worse as
+ * forecasts. Brier is a proper scoring rule and cannot be gamed that way. (A pooled fit
+ * over 96 labels once cut ECE from 0.126 to 0.074 while Brier rose from 0.184 to 0.188,
+ * and was nearly saved.)
+ */
+function helps(raw, fixed) {
+  return ece(fixed) < ece(raw) && brier(fixed) < brier(raw);
+}
+
 /** Deterministic k-fold split, so repeated runs report the same numbers. */
 function kFold(rows, k) {
   const shuffled = [...rows];
@@ -83,7 +95,7 @@ for (const [id, rows] of byQuestion) {
       `\n  ECE    ${ece(heldOutRaw).toFixed(4)}  ->  ${ece(heldOutFixed).toFixed(4)}` +
       `\n  Brier  ${brier(heldOutRaw).toFixed(4)}  ->  ${brier(heldOutFixed).toFixed(4)}`
   );
-  if (ece(heldOutFixed) >= ece(heldOutRaw)) {
+  if (!helps(heldOutRaw, heldOutFixed)) {
     console.log('  NOTE: correction does not help out of sample. Leaving this question uncalibrated.');
     continue;
   }
@@ -112,7 +124,7 @@ if (all.length >= MIN_SAMPLES) {
       `\n  ECE    ${ece(heldOutRaw).toFixed(4)}  ->  ${ece(heldOutFixed).toFixed(4)}` +
       `\n  Brier  ${brier(heldOutRaw).toFixed(4)}  ->  ${brier(heldOutFixed).toFixed(4)}`
   );
-  if (ece(heldOutFixed) < ece(heldOutRaw)) {
+  if (helps(heldOutRaw, heldOutFixed)) {
     calibration['*'] = fitIsotonic(all);
   } else {
     console.log('  NOTE: pooled correction does not help out of sample. Not saved.');
