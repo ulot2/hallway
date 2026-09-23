@@ -20,6 +20,10 @@ const args = process.argv.slice(2);
 const src = args.find((a) => !a.startsWith('--')) ?? 'example/.hallway-calibration/findings.json';
 const onlyArg = args.find((a) => a.startsWith('--only='));
 const only = onlyArg ? new Set(onlyArg.slice(7).split(',')) : null;
+// --new-only publishes only items that have never been published before. Re-running
+// Jev on old cases resamples its answers slightly, so a prediction that was current
+// when a human labeled it is kept, never overwritten by a later run.
+const newOnly = args.includes('--new-only');
 const components = JSON.parse(fs.readFileSync(src, 'utf8'));
 const questions = JSON.parse(fs.readFileSync('questions.json', 'utf8')).questions;
 const promptFor = Object.fromEntries(questions.map((q) => [q.id, q.label_prompt]));
@@ -45,6 +49,7 @@ for (const c of order) {
     if (only && !only.has(f.id)) continue;
     if (!promptFor[f.id]) throw new Error(`No label_prompt for question "${f.id}"`);
     const id = `${c.storyId}::${f.id}`;
+    if (newOnly && predictions[id]) continue;
     items.push({
       id,
       case: c.name.replace(/^Calibration \/ /, ''),

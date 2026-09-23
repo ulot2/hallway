@@ -368,3 +368,328 @@ export function Case28() {
     </section>
   );
 }
+
+// ---------------------------------------------------------------------------
+// Round three: empty states, destructive actions and competing actions, the
+// questions with too few labels to earn blocking. In every case the condition is
+// unmistakably PRESENT, so the gate question opens and the labeled question has
+// something to judge; only the quality of the handling varies.
+// ---------------------------------------------------------------------------
+
+// Empty inbox that explains how content arrives, with nothing to click. Borderline.
+export function Case29() {
+  return (
+    <section>
+      <h2>Inbox</h2>
+      <p>No messages yet.</p>
+      <p>Messages from your team will appear here.</p>
+    </section>
+  );
+}
+
+// Empty orders with a clear next step. Good.
+export function Case30() {
+  return (
+    <section>
+      <h2>Your orders</h2>
+      <p>You haven't placed any orders yet.</p>
+      <button type="button">Start shopping</button>
+    </section>
+  );
+}
+
+// Empty chart widget. Dead end. Bad.
+export function Case31() {
+  return (
+    <section>
+      <h3>Weekly signups</h3>
+      <p>No data.</p>
+    </section>
+  );
+}
+
+// Filters matched nothing, with the fix offered. Good.
+export function Case32() {
+  return (
+    <section>
+      <h2>Invoices</h2>
+      <p>No invoices match these filters.</p>
+      <button type="button">Clear filters</button>
+    </section>
+  );
+}
+
+// Empty team list. Bad.
+export function Case33() {
+  return (
+    <section>
+      <h2>Team</h2>
+      <p>No members.</p>
+    </section>
+  );
+}
+
+// Empty saved list that teaches the gesture. Good, with nothing to click.
+export function Case34() {
+  return (
+    <section>
+      <h2>Saved articles</h2>
+      <p>Nothing saved yet. Tap the bookmark icon on any article to save it for later.</p>
+    </section>
+  );
+}
+
+// Empty with a documentation link rather than an action. Borderline.
+export function Case35() {
+  return (
+    <section>
+      <h2>Reports</h2>
+      <p>No reports available.</p>
+      <a href="#docs">Learn about reports</a>
+    </section>
+  );
+}
+
+// Empty day where nothing needs doing. Is that a dead end? Ambiguous.
+export function Case36() {
+  return (
+    <section>
+      <h2>Today</h2>
+      <p>No events scheduled.</p>
+    </section>
+  );
+}
+
+// First-run empty state. Good.
+export function Case37() {
+  return (
+    <section>
+      <h2>Projects</h2>
+      <p>Create your first project to get started.</p>
+      <button type="button">New project</button>
+    </section>
+  );
+}
+
+// Empty log whose only action probably won't help. Borderline.
+export function Case38() {
+  return (
+    <section>
+      <h2>Activity</h2>
+      <p>No activity.</p>
+      <button type="button">Refresh</button>
+    </section>
+  );
+}
+
+// A heading and nothing else. Bad.
+export function Case39() {
+  return (
+    <section>
+      <h2>Uploads</h2>
+      <p>Empty</p>
+    </section>
+  );
+}
+
+// Empty state that explains the concept and offers the action. Good.
+export function Case40() {
+  return (
+    <section>
+      <h2>API keys</h2>
+      <p>You don't have any API keys. API keys let other apps access your account.</p>
+      <button type="button">Create API key</button>
+    </section>
+  );
+}
+
+// Workspace deletion: scope spelled out, typed confirmation. Guarded.
+export function Case41() {
+  return (
+    <section>
+      <h2>Delete workspace</h2>
+      <p>This deletes every project and file in the workspace, for everyone in it.</p>
+      <p>You will be asked to type the workspace name to confirm.</p>
+      <button type="button">Delete workspace…</button>
+    </section>
+  );
+}
+
+// Bare destructive button. Unguarded.
+export function Case42() {
+  return (
+    <section>
+      <h2>Browsing history</h2>
+      <button type="button">Clear history</button>
+    </section>
+  );
+}
+
+// Consequence stated, no confirmation mentioned. Borderline.
+export function Case43() {
+  return (
+    <section>
+      <h3>Priya Shah</h3>
+      <p>Editor</p>
+      <p>Removing a member takes away their access immediately.</p>
+      <button type="button">Remove member</button>
+    </section>
+  );
+}
+
+// The confirmation step itself, well written. Guarded.
+export function Case44() {
+  return (
+    <div role="dialog" aria-labelledby="c44-t">
+      <h2 id="c44-t">Reset all settings?</h2>
+      <p>All 14 settings go back to their defaults. This can't be undone.</p>
+      <button type="button">Reset all settings</button>
+      <button type="button">Keep my settings</button>
+    </div>
+  );
+}
+
+// Permanence stated, no confirmation. Borderline.
+export function Case45() {
+  return (
+    <section>
+      <h2>Trash</h2>
+      <p>12 items</p>
+      <p>Items you empty from the trash are deleted permanently.</p>
+      <button type="button">Empty trash</button>
+    </section>
+  );
+}
+
+// Terse revoke on a production credential. Unguarded.
+export function Case46() {
+  return (
+    <ul>
+      <li>
+        <span>prod-key-3</span>
+        <span>Last used 2 minutes ago</span>
+        <button type="button">Revoke</button>
+      </li>
+    </ul>
+  );
+}
+
+// Cancelling an order, explained, partially reversible. Ambiguous.
+export function Case47() {
+  return (
+    <section>
+      <h2>Order #4471</h2>
+      <p>You can cancel within 30 minutes of ordering. Refunds take 3 to 5 days.</p>
+      <button type="button">Cancel order</button>
+    </section>
+  );
+}
+
+// Guarded by undo rather than confirmation. A real safety pattern, but is it
+// "confirmed first"? Genuinely ambiguous.
+export function Case48() {
+  return (
+    <section>
+      <h3>Design review notes</h3>
+      <p>After you delete a note, you have 10 seconds to undo.</p>
+      <button type="button">Delete note</button>
+    </section>
+  );
+}
+
+// Reversible account deactivation. Is it destructive at all? Ambiguous.
+export function Case49() {
+  return (
+    <section>
+      <h2>Deactivate account</h2>
+      <p>Your profile is hidden while deactivated. Sign in any time to reactivate.</p>
+      <button type="button">Deactivate account</button>
+    </section>
+  );
+}
+
+// Discard confirmation, well written. Guarded.
+export function Case50() {
+  return (
+    <div role="dialog" aria-labelledby="c50-t">
+      <h2 id="c50-t">Discard this draft?</h2>
+      <p>Your draft "Launch announcement" will be deleted.</p>
+      <button type="button">Discard draft</button>
+      <button type="button">Keep draft</button>
+    </div>
+  );
+}
+
+// Device wipe with no context at all. Unguarded.
+export function Case51() {
+  return (
+    <section>
+      <h3>Pixel 8</h3>
+      <button type="button">Wipe device</button>
+    </section>
+  );
+}
+
+// Soft delete to a 30-day trash. Barely destructive; guarded by recoverability.
+// Ambiguous.
+export function Case52() {
+  return (
+    <section>
+      <p>3 files selected</p>
+      <p>Deleted files move to Trash and are kept for 30 days.</p>
+      <button type="button">Delete 3 files</button>
+    </section>
+  );
+}
+
+// Four overlapping save actions. Competing.
+export function Case53() {
+  return (
+    <div role="toolbar" aria-label="Document">
+      <button type="button">Save</button>
+      <button type="button">Save as</button>
+      <button type="button">Save a copy</button>
+      <button type="button">Export</button>
+    </div>
+  );
+}
+
+// Primary action plus a way back. Not competing.
+export function Case54() {
+  return (
+    <section>
+      <h2>Review your order</h2>
+      <p>2 items, $58.00 including delivery.</p>
+      <button type="button">Place order</button>
+      <button type="button">Continue shopping</button>
+    </section>
+  );
+}
+
+// Three near-synonyms for the same act. Competing.
+export function Case55() {
+  return (
+    <div role="dialog" aria-labelledby="c55-t">
+      <h2 id="c55-t">Add people to "Q3 roadmap"</h2>
+      <label htmlFor="c55-email">Email address</label>
+      <input id="c55-email" type="email" />
+      <button type="button">Share</button>
+      <button type="button">Send</button>
+      <button type="button">Invite</button>
+    </div>
+  );
+}
+
+// Three distinct actions with distinct purposes. Not competing.
+export function Case56() {
+  return (
+    <form>
+      <h2>Job application</h2>
+      <label htmlFor="c56-name">Full name</label>
+      <input id="c56-name" type="text" />
+      <button type="submit">Submit application</button>
+      <button type="button">Save draft</button>
+      <button type="button">Cancel</button>
+    </form>
+  );
+}

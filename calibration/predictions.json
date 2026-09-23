@@ -808,5 +808,185 @@
     "component": "Calibration / Case 03",
     "p": 0.21999999999999997,
     "rawP": 0.21999999999999997
+  },
+  "calibration--case-33::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 33",
+    "p": 0.92,
+    "rawP": 0.92
+  },
+  "calibration--case-32::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 32",
+    "p": 0.07999999999999996,
+    "rawP": 0.07999999999999996
+  },
+  "calibration--case-36::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 36",
+    "p": 0.92,
+    "rawP": 0.92
+  },
+  "calibration--case-34::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 34",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-44::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 44",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-44::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 44",
+    "p": 0.27,
+    "rawP": 0.27
+  },
+  "calibration--case-51::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 51",
+    "p": 0.92,
+    "rawP": 0.92
+  },
+  "calibration--case-31::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 31",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-42::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 42",
+    "p": 0.62,
+    "rawP": 0.62
+  },
+  "calibration--case-42::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 42",
+    "p": 0.95,
+    "rawP": 0.95
+  },
+  "calibration--case-53::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 53",
+    "p": 0.51,
+    "rawP": 0.51
+  },
+  "calibration--case-37::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 37",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-55::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 55",
+    "p": 0.8,
+    "rawP": 0.8
+  },
+  "calibration--case-38::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 38",
+    "p": 0.39,
+    "rawP": 0.39
+  },
+  "calibration--case-47::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 47",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-52::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 52",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-39::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 39",
+    "p": 0.84,
+    "rawP": 0.84
+  },
+  "calibration--case-41::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 41",
+    "p": 0.13,
+    "rawP": 0.13
+  },
+  "calibration--case-30::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 30",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-50::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 50",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-50::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 50",
+    "p": 0.39,
+    "rawP": 0.39
+  },
+  "calibration--case-48::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 48",
+    "p": 0.95,
+    "rawP": 0.95
+  },
+  "calibration--case-46::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 46",
+    "p": 0.89,
+    "rawP": 0.89
+  },
+  "calibration--case-43::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 43",
+    "p": 0.96,
+    "rawP": 0.96
+  },
+  "calibration--case-56::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 56",
+    "p": 0.12,
+    "rawP": 0.12
+  },
+  "calibration--case-45::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 45",
+    "p": 0.9299999999999999,
+    "rawP": 0.9299999999999999
+  },
+  "calibration--case-54::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 54",
+    "p": 0.11,
+    "rawP": 0.11
+  },
+  "calibration--case-35::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 35",
+    "p": 0.08999999999999997,
+    "rawP": 0.08999999999999997
+  },
+  "calibration--case-29::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 29",
+    "p": 0.17000000000000004,
+    "rawP": 0.17000000000000004
+  },
+  "calibration--case-40::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 40",
+    "p": 0.040000000000000036,
+    "rawP": 0.040000000000000036
   }
 }
