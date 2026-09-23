@@ -1,0 +1,55 @@
+# TEMPLATE: copy into .github/workflows/ of the repository you want reviewed.
+# It lives here, not in this repo's .github/workflows, because this repo has no
+# root Storybook to review; its own CI exercises Hallway against example/ instead.
+#
+# Phase 1 of 2. Runs PR code, holds NO secrets.
+#
+# This is the fork-safe half of the pattern. Do NOT add `pull_request_target` here and
+# do NOT add the Jev key: this job builds and renders code from the pull request, so
+# anything it can read, a pull request author can exfiltrate.
+
+name: Hallway (extract)
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - '**/*.stories.*'
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Cache the built Storybook
+        uses: actions/cache@v4
+        with:
+          path: storybook-static
+          key: storybook-${{ hashFiles('src/**', 'package-lock.json', '.storybook/**') }}
+
+      - run: npx storybook build --quiet
+        # The build, not the Jev calls, is this workflow's bottleneck. Measure it.
+
+      - uses: ./
+        with:
+          mode: extract
+          base-ref: origin/${{ github.base_ref }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hallway-state
+          path: .hallway/
+          retention-days: 7

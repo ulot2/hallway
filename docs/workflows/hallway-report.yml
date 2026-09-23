@@ -1,0 +1,48 @@
+# TEMPLATE: copy into .github/workflows/ of the repository you want reviewed.
+# It lives here, not in this repo's .github/workflows, because this repo has no
+# root Storybook to review; its own CI exercises Hallway against example/ instead.
+#
+# Phase 2 of 2. Holds the Jev key, never checks out or runs pull request code.
+#
+# `workflow_run` runs from the default branch with access to secrets. It reads only the
+# JSON artifact produced by phase 1, so a malicious pull request has no path to the key.
+
+name: Hallway (report)
+
+on:
+  workflow_run:
+    workflows: ['Hallway (extract)']
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  report:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Download state from the untrusted job
+        uses: actions/download-artifact@v4
+        with:
+          name: hallway-state
+          path: .hallway
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./
+        with:
+          mode: review
+          jev-api-key: ${{ secrets.JEV_API_KEY }}
+          set-check: 'true'

@@ -1,0 +1,79 @@
+name: 'Hallway'
+description: 'Judgment-level UI review for pull requests: reviews component copy and structure using Jev typed, calibrated decisions.'
+author: 'ulot2'
+branding:
+  icon: 'eye'
+  color: 'purple'
+
+inputs:
+  mode:
+    description: 'extract (no secrets, runs PR code) | review (has secrets, no PR code) | both'
+    default: 'both'
+  storybook-dir:
+    description: 'Directory containing the built Storybook'
+    default: 'storybook-static'
+  questions:
+    description: 'Path to the question set'
+    default: 'questions.json'
+  calibration:
+    description: 'Path to a fitted calibration produced by npm run calibrate'
+    default: 'calibration.json'
+  max-stories:
+    description: 'Cost control: most stories to review in one run'
+    default: '25'
+  blocking-at:
+    description: 'Failure probability at or above which a finding blocks'
+    default: '0.85'
+  look-at:
+    description: 'Failure probability at or above which a finding is collapsed context'
+    default: '0.55'
+  base-ref:
+    description: 'Ref to diff against when resolving changed files'
+    default: 'origin/main'
+  set-check:
+    description: 'Publish a check run that can gate merges'
+    default: 'false'
+  jev-api-key:
+    description: 'Jev API key. Never pass this to a job that checks out fork code.'
+    default: ''
+  github-token:
+    description: 'Token used to post the sticky comment'
+    default: ${{ github.token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Install reviewer dependencies
+      shell: bash
+      run: npm ci --omit=dev --prefix ${{ github.action_path }}
+
+    - name: Extract component state
+      if: inputs.mode == 'extract' || inputs.mode == 'both'
+      shell: bash
+      env:
+        HALLWAY_STORYBOOK_DIR: ${{ inputs.storybook-dir }}
+        HALLWAY_MAX_STORIES: ${{ inputs.max-stories }}
+        HALLWAY_BASE_REF: ${{ inputs.base-ref }}
+        HALLWAY_PR_NUMBER: ${{ github.event.pull_request.number }}
+        HALLWAY_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        HALLWAY_ROOT: ${{ github.workspace }}
+      run: node ${{ github.action_path }}/src/extract-main.js
+
+    - name: Review and post
+      if: inputs.mode == 'review' || inputs.mode == 'both'
+      shell: bash
+      env:
+        JEV_API_KEY: ${{ inputs.jev-api-key }}
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        HALLWAY_QUESTIONS: ${{ inputs.questions }}
+        HALLWAY_CALIBRATION: ${{ inputs.calibration }}
+        HALLWAY_BLOCKING_AT: ${{ inputs.blocking-at }}
+        HALLWAY_LOOK_AT: ${{ inputs.look-at }}
+        HALLWAY_SET_CHECK: ${{ inputs.set-check }}
+        HALLWAY_PR_NUMBER: ${{ github.event.pull_request.number }}
+        HALLWAY_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      run: node ${{ github.action_path }}/src/review-main.js

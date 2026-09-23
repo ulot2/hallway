@@ -1,0 +1,1178 @@
+{
+  "calibration--case-12::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 12",
+    "p": 0.06999999999999999,
+    "rawP": 0.06999999999999999
+  },
+  "calibration--case-12::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 12",
+    "p": 0.04,
+    "rawP": 0.04
+  },
+  "calibration--case-12::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 12",
+    "p": 0.04,
+    "rawP": 0.04
+  },
+  "calibration--case-12::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 12",
+    "p": 0.96,
+    "rawP": 0.96
+  },
+  "calibration--case-26::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 26",
+    "p": 0.16,
+    "rawP": 0.16
+  },
+  "calibration--case-26::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 26",
+    "p": 0.91,
+    "rawP": 0.91
+  },
+  "calibration--case-26::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 26",
+    "p": 0.21,
+    "rawP": 0.21
+  },
+  "calibration--case-26::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 26",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-16::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 16",
+    "p": 0.38,
+    "rawP": 0.38
+  },
+  "calibration--case-16::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 16",
+    "p": 0,
+    "rawP": 0
+  },
+  "calibration--case-16::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 16",
+    "p": 0.12,
+    "rawP": 0.12
+  },
+  "calibration--case-04::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 04",
+    "p": 0.13,
+    "rawP": 0.13
+  },
+  "calibration--case-04::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 04",
+    "p": 0.9,
+    "rawP": 0.9
+  },
+  "calibration--case-04::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 04",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-04::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 04",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-11::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 11",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-11::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 11",
+    "p": 0,
+    "rawP": 0
+  },
+  "calibration--case-11::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 11",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-11::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 11",
+    "p": 0.14,
+    "rawP": 0.14
+  },
+  "calibration--case-22::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 22",
+    "p": 0.06999999999999999,
+    "rawP": 0.06999999999999999
+  },
+  "calibration--case-22::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 22",
+    "p": 0.48,
+    "rawP": 0.48
+  },
+  "calibration--case-22::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 22",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-23::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 23",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-23::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 23",
+    "p": 0.01,
+    "rawP": 0.01
+  },
+  "calibration--case-23::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 23",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-02::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 02",
+    "p": 0.15,
+    "rawP": 0.15
+  },
+  "calibration--case-02::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 02",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-02::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 02",
+    "p": 0.99,
+    "rawP": 0.99
+  },
+  "calibration--case-02::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 02",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-10::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 10",
+    "p": 0.09,
+    "rawP": 0.09
+  },
+  "calibration--case-10::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 10",
+    "p": 0.9299999999999999,
+    "rawP": 0.9299999999999999
+  },
+  "calibration--case-10::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 10",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-21::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 21",
+    "p": 0.09000000000000001,
+    "rawP": 0.09000000000000001
+  },
+  "calibration--case-21::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 21",
+    "p": 1,
+    "rawP": 1
+  },
+  "calibration--case-21::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 21",
+    "p": 0.27,
+    "rawP": 0.27
+  },
+  "calibration--case-14::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 14",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-14::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 14",
+    "p": 0,
+    "rawP": 0
+  },
+  "calibration--case-14::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 14",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-14::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 14",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-01::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 01",
+    "p": 0.16,
+    "rawP": 0.16
+  },
+  "calibration--case-01::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 01",
+    "p": 0.9299999999999999,
+    "rawP": 0.9299999999999999
+  },
+  "calibration--case-01::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 01",
+    "p": 0.13999999999999999,
+    "rawP": 0.13999999999999999
+  },
+  "calibration--case-01::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 01",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-27::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 27",
+    "p": 0.04,
+    "rawP": 0.04
+  },
+  "calibration--case-27::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 27",
+    "p": 0.10999999999999999,
+    "rawP": 0.10999999999999999
+  },
+  "calibration--case-27::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 27",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-27::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 27",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-19::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 19",
+    "p": 0.01,
+    "rawP": 0.01
+  },
+  "calibration--case-19::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 19",
+    "p": 0,
+    "rawP": 0
+  },
+  "calibration--case-19::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 19",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-19::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 19",
+    "p": 0.4,
+    "rawP": 0.4
+  },
+  "calibration--case-17::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 17",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-17::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 17",
+    "p": 0.58,
+    "rawP": 0.58
+  },
+  "calibration--case-17::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 17",
+    "p": 0.04,
+    "rawP": 0.04
+  },
+  "calibration--case-20::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 20",
+    "p": 0.23,
+    "rawP": 0.23
+  },
+  "calibration--case-20::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 20",
+    "p": 0.78,
+    "rawP": 0.78
+  },
+  "calibration--case-20::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 20",
+    "p": 0.5700000000000001,
+    "rawP": 0.5700000000000001
+  },
+  "calibration--case-06::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 06",
+    "p": 0.14,
+    "rawP": 0.14
+  },
+  "calibration--case-06::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 06",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-06::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 06",
+    "p": 0.98,
+    "rawP": 0.98
+  },
+  "calibration--case-06::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 06",
+    "p": 0.09,
+    "rawP": 0.09
+  },
+  "calibration--case-09::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 09",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-09::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 09",
+    "p": 0.050000000000000044,
+    "rawP": 0.050000000000000044
+  },
+  "calibration--case-09::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 09",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-09::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 09",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-15::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 15",
+    "p": 0.38,
+    "rawP": 0.38
+  },
+  "calibration--case-15::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 15",
+    "p": 0.15,
+    "rawP": 0.15
+  },
+  "calibration--case-15::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 15",
+    "p": 0.09,
+    "rawP": 0.09
+  },
+  "calibration--case-07::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 07",
+    "p": 0.04,
+    "rawP": 0.04
+  },
+  "calibration--case-07::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 07",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-07::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 07",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-07::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 07",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-25::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 25",
+    "p": 0.33999999999999997,
+    "rawP": 0.33999999999999997
+  },
+  "calibration--case-25::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 25",
+    "p": 0.76,
+    "rawP": 0.76
+  },
+  "calibration--case-25::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 25",
+    "p": 0,
+    "rawP": 0
+  },
+  "calibration--case-25::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 25",
+    "p": 0.11000000000000001,
+    "rawP": 0.11000000000000001
+  },
+  "calibration--case-18::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 18",
+    "p": 0.060000000000000005,
+    "rawP": 0.060000000000000005
+  },
+  "calibration--case-18::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 18",
+    "p": 1,
+    "rawP": 1
+  },
+  "calibration--case-18::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 18",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-05::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 05",
+    "p": 0.32,
+    "rawP": 0.32
+  },
+  "calibration--case-05::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 05",
+    "p": 0.06000000000000005,
+    "rawP": 0.06000000000000005
+  },
+  "calibration--case-05::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 05",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-05::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 05",
+    "p": 0.15,
+    "rawP": 0.15
+  },
+  "calibration--case-28::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 28",
+    "p": 0.11000000000000001,
+    "rawP": 0.11000000000000001
+  },
+  "calibration--case-28::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 28",
+    "p": 0.10999999999999999,
+    "rawP": 0.10999999999999999
+  },
+  "calibration--case-28::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 28",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-13::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 13",
+    "p": 0.04,
+    "rawP": 0.04
+  },
+  "calibration--case-13::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 13",
+    "p": 0,
+    "rawP": 0
+  },
+  "calibration--case-13::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 13",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-13::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 13",
+    "p": 0.9,
+    "rawP": 0.9
+  },
+  "calibration--case-08::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 08",
+    "p": 0.11000000000000001,
+    "rawP": 0.11000000000000001
+  },
+  "calibration--case-08::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 08",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-08::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 08",
+    "p": 0.15000000000000002,
+    "rawP": 0.15000000000000002
+  },
+  "calibration--case-24::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 24",
+    "p": 0.03,
+    "rawP": 0.03
+  },
+  "calibration--case-24::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 24",
+    "p": 0.51,
+    "rawP": 0.51
+  },
+  "calibration--case-24::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 24",
+    "p": 0.32,
+    "rawP": 0.32
+  },
+  "calibration--case-24::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 24",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-03::primary_action_obvious": {
+    "question_id": "primary_action_obvious",
+    "component": "Calibration / Case 03",
+    "p": 0.14,
+    "rawP": 0.14
+  },
+  "calibration--case-03::error_message_actionable": {
+    "question_id": "error_message_actionable",
+    "component": "Calibration / Case 03",
+    "p": 0.16000000000000003,
+    "rawP": 0.16000000000000003
+  },
+  "calibration--case-03::button_label_quality": {
+    "question_id": "button_label_quality",
+    "component": "Calibration / Case 03",
+    "p": 0.02,
+    "rawP": 0.02
+  },
+  "calibration--case-03::purpose_clear_from_text": {
+    "question_id": "purpose_clear_from_text",
+    "component": "Calibration / Case 03",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-12::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 12",
+    "p": 0.33,
+    "rawP": 0.33
+  },
+  "calibration--case-12::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 12",
+    "p": 0.4,
+    "rawP": 0.4
+  },
+  "calibration--case-26::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 26",
+    "p": 0.24,
+    "rawP": 0.24
+  },
+  "calibration--case-16::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 16",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-16::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 16",
+    "p": 0.25,
+    "rawP": 0.25
+  },
+  "calibration--case-04::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 04",
+    "p": 0.19999999999999996,
+    "rawP": 0.19999999999999996
+  },
+  "calibration--case-11::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 11",
+    "p": 0.28,
+    "rawP": 0.28
+  },
+  "calibration--case-22::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 22",
+    "p": 0.22999999999999998,
+    "rawP": 0.22999999999999998
+  },
+  "calibration--case-23::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 23",
+    "p": 0.18999999999999995,
+    "rawP": 0.18999999999999995
+  },
+  "calibration--case-02::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 02",
+    "p": 0.20999999999999996,
+    "rawP": 0.20999999999999996
+  },
+  "calibration--case-21::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 21",
+    "p": 0.45999999999999996,
+    "rawP": 0.45999999999999996
+  },
+  "calibration--case-14::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 14",
+    "p": 0.28,
+    "rawP": 0.28
+  },
+  "calibration--case-01::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 01",
+    "p": 0.09,
+    "rawP": 0.09
+  },
+  "calibration--case-01::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 01",
+    "p": 0.17000000000000004,
+    "rawP": 0.17000000000000004
+  },
+  "calibration--case-27::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 27",
+    "p": 0.27,
+    "rawP": 0.27
+  },
+  "calibration--case-19::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 19",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-19::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 19",
+    "p": 0.24,
+    "rawP": 0.24
+  },
+  "calibration--case-17::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 17",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-17::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 17",
+    "p": 0.26,
+    "rawP": 0.26
+  },
+  "calibration--case-20::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 20",
+    "p": 0.33999999999999997,
+    "rawP": 0.33999999999999997
+  },
+  "calibration--case-06::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 06",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-06::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 06",
+    "p": 0.24,
+    "rawP": 0.24
+  },
+  "calibration--case-09::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 09",
+    "p": 0.22999999999999998,
+    "rawP": 0.22999999999999998
+  },
+  "calibration--case-15::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 15",
+    "p": 0.87,
+    "rawP": 0.87
+  },
+  "calibration--case-15::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 15",
+    "p": 0.28,
+    "rawP": 0.28
+  },
+  "calibration--case-07::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 07",
+    "p": 0.21999999999999997,
+    "rawP": 0.21999999999999997
+  },
+  "calibration--case-25::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 25",
+    "p": 0.27,
+    "rawP": 0.27
+  },
+  "calibration--case-18::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 18",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-18::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 18",
+    "p": 0.43000000000000005,
+    "rawP": 0.43000000000000005
+  },
+  "calibration--case-05::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 05",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-05::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 05",
+    "p": 0.28,
+    "rawP": 0.28
+  },
+  "calibration--case-13::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 13",
+    "p": 0.30000000000000004,
+    "rawP": 0.30000000000000004
+  },
+  "calibration--case-24::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 24",
+    "p": 0.25,
+    "rawP": 0.25
+  },
+  "calibration--case-03::button_labels_predictable": {
+    "question_id": "button_labels_predictable",
+    "component": "Calibration / Case 03",
+    "p": 0.21999999999999997,
+    "rawP": 0.21999999999999997
+  },
+  "calibration--case-33::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 33",
+    "p": 0.92,
+    "rawP": 0.92
+  },
+  "calibration--case-32::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 32",
+    "p": 0.07999999999999996,
+    "rawP": 0.07999999999999996
+  },
+  "calibration--case-36::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 36",
+    "p": 0.92,
+    "rawP": 0.92
+  },
+  "calibration--case-34::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 34",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-44::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 44",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-44::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 44",
+    "p": 0.27,
+    "rawP": 0.27
+  },
+  "calibration--case-51::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 51",
+    "p": 0.92,
+    "rawP": 0.92
+  },
+  "calibration--case-31::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 31",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-42::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 42",
+    "p": 0.62,
+    "rawP": 0.62
+  },
+  "calibration--case-42::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 42",
+    "p": 0.95,
+    "rawP": 0.95
+  },
+  "calibration--case-53::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 53",
+    "p": 0.51,
+    "rawP": 0.51
+  },
+  "calibration--case-37::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 37",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-55::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 55",
+    "p": 0.8,
+    "rawP": 0.8
+  },
+  "calibration--case-38::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 38",
+    "p": 0.39,
+    "rawP": 0.39
+  },
+  "calibration--case-47::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 47",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-52::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 52",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-39::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 39",
+    "p": 0.84,
+    "rawP": 0.84
+  },
+  "calibration--case-41::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 41",
+    "p": 0.13,
+    "rawP": 0.13
+  },
+  "calibration--case-30::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 30",
+    "p": 0.030000000000000027,
+    "rawP": 0.030000000000000027
+  },
+  "calibration--case-50::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 50",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-50::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 50",
+    "p": 0.39,
+    "rawP": 0.39
+  },
+  "calibration--case-48::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 48",
+    "p": 0.95,
+    "rawP": 0.95
+  },
+  "calibration--case-46::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 46",
+    "p": 0.89,
+    "rawP": 0.89
+  },
+  "calibration--case-43::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 43",
+    "p": 0.96,
+    "rawP": 0.96
+  },
+  "calibration--case-56::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 56",
+    "p": 0.12,
+    "rawP": 0.12
+  },
+  "calibration--case-45::destructive_action_guarded": {
+    "question_id": "destructive_action_guarded",
+    "component": "Calibration / Case 45",
+    "p": 0.9299999999999999,
+    "rawP": 0.9299999999999999
+  },
+  "calibration--case-54::competing_actions": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 54",
+    "p": 0.11,
+    "rawP": 0.11
+  },
+  "calibration--case-35::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 35",
+    "p": 0.08999999999999997,
+    "rawP": 0.08999999999999997
+  },
+  "calibration--case-29::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 29",
+    "p": 0.17000000000000004,
+    "rawP": 0.17000000000000004
+  },
+  "calibration--case-40::empty_state_actionable": {
+    "question_id": "empty_state_actionable",
+    "component": "Calibration / Case 40",
+    "p": 0.040000000000000036,
+    "rawP": 0.040000000000000036
+  },
+  "calibration--case-44::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 44",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-44::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 44",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-13::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 13",
+    "p": 0.2,
+    "rawP": 0.2
+  },
+  "calibration--case-15::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 15",
+    "p": 0.9,
+    "rawP": 0.9
+  },
+  "calibration--case-51::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 51",
+    "p": 0.93,
+    "rawP": 0.93
+  },
+  "calibration--case-42::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 42",
+    "p": 0.79,
+    "rawP": 0.79
+  },
+  "calibration--case-53::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 53",
+    "p": 0.58,
+    "rawP": 0.58
+  },
+  "calibration--case-19::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 19",
+    "p": 0.09,
+    "rawP": 0.09
+  },
+  "calibration--case-19::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 19",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-55::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 55",
+    "p": 0.83,
+    "rawP": 0.83
+  },
+  "calibration--case-12::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 12",
+    "p": 0.23,
+    "rawP": 0.23
+  },
+  "calibration--case-12::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 12",
+    "p": 0.74,
+    "rawP": 0.74
+  },
+  "calibration--case-47::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 47",
+    "p": 0.18,
+    "rawP": 0.18
+  },
+  "calibration--case-52::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 52",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-41::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 41",
+    "p": 0.07,
+    "rawP": 0.07
+  },
+  "calibration--case-05::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 05",
+    "p": 0.13,
+    "rawP": 0.13
+  },
+  "calibration--case-50::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 50",
+    "p": 0.08,
+    "rawP": 0.08
+  },
+  "calibration--case-50::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 50",
+    "p": 0.09,
+    "rawP": 0.09
+  },
+  "calibration--case-48::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 48",
+    "p": 0.05,
+    "rawP": 0.05
+  },
+  "calibration--case-46::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 46",
+    "p": 0.94,
+    "rawP": 0.94
+  },
+  "calibration--case-14::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 14",
+    "p": 0.17,
+    "rawP": 0.17
+  },
+  "calibration--case-43::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 43",
+    "p": 0.34,
+    "rawP": 0.34
+  },
+  "calibration--case-56::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 56",
+    "p": 0.13,
+    "rawP": 0.13
+  },
+  "calibration--case-11::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 11",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-01::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 01",
+    "p": 0.12,
+    "rawP": 0.12
+  },
+  "calibration--case-18::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 18",
+    "p": 0.18,
+    "rawP": 0.18
+  },
+  "calibration--case-45::destructive_action_protected@r4": {
+    "question_id": "destructive_action_protected",
+    "component": "Calibration / Case 45",
+    "p": 0.27,
+    "rawP": 0.27
+  },
+  "calibration--case-54::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 54",
+    "p": 0.1,
+    "rawP": 0.1
+  },
+  "calibration--case-17::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 17",
+    "p": 0.15,
+    "rawP": 0.15
+  },
+  "calibration--case-16::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 16",
+    "p": 0.14,
+    "rawP": 0.14
+  },
+  "calibration--case-06::competing_actions@r4": {
+    "question_id": "competing_actions",
+    "component": "Calibration / Case 06",
+    "p": 0.12,
+    "rawP": 0.12
+  }
+}

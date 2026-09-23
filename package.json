@@ -1,0 +1,27 @@
+{
+  "name": "hallway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Judgment-level UI review for pull requests, powered by Jev's typed, calibrated decisions.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "extract:demo": "node --env-file-if-exists=.env scripts/extract-demo.mjs",
+    "review:demo": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/review-demo.mjs",
+    "calibrate": "node --env-file-if-exists=.env scripts/calibrate.mjs",
+    "label": "node --env-file-if-exists=.env scripts/label.mjs",
+    "stability": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/stability.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "test:browser": "node --test \"test/browser/*.test.mjs\"",
+    "example": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/example.mjs",
+    "check-key": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/check-key.mjs"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.0",
+    "@axe-core/playwright": "^4.10.2",
+    "playwright": "^1.55.0"
+  }
+}

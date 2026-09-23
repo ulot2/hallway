@@ -1,0 +1,110 @@
+{
+  "version": 6,
+  "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies, and ride along in the same call. Wire format: noul needs \"instructions\"; choice needs \"criteria\" as an object mapping each option to a description; score needs ordered \"levels\" (sent as criteria). See src/jev.js.",
+  "questions": [
+    {
+      "id": "shows_empty_state",
+      "type": "noul",
+      "gate": true,
+      "question": "Does this component currently show an empty state \u2014 a list, table or section with no content in it?",
+      "rationale": "Real empty states rarely contain the words 'empty' or 'no results', so a keyword test misses them.",
+      "instructions": "Answer yes if any list, table or section in this component is currently rendering with no items in it. Ignore whether the wording is good; judge only whether the empty condition is present."
+    },
+    {
+      "id": "shows_error_message",
+      "type": "noul",
+      "gate": true,
+      "question": "Does this component currently display an error or validation message to the user?",
+      "rationale": "Distinguishes an actual error from ordinary help text, which keyword matching cannot do.",
+      "instructions": "Answer yes only for a message reporting that something went wrong or that input is invalid. Ordinary help or hint text describing what to enter is NOT an error."
+    },
+    {
+      "id": "offers_destructive_action",
+      "type": "noul",
+      "gate": true,
+      "question": "Does this component offer an action that destroys data or is otherwise hard to undo?",
+      "rationale": "Catches destructive actions whose labels do not use an obvious verb.",
+      "instructions": "Answer yes if any control deletes data, cancels a subscription, revokes access, or is otherwise hard or impossible to undo. Judge by what the action does, not by whether the label uses a particular verb."
+    },
+    {
+      "id": "competing_actions",
+      "type": "noul",
+      "question": "Does this component offer two or more actions that compete for the same role, with nothing in their wording to say which one to use?",
+      "instructions": "Answer yes when actions overlap in purpose and nothing distinguishes them, such as \"Save\", \"Save and close\" and \"Apply\" side by side, or \"Continue\" next to \"Next\". A control marked [primary] is the component's main action: a primary action alongside a secondary way out (cancel, back, a help link such as \"Forgot your password?\") does not compete. Several overlapping actions with none marked primary do compete.",
+      "applies_when": "has_multiple_actions",
+      "fail_when": "true",
+      "label_prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+      "rationale": "Replaces primary_action_obvious, which asked about visual prominence the pipeline cannot see."
+    },
+    {
+      "id": "error_message_actionable",
+      "type": "noul",
+      "question": "Do the error messages in this component tell the user how to fix the problem, rather than only stating that something is wrong?",
+      "fail_when": "false",
+      "applies_when": {
+        "question": "shows_error_message",
+        "min_probability": 0.5
+      },
+      "rationale": "Presence of an error message is checkable; whether it is useful is not.",
+      "instructions": "Answer yes only if the message tells the user what to do about the problem. A message that merely reports a failure (\"Error: invalid\", \"Something went wrong\") is not actionable. Naming the specific field and the expected format counts as actionable.",
+      "label_prompt": "Does the error message fail to tell you how to fix the problem?"
+    },
+    {
+      "id": "empty_state_actionable",
+      "type": "noul",
+      "question": "If this component shows an empty state, does it offer the user a clear next step rather than being a dead end?",
+      "fail_when": "false",
+      "applies_when": {
+        "question": "shows_empty_state",
+        "min_probability": 0.5
+      },
+      "rationale": "Dead-end empty states are a common, invisible-to-tooling UX failure.",
+      "instructions": "Answer yes if the empty state points the user at a next step, such as an action to take or an explanation of how content gets here. A bare \"No results\" with nothing to do is a dead end, so answer no.",
+      "label_prompt": "Is the empty state a dead end, with no clear next step?"
+    },
+    {
+      "id": "button_labels_predictable",
+      "type": "noul",
+      "question": "Given the rest of this component, could a first-time user predict what each button or link will do before pressing it?",
+      "instructions": "Judge each label in the context of the component around it, not in isolation. A conventional label is fine when its effect is obvious from context: \"Sign in\" or \"Submit\" on a sign-in form, \"Yes\" and \"No\" under a question that names what is being confirmed. Answer no only if at least one label leaves its effect genuinely unclear even with that context: \"Remove\" beside several items without saying which, \"OK\" on a panel that never explains what it changes, \"Yes\" under \"Are you sure?\" with no subject.",
+      "applies_when": "has_controls",
+      "fail_when": "false",
+      "label_prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
+      "rationale": "Replaces button_label_quality, which judged labels against a fixed list rather than in context."
+    },
+    {
+      "id": "purpose_clear_from_text",
+      "type": "score",
+      "question": "From the visible text alone, how clearly could a first-time user say what this component is for?",
+      "levels": [
+        "no idea",
+        "guessable",
+        "clear",
+        "unmistakable"
+      ],
+      "fail_when": "below",
+      "fail_at": 1.5,
+      "rationale": "Comprehension is the whole point of the UI and nothing in CI currently measures it.",
+      "instructions": "Judge only from the words visible in the component. Do not assume context from the component name or surrounding application.",
+      "label_prompt": "From the text alone, is it hard to tell what this is for?"
+    },
+    {
+      "id": "destructive_action_protected",
+      "type": "noul",
+      "question": "Could a user destroy something with this component by accident, without being warned first and without any way to undo or recover it?",
+      "instructions": "Answer yes only when a destructive action is unprotected. Any ONE of these counts as protection: the consequence is clearly stated before acting; a confirmation step is shown or promised; the action can be undone; or what is destroyed can be recovered (a trash kept for a time, a cancellation window, reactivation). A bare \"Delete\", \"Revoke\" or \"Wipe\" with no stated consequence, no confirmation and no undo is unprotected.",
+      "applies_when": {
+        "question": "offers_destructive_action",
+        "min_probability": 0.5
+      },
+      "fail_when": "true",
+      "label_prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+      "rationale": "Replaces destructive_action_guarded. The team counts a warning, undo or recoverability as protection, not only confirmation."
+    }
+  ],
+  "retired": {
+    "primary_action_obvious": "Asked which action is visually primary, but the pipeline sends Jev text and structure, never layout or styling, so it cannot see prominence. Against 28 blind human labels it ranked barely above chance (AUC 0.61) and never once flagged a problem the human flagged 10 times. Replaced by competing_actions, the part of the idea that text can answer.",
+    "button_label_quality": "Judged labels against a fixed list (\"Submit\", \"OK\" and \"Yes\" are generic). The human labeler judged them in context: \"Submit\" on a sign-in form is clear. AUC 0.61. Replaced by button_labels_predictable, which asks what the labeler was actually judging.",
+    "destructive_action_guarded": "Required a confirmation step. The labeler judged warned, undoable or recoverable actions (a stated consequence, a 30-day trash, a cancellation window) as safe without one: AUC 0.51 over 16 labels. Its label prompt (\"isn't clearly warned about AND confirmed\") was also easy to answer backwards. Replaced by destructive_action_protected, per the team's definition."
+  }
+}

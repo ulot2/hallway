@@ -1,0 +1,34 @@
+{
+  "_trust": {
+    "button_labels_predictable": {
+      "n": 25,
+      "auc": 0.647,
+      "blocking": false
+    },
+    "competing_actions": {
+      "n": 15,
+      "auc": 0.89,
+      "blocking": true
+    },
+    "error_message_actionable": {
+      "n": 11,
+      "auc": 0.938,
+      "blocking": true
+    },
+    "purpose_clear_from_text": {
+      "n": 28,
+      "auc": 0.782,
+      "blocking": true
+    },
+    "empty_state_actionable": {
+      "n": 17,
+      "auc": 0.864,
+      "blocking": true
+    },
+    "destructive_action_protected": {
+      "n": 16,
+      "auc": 0.8,
+      "blocking": true
+    }
+  }
+}
