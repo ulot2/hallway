@@ -400,6 +400,47 @@ check. The bar is a policy choice in `scripts/calibrate.mjs`; the verdicts come 
 labels. On the example app this leaves exactly one blocking finding, the non-actionable
 error message, on the question the labeler agreed with at 0.94.
 
+### Round three: empty states, destructive and competing actions
+
+28 more cases (29–56) targeted the three questions with too few labels. 112 labels now
+cover the six questions in use:
+
+| Question | n | AUC | May block? |
+| :--- | --: | --: | :--- |
+| `error_message_actionable` | 11 | **0.94** | yes |
+| `empty_state_actionable` | 17 | **0.86** | yes, newly promoted |
+| `purpose_clear_from_text` | 28 | **0.78** | yes |
+| `competing_actions` | 15 | 0.66 | no |
+| `button_labels_predictable` | 25 | 0.65 | no |
+| `destructive_action_guarded` | 16 | 0.51 | no |
+
+**Empty states** earned blocking: Jev separates dead ends ("No data.", "No members.")
+from helpful empty states ("Clear filters", "Create API key") well.
+
+**Destructive actions ranked no better than chance, and the disagreement has a clear
+shape.** Jev was told a destructive action is guarded only if it is *confirmed first*,
+so it flagged every warned-but-unconfirmed action at 0.89 or above. The labeler judged
+warned, undoable or recoverable actions (a stated consequence, a 30-day trash, a
+cancellation window) as fine without confirmation. Separately, the two most thoroughly
+guarded cases — a typed-email confirmation and a "Reset all settings?" dialog — were
+labeled as problems, which fits neither definition. The likely cause is the label
+prompt, *"Is there a destructive action that isn't clearly warned about AND confirmed
+first?"*, whose negation and conjunction are easy to answer backwards. That is a flaw
+in the question, not the labeler.
+
+**Competing actions produced no false alarms, only misses.** Every miss is a primary
+action paired with a way out ("Pay / Back to cart", "Sign in / Forgot your password?"),
+which Jev's instructions say do not compete and the labeler judged as competing. With
+styling stripped for labeling, those buttons look identical, which is the same artefact
+that sank the retired main-action question.
+
+**No probability correction has survived held-out testing in any round.** Across three
+rounds, every weak question failed for the same reason: the definition Jev was given
+differed from the standard the human applies. Calibration cannot fix that, because it
+is not a scale problem. The binding constraint on this kind of reviewer is whose
+definition of good UI it enforces — which is a decision for the team using it, and the
+next thing to settle for the two questions that remain advisory.
+
 Two lessons came out of the labeling that no amount of unit testing would have found:
 
 - **Asking about button labels on a component with no buttons.** Jev answered
@@ -492,9 +533,10 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- **Four of six questions are advisory only**, because they haven't yet agreed well
-  enough with human review to be trusted with blocking. More labels, especially for
-  the gated questions, are the way to promote them.
+- **Three of six questions are advisory only.** Round three showed why: for
+  `destructive_action_guarded` and `competing_actions`, the definition Jev was given
+  differs from the one the human reviewer applies. More labels will not fix that;
+  choosing whose definition the tool enforces will.
 - **One labeler, 96 labels.** The numbers below are indicative, not definitive, and
   the 28 cases were written by the same project that tests them.
 - **Stability is unmeasured.** The answers look decisive, but nobody has yet run the
