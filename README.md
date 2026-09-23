@@ -1,7 +1,12 @@
-# jev-ui-review
+# Hallway
 
-A GitHub Action that reviews the **copy and structure** of changed UI components on a
-pull request, using [Jev](https://docs.typesafe.ai/api) — TypeSafe AI's System One
+**Hallway testing for every pull request.** Usability people call it hallway testing:
+grab someone walking past and ask whether a screen makes sense to them. Hallway asks
+that question of every UI component a pull request changes — and only fails the build
+on the questions it has *proven* it can judge.
+
+It is a GitHub Action that reviews the **copy and structure** of changed UI components,
+using [Jev](https://docs.typesafe.ai/api) — TypeSafe AI's System One
 model — for the judgment calls, and `axe-core` for everything that can be decided
 deterministically.
 
@@ -144,8 +149,8 @@ This repo uses the two-workflow pattern instead:
 
 | Phase | Trigger | Runs PR code | Has secrets |
 |---|---|---|---|
-| `ui-review.yml` | `pull_request` | yes | **no** |
-| `ui-review-report.yml` | `workflow_run` | **no** | yes |
+| `hallway.yml` | `pull_request` | yes | **no** |
+| `hallway-report.yml` | `workflow_run` | **no** | yes |
 
 Phase 1 builds Storybook, renders the components and writes a JSON artifact. Phase 2
 runs from the default branch, downloads only that JSON, calls Jev and posts. There is no
@@ -224,7 +229,7 @@ JEV_DEBUG=1 npm run example
 ```
 
 `JEV_DEBUG=1` writes the exact request and response to
-`example/.jev-review/jev-exchange-*.json`. Keep it on for the first run.
+`example/.hallway/jev-exchange-*.json`. Keep it on for the first run.
 
 The likeliest first failure is the response shape, since it was never verified against
 a live API. If nothing parses, the run stops with the actual payload printed and points
@@ -247,7 +252,7 @@ Confidence thresholds are worthless if the probabilities are not calibrated, and
 calibration is a property of *your* data, not of the model in general. So measure it:
 
 ```bash
-npm run review:demo            # produces .jev-review/findings.json
+npm run review:demo            # produces .hallway/findings.json
 npm run label                  # hand-label findings: y / n / skip
 npm run calibrate              # reliability diagram, ECE, Brier, writes calibration.json
 ```
@@ -278,7 +283,7 @@ warning that the thresholds are unmeasured defaults.
 ### Labeling, blind
 
 `npm run label` is a terminal prompt, which is no use from a phone. The labeling set is
-instead served by a small page, **Calibration Bench** (`calibration/bench.html`),
+instead served by a small page, **Hallway Bench** (`calibration/bench.html`),
 published as a claude.ai artifact that saves each answer as you go.
 
 It is built to keep the labels honest:
@@ -303,7 +308,7 @@ without a model of its own.
 
 ### Calibration results
 
-One person labeled 101 findings blind on the Calibration Bench (5 skipped as unsure),
+One person labeled 101 findings blind on the Hallway Bench (5 skipped as unsure),
 compared against Jev (`jev-1.13.0`). Two measures matter, and they answer different
 questions:
 

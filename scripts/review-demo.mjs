@@ -47,11 +47,11 @@ const scored = await review({
 const body = renderReport(scored, {
   questionSetVersion: questionSet.version,
   thresholds,
-  stateArtifact: 'jev-ui-review-state',
+  stateArtifact: 'hallway-state',
 });
 
-fs.mkdirSync('.jev-review', { recursive: true });
-fs.writeFileSync('.jev-review/report.md', body);
+fs.mkdirSync('.hallway', { recursive: true });
+fs.writeFileSync('.hallway/report.md', body);
 console.log(body);
 console.warn(
   process.env.JEV_API_KEY

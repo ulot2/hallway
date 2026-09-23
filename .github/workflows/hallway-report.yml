@@ -3,11 +3,11 @@
 # `workflow_run` runs from the default branch with access to secrets. It reads only the
 # JSON artifact produced by phase 1, so a malicious pull request has no path to the key.
 
-name: UI review (report)
+name: Hallway (report)
 
 on:
   workflow_run:
-    workflows: ['UI review (extract)']
+    workflows: ['Hallway (extract)']
     types: [completed]
 
 permissions:
@@ -32,8 +32,8 @@ jobs:
       - name: Download state from the untrusted job
         uses: actions/download-artifact@v4
         with:
-          name: jev-ui-review-state
-          path: .jev-review
+          name: hallway-state
+          path: .hallway
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

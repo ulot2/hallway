@@ -21,15 +21,15 @@ if (!fs.existsSync(path.join(staticDir, 'index.json'))) {
 
 const env = {
   ...process.env,
-  JEV_CHANGED_FILES: 'src/Button.jsx',
-  JEV_STORYBOOK_DIR: 'storybook-static',
-  JEV_ROOT: '.',
-  JEV_OUT: '.jev-review',
+  HALLWAY_CHANGED_FILES: 'src/Button.jsx',
+  HALLWAY_STORYBOOK_DIR: 'storybook-static',
+  HALLWAY_ROOT: '.',
+  HALLWAY_OUT: '.hallway',
 };
 
 execFileSync('node', [path.resolve('src/extract-main.js')], { cwd: example, env, stdio: 'inherit' });
 
-const state = JSON.parse(fs.readFileSync(path.join(example, '.jev-review/state.json'), 'utf8'));
+const state = JSON.parse(fs.readFileSync(path.join(example, '.hallway/state.json'), 'utf8'));
 
 // A change to a shared component must reach every story that renders it, even though
 // neither story file changed and neither imports Button directly.
@@ -51,7 +51,7 @@ for (const c of state.components) {
 
 execFileSync('node', [path.resolve('src/review-main.js')], {
   cwd: example,
-  env: { ...env, JEV_QUESTIONS: path.resolve('questions.json'), JEV_CALIBRATION: path.resolve('calibration.json') },
+  env: { ...env, HALLWAY_QUESTIONS: path.resolve('questions.json'), HALLWAY_CALIBRATION: path.resolve('calibration.json') },
   stdio: 'inherit',
 });
 

@@ -19,7 +19,7 @@ test('state round-trips so hysteresis survives a rerun', () => {
 
 test('decodeState tolerates a missing or corrupt block', () => {
   assert.deepEqual(decodeState('nothing here'), {});
-  assert.deepEqual(decodeState('<!-- jev-state {oops -->'), {});
+  assert.deepEqual(decodeState('<!-- hallway-state {oops -->'), {});
   assert.deepEqual(decodeState(undefined), {});
 });
 

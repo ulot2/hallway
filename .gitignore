@@ -1,11 +1,11 @@
 node_modules/
 storybook-static/
-.jev-review/
+.hallway/
 *.log
 
 # Secrets. Never commit these.
 .env
 .env.local
 .env.*.local
-.jev-calibration/
+.hallway-calibration/
 calibration-set.jsonl.bak

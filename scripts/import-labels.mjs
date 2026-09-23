@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Joins the labels saved by the Calibration Bench page with Jev's hidden predictions
+// Joins the labels saved by the Hallway Bench page with Jev's hidden predictions
 // and writes the calibration set that `npm run calibrate` fits.
 //
 //   node scripts/import-labels.mjs <labels-dir>

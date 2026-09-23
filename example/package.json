@@ -1,8 +1,8 @@
 {
-  "name": "jev-ui-review-example",
+  "name": "hallway-example",
   "version": "0.1.0",
   "private": true,
-  "description": "A tiny Storybook app used to exercise jev-ui-review end to end.",
+  "description": "A tiny Storybook app used to exercise hallway end to end.",
   "scripts": {
     "build-storybook": "storybook build --quiet",
     "storybook": "storybook dev -p 6006"

@@ -35,19 +35,19 @@ function readJson(file, fallback = null) {
 }
 
 async function main() {
-  const outDir = env('JEV_OUT', '.jev-review');
+  const outDir = env('HALLWAY_OUT', '.hallway');
   const state = readJson(path.join(outDir, 'state.json'));
   if (!state) throw new Error(`No ${outDir}/state.json — did phase 1 upload its artifact?`);
 
-  const questionSet = readJson(env('JEV_QUESTIONS', 'questions.json'));
-  const calibration = readJson(env('JEV_CALIBRATION', 'calibration.json'), {});
+  const questionSet = readJson(env('HALLWAY_QUESTIONS', 'questions.json'));
+  const calibration = readJson(env('HALLWAY_CALIBRATION', 'calibration.json'), {});
   const thresholds = {
-    blockingAt: Number(env('JEV_BLOCKING_AT', '0.85')),
-    lookAt: Number(env('JEV_LOOK_AT', '0.55')),
+    blockingAt: Number(env('HALLWAY_BLOCKING_AT', '0.85')),
+    lookAt: Number(env('HALLWAY_LOOK_AT', '0.55')),
   };
 
   const token = process.env.GITHUB_TOKEN;
-  const prNumber = Number(env('JEV_PR_NUMBER', '0')) || state.meta?.prNumber || 0;
+  const prNumber = Number(env('HALLWAY_PR_NUMBER', '0')) || state.meta?.prNumber || 0;
   let previous = {};
   let octokit = null;
   let repo = null;
@@ -73,7 +73,7 @@ async function main() {
     questionSetVersion: questionSet.version,
     thresholds,
     skipped: state.skipped,
-    stateArtifact: env('JEV_STATE_ARTIFACT', 'jev-ui-review-state'),
+    stateArtifact: env('HALLWAY_STATE_ARTIFACT', 'hallway-state'),
   });
 
   fs.writeFileSync(path.join(outDir, 'report.md'), body);
@@ -91,15 +91,15 @@ async function main() {
     await octokit.rest.issues.createComment({ ...repo, issue_number: prNumber, body });
   }
 
-  const sha = env('JEV_HEAD_SHA') || state.meta?.headSha;
-  if (sha && env('JEV_SET_CHECK', 'false') === 'true') {
+  const sha = env('HALLWAY_HEAD_SHA') || state.meta?.headSha;
+  if (sha && env('HALLWAY_SET_CHECK', 'false') === 'true') {
     await octokit.rest.checks.create({
       ...repo,
-      name: 'UI review',
+      name: 'Hallway',
       head_sha: sha,
       status: 'completed',
       conclusion: checkConclusion(components),
-      output: { title: 'Jev UI review', summary: body.slice(0, 65_000) },
+      output: { title: 'Hallway', summary: body.slice(0, 65_000) },
     });
   }
 }

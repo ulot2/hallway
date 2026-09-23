@@ -61,5 +61,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: jev-exchange
-          path: example/.jev-review/
+          path: example/.hallway/
           retention-days: 7

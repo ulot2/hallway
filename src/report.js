@@ -4,8 +4,8 @@
 // separated from probabilistic ones, and uncertain findings are collapsed context
 // rather than errors.
 
-export const MARKER = '<!-- jev-ui-review -->';
-const STATE_RE = /<!-- jev-state (.*?) -->/s;
+export const MARKER = '<!-- hallway -->';
+const STATE_RE = /<!-- hallway-state (.*?) -->/s;
 
 const pct = (p) => `${Math.round(p * 100)}%`;
 
@@ -17,7 +17,7 @@ export function encodeState(components) {
       c.findings.filter((f) => f.tier).map((f) => [f.id, f.tier])
     );
   }
-  return `<!-- jev-state ${JSON.stringify(tiers)} -->`;
+  return `<!-- hallway-state ${JSON.stringify(tiers)} -->`;
 }
 
 export function decodeState(body) {
@@ -49,7 +49,7 @@ export function renderReport(components, meta = {}) {
     0
   );
 
-  const out = [MARKER, '## UI review', ''];
+  const out = [MARKER, '## Hallway · UI review', ''];
 
   if (!blocking.length && !look.length && !axeCount) {
     out.push(`No findings across ${components.length} component(s).`, '');

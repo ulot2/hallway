@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Turns a review run into a blind labeling set.
 //
-//   node scripts/build-label-set.mjs example/.jev-calibration/findings.json
+//   node scripts/build-label-set.mjs example/.hallway-calibration/findings.json
 //
 // Writes two files, deliberately split:
 //   calibration/items.json        what the labeler sees: the component and a question
@@ -17,7 +17,7 @@ import fs from 'node:fs';
 // after questions change. Predictions merge into the existing file either way, so
 // labels from earlier rounds still join to what Jev said at the time.
 const args = process.argv.slice(2);
-const src = args.find((a) => !a.startsWith('--')) ?? 'example/.jev-calibration/findings.json';
+const src = args.find((a) => !a.startsWith('--')) ?? 'example/.hallway-calibration/findings.json';
 const onlyArg = args.find((a) => a.startsWith('--only='));
 const only = onlyArg ? new Set(onlyArg.slice(7).split(',')) : null;
 const components = JSON.parse(fs.readFileSync(src, 'utf8'));

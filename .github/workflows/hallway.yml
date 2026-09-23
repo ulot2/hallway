@@ -4,7 +4,7 @@
 # do NOT add the Jev key: this job builds and renders code from the pull request, so
 # anything it can read, a pull request author can exfiltrate.
 
-name: UI review (extract)
+name: Hallway (extract)
 
 on:
   pull_request:
@@ -46,6 +46,6 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: jev-ui-review-state
-          path: .jev-review/
+          name: hallway-state
+          path: .hallway/
           retention-days: 7

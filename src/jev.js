@@ -169,7 +169,7 @@ export async function evaluate({ state, specs, apiKey, timeoutMs = 30_000 }) {
 /** With JEV_DEBUG=1, persist the exact request and response for inspection. */
 function debugDump(payload) {
   if (process.env.JEV_DEBUG !== '1') return;
-  const dir = process.env.JEV_OUT || '.jev-review';
+  const dir = process.env.HALLWAY_OUT || '.hallway';
   try {
     fs.mkdirSync(dir, { recursive: true });
     const file = path.join(dir, `jev-exchange-${Date.now()}.json`);

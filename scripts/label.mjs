@@ -2,13 +2,13 @@
 // Hand-label findings to build the calibration set. Budget an hour for ~100 rows;
 // that hour is what turns the confidence thresholds from guesses into measurements.
 //
-//   npm run label -- .jev-review/findings.json
+//   npm run label -- .hallway/findings.json
 
 import fs from 'node:fs';
 import readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 
-const file = process.argv[2] ?? '.jev-review/findings.json';
+const file = process.argv[2] ?? '.hallway/findings.json';
 const out = 'calibration-set.jsonl';
 
 if (!fs.existsSync(file)) {

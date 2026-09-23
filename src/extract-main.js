@@ -15,19 +15,19 @@ import { extractState, runAxe, describe } from './extract.js';
 const env = (k, d) => process.env[k] ?? d;
 
 function changedFiles(baseRef) {
-  if (process.env.JEV_CHANGED_FILES) {
-    return process.env.JEV_CHANGED_FILES.split(/[\n,]/).map((s) => s.trim()).filter(Boolean);
+  if (process.env.HALLWAY_CHANGED_FILES) {
+    return process.env.HALLWAY_CHANGED_FILES.split(/[\n,]/).map((s) => s.trim()).filter(Boolean);
   }
   const out = execFileSync('git', ['diff', '--name-only', `${baseRef}...HEAD`], { encoding: 'utf8' });
   return out.split('\n').map((s) => s.trim()).filter(Boolean);
 }
 
 async function main() {
-  const staticDir = env('JEV_STORYBOOK_DIR', 'storybook-static');
-  const rootDir = env('JEV_ROOT', process.cwd());
-  const outDir = env('JEV_OUT', '.jev-review');
-  const maxStories = Number(env('JEV_MAX_STORIES', '25'));
-  const baseRef = env('JEV_BASE_REF', 'origin/main');
+  const staticDir = env('HALLWAY_STORYBOOK_DIR', 'storybook-static');
+  const rootDir = env('HALLWAY_ROOT', process.cwd());
+  const outDir = env('HALLWAY_OUT', '.hallway');
+  const maxStories = Number(env('HALLWAY_MAX_STORIES', '25'));
+  const baseRef = env('HALLWAY_BASE_REF', 'origin/main');
 
   const changed = changedFiles(baseRef);
   console.log(`Changed files: ${changed.length}`);
@@ -42,8 +42,8 @@ async function main() {
   // Phase 2 runs from a different workflow and cannot see this PR's context, so the
   // identifiers travel with the artifact.
   const meta = {
-    prNumber: Number(env('JEV_PR_NUMBER', '0')) || null,
-    headSha: env('JEV_HEAD_SHA', null),
+    prNumber: Number(env('HALLWAY_PR_NUMBER', '0')) || null,
+    headSha: env('HALLWAY_HEAD_SHA', null),
     baseRef,
   };
 

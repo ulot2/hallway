@@ -43,8 +43,8 @@ for (let i = 0; i < runs; i += 1) {
 console.log('\n');
 
 const THRESHOLDS = [
-  Number(process.env.JEV_LOOK_AT ?? 0.55),
-  Number(process.env.JEV_BLOCKING_AT ?? 0.85),
+  Number(process.env.HALLWAY_LOOK_AT ?? 0.55),
+  Number(process.env.HALLWAY_BLOCKING_AT ?? 0.85),
 ];
 
 console.log('  question                        mean     sd      min     max   margin  verdict');
