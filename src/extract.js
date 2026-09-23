@@ -83,6 +83,9 @@ export async function extractState(page, { url, name, rootSelector } = {}) {
     // Certain, not guessed: the extractor has the control list in hand. Asking Jev to
     // judge button labels on a component with no buttons produced confident nonsense.
     has_controls: controls.length > 0,
+    // Two or more things to click. Competing actions need at least two; asking about
+    // them on a one-button component invites an answer to a question that doesn't apply.
+    has_multiple_actions: controls.filter((c) => c.tag === 'button' || c.tag === 'a').length >= 2,
     has_error_text: ERROR_HINT.test(joined),
     has_empty_state: EMPTY_HINT.test(joined),
     has_destructive_action:

@@ -19,6 +19,9 @@ if (!dir || !fs.existsSync(dir)) {
 }
 
 const predictions = JSON.parse(fs.readFileSync('calibration/predictions.json', 'utf8'));
+// Labels for retired questions stay in the store as history, but they must not shape
+// the calibration of the questions that replaced them.
+const live = new Set(JSON.parse(fs.readFileSync('questions.json', 'utf8')).questions.map((q) => q.id));
 
 function* files(d) {
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {
@@ -29,7 +32,7 @@ function* files(d) {
 }
 
 const rows = [];
-const counts = { yes: 0, no: 0, unsure: 0, unknown: 0 };
+const counts = { yes: 0, no: 0, unsure: 0, unknown: 0, retired: 0 };
 for (const file of files(dir)) {
   const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
   // Tolerate an export that wraps the body with its metadata.
@@ -40,7 +43,11 @@ for (const file of files(dir)) {
     counts.unknown += 1;
     continue;
   }
-  if (!(body.answer in counts)) continue;
+  if (!live.has(pred.question_id)) {
+    counts.retired += 1;
+    continue;
+  }
+  if (!['yes', 'no', 'unsure'].includes(body.answer)) continue;
   counts[body.answer] += 1;
   if (body.answer === 'unsure') continue;
   rows.push({
@@ -54,5 +61,6 @@ for (const file of files(dir)) {
 
 fs.writeFileSync('calibration-set.jsonl', rows.map((r) => JSON.stringify(r)).join('\n') + '\n');
 console.log(`yes ${counts.yes} · no ${counts.no} · skipped ${counts.unsure}` +
-  (counts.unknown ? ` · ${counts.unknown} not matched to a prediction` : ''));
+  (counts.unknown ? ` · ${counts.unknown} not matched to a prediction` : '') +
+  (counts.retired ? ` · ${counts.retired} for retired questions, left out` : ''));
 console.log(`Wrote ${rows.length} rows to calibration-set.jsonl. Next: npm run calibrate`);

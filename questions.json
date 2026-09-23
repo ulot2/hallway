@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies, and ride along in the same call. Wire format: noul needs \"instructions\"; choice needs \"criteria\" as an object mapping each option to a description; score needs ordered \"levels\" (sent as criteria). See src/jev.js.",
   "questions": [
     {
@@ -27,20 +27,14 @@
       "instructions": "Answer yes if any control deletes data, cancels a subscription, revokes access, or is otherwise hard or impossible to undo. Judge by what the action does, not by whether the label uses a particular verb."
     },
     {
-      "id": "primary_action_obvious",
-      "type": "score",
-      "question": "How obvious is the single primary action a first-time user should take in this component?",
-      "levels": [
-        "not discoverable",
-        "ambiguous",
-        "clear",
-        "unmistakable"
-      ],
-      "fail_when": "below",
-      "fail_at": 1.5,
-      "rationale": "A linter can confirm a button exists; it cannot judge whether the user can tell which one matters.",
-      "instructions": "Judge how quickly a first-time user could identify the single most important action. Consider whether one action stands out from the others in prominence and wording.",
-      "label_prompt": "Is it unclear which action is the main one you're supposed to take?"
+      "id": "competing_actions",
+      "type": "noul",
+      "question": "Does this component offer two or more actions that compete for the same role, with nothing in their wording to say which one to use?",
+      "instructions": "Answer yes when actions overlap in purpose and their labels do not distinguish them, such as \"Save\", \"Save and close\" and \"Apply\" side by side, or \"Continue\" next to \"Next\". Answer no when the actions are clearly different in kind: a primary action with a cancel, a back link, or a secondary help link (\"Forgot your password?\") does not compete. Judge from the wording only; do not consider visual prominence.",
+      "applies_when": "has_multiple_actions",
+      "fail_when": "true",
+      "label_prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+      "rationale": "Replaces primary_action_obvious, which asked about visual prominence the pipeline cannot see."
     },
     {
       "id": "error_message_actionable",
@@ -69,26 +63,14 @@
       "label_prompt": "Is the empty state a dead end, with no clear next step?"
     },
     {
-      "id": "button_label_quality",
-      "type": "choice",
-      "question": "How do the interactive control labels in this component read?",
-      "options": [
-        "outcome verbs",
-        "generic",
-        "ambiguous or unlabeled"
-      ],
-      "fail_options": [
-        "generic",
-        "ambiguous or unlabeled"
-      ],
-      "rationale": "jsx-a11y can require an accessible name; it cannot tell you the name is meaningless.",
-      "criteria": {
-        "outcome verbs": "Labels name what will happen, such as \"Save changes\", \"Send invitation\" or \"Delete project\". A user could predict the result from the label alone.",
-        "generic": "Labels are non-specific defaults such as \"Submit\", \"OK\", \"Continue\" or \"Yes\". They say a button exists but not what it does.",
-        "ambiguous or unlabeled": "Labels are missing, are icons with no accessible name, or are so vague that the effect cannot be guessed."
-      },
-      "label_prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-      "applies_when": "has_controls"
+      "id": "button_labels_predictable",
+      "type": "noul",
+      "question": "Given the rest of this component, could a first-time user predict what each button or link will do before pressing it?",
+      "instructions": "Judge each label in the context of the component around it, not in isolation. A conventional label is fine when its effect is obvious from context: \"Sign in\" or \"Submit\" on a sign-in form, \"Yes\" and \"No\" under a question that names what is being confirmed. Answer no only if at least one label leaves its effect genuinely unclear even with that context: \"Remove\" beside several items without saying which, \"OK\" on a panel that never explains what it changes, \"Yes\" under \"Are you sure?\" with no subject.",
+      "applies_when": "has_controls",
+      "fail_when": "false",
+      "label_prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
+      "rationale": "Replaces button_label_quality, which judged labels against a fixed list rather than in context."
     },
     {
       "id": "purpose_clear_from_text",
@@ -119,5 +101,9 @@
       "instructions": "Answer yes only if the component both marks the destructive action as dangerous and indicates a confirmation step before it takes effect. A bare button that deletes immediately is not guarded.",
       "label_prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?"
     }
-  ]
+  ],
+  "retired": {
+    "primary_action_obvious": "Asked which action is visually primary, but the pipeline sends Jev text and structure, never layout or styling, so it cannot see prominence. Against 28 blind human labels it ranked barely above chance (AUC 0.61) and never once flagged a problem the human flagged 10 times. Replaced by competing_actions, the part of the idea that text can answer.",
+    "button_label_quality": "Judged labels against a fixed list (\"Submit\", \"OK\" and \"Yes\" are generic). The human labeler judged them in context: \"Submit\" on a sign-in form is clear. AUC 0.61. Replaced by button_labels_predictable, which asks what the labeler was actually judging."
+  }
 }

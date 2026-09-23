@@ -13,7 +13,13 @@
 
 import fs from 'node:fs';
 
-const src = process.argv[2] ?? 'example/.jev-calibration/findings.json';
+// --only=a,b restricts the published set to those questions, for a follow-up round
+// after questions change. Predictions merge into the existing file either way, so
+// labels from earlier rounds still join to what Jev said at the time.
+const args = process.argv.slice(2);
+const src = args.find((a) => !a.startsWith('--')) ?? 'example/.jev-calibration/findings.json';
+const onlyArg = args.find((a) => a.startsWith('--only='));
+const only = onlyArg ? new Set(onlyArg.slice(7).split(',')) : null;
 const components = JSON.parse(fs.readFileSync(src, 'utf8'));
 const questions = JSON.parse(fs.readFileSync('questions.json', 'utf8')).questions;
 const promptFor = Object.fromEntries(questions.map((q) => [q.id, q.label_prompt]));
@@ -29,12 +35,14 @@ for (let i = order.length - 1; i > 0; i -= 1) {
 }
 
 const items = [];
-const predictions = {};
+const predPath = 'calibration/predictions.json';
+const predictions = fs.existsSync(predPath) ? JSON.parse(fs.readFileSync(predPath, 'utf8')) : {};
 for (const c of order) {
   // Questions for one component stay together: the labeler reads it once and answers
   // several, which is faster and does not leak anything about Jev's answers.
   for (const f of c.findings) {
     if (f.skipped || f.p == null) continue;
+    if (only && !only.has(f.id)) continue;
     if (!promptFor[f.id]) throw new Error(`No label_prompt for question "${f.id}"`);
     const id = `${c.storyId}::${f.id}`;
     items.push({

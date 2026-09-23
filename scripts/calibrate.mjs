@@ -25,7 +25,7 @@ function loadSamples() {
     return Array.from({ length: 200 }, () => {
       const p = rand();
       const truth = p ** 1.8; // real probability is lower than claimed
-      return { question_id: 'primary_action_obvious', p, y: rand() < truth ? 1 : 0 };
+      return { question_id: 'purpose_clear_from_text', p, y: rand() < truth ? 1 : 0 };
     });
   }
   if (!fs.existsSync(file)) {

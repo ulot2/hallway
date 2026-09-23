@@ -1,709 +1,240 @@
 [
   {
-    "id": "calibration--case-12::primary_action_obvious",
+    "id": "calibration--case-12::competing_actions",
     "case": "Case 12",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<ul><li><span>Quarterly report.pdf</span><button type=\"button\">Remove</button></li><li><span>Budget 2026.xlsx</span><button type=\"button\">Remove</button></li></ul>"
   },
   {
-    "id": "calibration--case-12::button_label_quality",
+    "id": "calibration--case-12::button_labels_predictable",
     "case": "Case 12",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<ul><li><span>Quarterly report.pdf</span><button type=\"button\">Remove</button></li><li><span>Budget 2026.xlsx</span><button type=\"button\">Remove</button></li></ul>"
   },
   {
-    "id": "calibration--case-12::purpose_clear_from_text",
-    "case": "Case 12",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<ul><li><span>Quarterly report.pdf</span><button type=\"button\">Remove</button></li><li><span>Budget 2026.xlsx</span><button type=\"button\">Remove</button></li></ul>"
-  },
-  {
-    "id": "calibration--case-12::destructive_action_guarded",
-    "case": "Case 12",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<ul><li><span>Quarterly report.pdf</span><button type=\"button\">Remove</button></li><li><span>Budget 2026.xlsx</span><button type=\"button\">Remove</button></li></ul>"
-  },
-  {
-    "id": "calibration--case-26::primary_action_obvious",
+    "id": "calibration--case-26::button_labels_predictable",
     "case": "Case 26",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Upload a photo</h2><p role=\"alert\">File too large.</p><button type=\"button\">Choose file</button></section>"
   },
   {
-    "id": "calibration--case-26::error_message_actionable",
-    "case": "Case 26",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<section><h2>Upload a photo</h2><p role=\"alert\">File too large.</p><button type=\"button\">Choose file</button></section>"
-  },
-  {
-    "id": "calibration--case-26::button_label_quality",
-    "case": "Case 26",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Upload a photo</h2><p role=\"alert\">File too large.</p><button type=\"button\">Choose file</button></section>"
-  },
-  {
-    "id": "calibration--case-26::purpose_clear_from_text",
-    "case": "Case 26",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Upload a photo</h2><p role=\"alert\">File too large.</p><button type=\"button\">Choose file</button></section>"
-  },
-  {
-    "id": "calibration--case-16::primary_action_obvious",
+    "id": "calibration--case-16::competing_actions",
     "case": "Case 16",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<form><h2>Display settings</h2><label for=\"c16-theme\">Theme</label><select id=\"c16-theme\"><option>Light</option><option>Dark</option></select><button type=\"submit\">Save display settings</button><button type=\"button\">Cancel</button></form>"
   },
   {
-    "id": "calibration--case-16::button_label_quality",
+    "id": "calibration--case-16::button_labels_predictable",
     "case": "Case 16",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h2>Display settings</h2><label for=\"c16-theme\">Theme</label><select id=\"c16-theme\"><option>Light</option><option>Dark</option></select><button type=\"submit\">Save display settings</button><button type=\"button\">Cancel</button></form>"
   },
   {
-    "id": "calibration--case-16::purpose_clear_from_text",
-    "case": "Case 16",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h2>Display settings</h2><label for=\"c16-theme\">Theme</label><select id=\"c16-theme\"><option>Light</option><option>Dark</option></select><button type=\"submit\">Save display settings</button><button type=\"button\">Cancel</button></form>"
-  },
-  {
-    "id": "calibration--case-04::primary_action_obvious",
+    "id": "calibration--case-04::button_labels_predictable",
     "case": "Case 04",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h1>Create your account</h1><label for=\"c4-email\">Email</label><input id=\"c4-email\" type=\"email\"><label for=\"c4-pw\">Password</label><input id=\"c4-pw\" type=\"password\"><p role=\"alert\">Password does not meet requirements.</p><button type=\"submit\">Create account</button></form>"
   },
   {
-    "id": "calibration--case-04::error_message_actionable",
-    "case": "Case 04",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<form><h1>Create your account</h1><label for=\"c4-email\">Email</label><input id=\"c4-email\" type=\"email\"><label for=\"c4-pw\">Password</label><input id=\"c4-pw\" type=\"password\"><p role=\"alert\">Password does not meet requirements.</p><button type=\"submit\">Create account</button></form>"
-  },
-  {
-    "id": "calibration--case-04::button_label_quality",
-    "case": "Case 04",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h1>Create your account</h1><label for=\"c4-email\">Email</label><input id=\"c4-email\" type=\"email\"><label for=\"c4-pw\">Password</label><input id=\"c4-pw\" type=\"password\"><p role=\"alert\">Password does not meet requirements.</p><button type=\"submit\">Create account</button></form>"
-  },
-  {
-    "id": "calibration--case-04::purpose_clear_from_text",
-    "case": "Case 04",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h1>Create your account</h1><label for=\"c4-email\">Email</label><input id=\"c4-email\" type=\"email\"><label for=\"c4-pw\">Password</label><input id=\"c4-pw\" type=\"password\"><p role=\"alert\">Password does not meet requirements.</p><button type=\"submit\">Create account</button></form>"
-  },
-  {
-    "id": "calibration--case-11::primary_action_obvious",
+    "id": "calibration--case-11::button_labels_predictable",
     "case": "Case 11",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Delete account</h2><p>This permanently deletes your account and all of your data.</p><p>You will be asked to type your email address to confirm.</p><button type=\"button\">Delete my account…</button></section>"
   },
   {
-    "id": "calibration--case-11::button_label_quality",
-    "case": "Case 11",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Delete account</h2><p>This permanently deletes your account and all of your data.</p><p>You will be asked to type your email address to confirm.</p><button type=\"button\">Delete my account…</button></section>"
-  },
-  {
-    "id": "calibration--case-11::purpose_clear_from_text",
-    "case": "Case 11",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Delete account</h2><p>This permanently deletes your account and all of your data.</p><p>You will be asked to type your email address to confirm.</p><button type=\"button\">Delete my account…</button></section>"
-  },
-  {
-    "id": "calibration--case-11::destructive_action_guarded",
-    "case": "Case 11",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<section><h2>Delete account</h2><p>This permanently deletes your account and all of your data.</p><p>You will be asked to type your email address to confirm.</p><button type=\"button\">Delete my account…</button></section>"
-  },
-  {
-    "id": "calibration--case-22::primary_action_obvious",
+    "id": "calibration--case-22::button_labels_predictable",
     "case": "Case 22",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h2>Invite</h2><label for=\"c22-email\">Email address</label><input id=\"c22-email\" type=\"email\"><button type=\"submit\">Send</button></form>"
   },
   {
-    "id": "calibration--case-22::button_label_quality",
-    "case": "Case 22",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h2>Invite</h2><label for=\"c22-email\">Email address</label><input id=\"c22-email\" type=\"email\"><button type=\"submit\">Send</button></form>"
-  },
-  {
-    "id": "calibration--case-22::purpose_clear_from_text",
-    "case": "Case 22",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h2>Invite</h2><label for=\"c22-email\">Email address</label><input id=\"c22-email\" type=\"email\"><button type=\"submit\">Send</button></form>"
-  },
-  {
-    "id": "calibration--case-23::primary_action_obvious",
+    "id": "calibration--case-23::button_labels_predictable",
     "case": "Case 23",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h2>Get product updates by email</h2><p>One email a month. Unsubscribe any time.</p><label for=\"c23-email\">Email address</label><input id=\"c23-email\" type=\"email\"><button type=\"submit\">Subscribe to updates</button></form>"
   },
   {
-    "id": "calibration--case-23::button_label_quality",
-    "case": "Case 23",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h2>Get product updates by email</h2><p>One email a month. Unsubscribe any time.</p><label for=\"c23-email\">Email address</label><input id=\"c23-email\" type=\"email\"><button type=\"submit\">Subscribe to updates</button></form>"
-  },
-  {
-    "id": "calibration--case-23::purpose_clear_from_text",
-    "case": "Case 23",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h2>Get product updates by email</h2><p>One email a month. Unsubscribe any time.</p><label for=\"c23-email\">Email address</label><input id=\"c23-email\" type=\"email\"><button type=\"submit\">Subscribe to updates</button></form>"
-  },
-  {
-    "id": "calibration--case-02::primary_action_obvious",
+    "id": "calibration--case-02::button_labels_predictable",
     "case": "Case 02",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h2>Login</h2><p role=\"alert\">Login failed.</p><label for=\"c2-user\">Username</label><input id=\"c2-user\" type=\"text\"><label for=\"c2-pw\">Password</label><input id=\"c2-pw\" type=\"password\"><button type=\"submit\">Submit</button></form>"
   },
   {
-    "id": "calibration--case-02::error_message_actionable",
-    "case": "Case 02",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<form><h2>Login</h2><p role=\"alert\">Login failed.</p><label for=\"c2-user\">Username</label><input id=\"c2-user\" type=\"text\"><label for=\"c2-pw\">Password</label><input id=\"c2-pw\" type=\"password\"><button type=\"submit\">Submit</button></form>"
-  },
-  {
-    "id": "calibration--case-02::button_label_quality",
-    "case": "Case 02",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h2>Login</h2><p role=\"alert\">Login failed.</p><label for=\"c2-user\">Username</label><input id=\"c2-user\" type=\"text\"><label for=\"c2-pw\">Password</label><input id=\"c2-pw\" type=\"password\"><button type=\"submit\">Submit</button></form>"
-  },
-  {
-    "id": "calibration--case-02::purpose_clear_from_text",
-    "case": "Case 02",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h2>Login</h2><p role=\"alert\">Login failed.</p><label for=\"c2-user\">Username</label><input id=\"c2-user\" type=\"text\"><label for=\"c2-pw\">Password</label><input id=\"c2-pw\" type=\"password\"><button type=\"submit\">Submit</button></form>"
-  },
-  {
-    "id": "calibration--case-10::primary_action_obvious",
-    "case": "Case 10",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
-    "html": "<section><h2>Notifications</h2><p>You're all caught up.</p></section>"
-  },
-  {
-    "id": "calibration--case-10::empty_state_actionable",
-    "case": "Case 10",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Notifications</h2><p>You're all caught up.</p></section>"
-  },
-  {
-    "id": "calibration--case-10::purpose_clear_from_text",
-    "case": "Case 10",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Notifications</h2><p>You're all caught up.</p></section>"
-  },
-  {
-    "id": "calibration--case-21::primary_action_obvious",
+    "id": "calibration--case-21::button_labels_predictable",
     "case": "Case 21",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h3>Beta</h3><label><input type=\"checkbox\"> Option A</label><label><input type=\"checkbox\"> Option B</label><button type=\"button\">OK</button></section>"
   },
   {
-    "id": "calibration--case-21::button_label_quality",
-    "case": "Case 21",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h3>Beta</h3><label><input type=\"checkbox\"> Option A</label><label><input type=\"checkbox\"> Option B</label><button type=\"button\">OK</button></section>"
-  },
-  {
-    "id": "calibration--case-21::purpose_clear_from_text",
-    "case": "Case 21",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h3>Beta</h3><label><input type=\"checkbox\"> Option A</label><label><input type=\"checkbox\"> Option B</label><button type=\"button\">OK</button></section>"
-  },
-  {
-    "id": "calibration--case-14::primary_action_obvious",
+    "id": "calibration--case-14::button_labels_predictable",
     "case": "Case 14",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Your plan</h2><p>Pro plan, renews on June 30.</p><p>If you cancel, you keep Pro features until June 30 and can resubscribe any time.</p><button type=\"button\">Cancel subscription</button></section>"
   },
   {
-    "id": "calibration--case-14::button_label_quality",
-    "case": "Case 14",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Your plan</h2><p>Pro plan, renews on June 30.</p><p>If you cancel, you keep Pro features until June 30 and can resubscribe any time.</p><button type=\"button\">Cancel subscription</button></section>"
-  },
-  {
-    "id": "calibration--case-14::purpose_clear_from_text",
-    "case": "Case 14",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Your plan</h2><p>Pro plan, renews on June 30.</p><p>If you cancel, you keep Pro features until June 30 and can resubscribe any time.</p><button type=\"button\">Cancel subscription</button></section>"
-  },
-  {
-    "id": "calibration--case-14::destructive_action_guarded",
-    "case": "Case 14",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<section><h2>Your plan</h2><p>Pro plan, renews on June 30.</p><p>If you cancel, you keep Pro features until June 30 and can resubscribe any time.</p><button type=\"button\">Cancel subscription</button></section>"
-  },
-  {
-    "id": "calibration--case-01::primary_action_obvious",
+    "id": "calibration--case-01::competing_actions",
     "case": "Case 01",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<form><h1>Sign in</h1><p role=\"alert\">Incorrect email or password.</p><label for=\"c1-email\">Email</label><input id=\"c1-email\" type=\"email\"><label for=\"c1-pw\">Password</label><input id=\"c1-pw\" type=\"password\"><button type=\"submit\">Sign in</button><a href=\"#reset\">Forgot your password?</a></form>"
   },
   {
-    "id": "calibration--case-01::error_message_actionable",
+    "id": "calibration--case-01::button_labels_predictable",
     "case": "Case 01",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h1>Sign in</h1><p role=\"alert\">Incorrect email or password.</p><label for=\"c1-email\">Email</label><input id=\"c1-email\" type=\"email\"><label for=\"c1-pw\">Password</label><input id=\"c1-pw\" type=\"password\"><button type=\"submit\">Sign in</button><a href=\"#reset\">Forgot your password?</a></form>"
   },
   {
-    "id": "calibration--case-01::button_label_quality",
-    "case": "Case 01",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h1>Sign in</h1><p role=\"alert\">Incorrect email or password.</p><label for=\"c1-email\">Email</label><input id=\"c1-email\" type=\"email\"><label for=\"c1-pw\">Password</label><input id=\"c1-pw\" type=\"password\"><button type=\"submit\">Sign in</button><a href=\"#reset\">Forgot your password?</a></form>"
-  },
-  {
-    "id": "calibration--case-01::purpose_clear_from_text",
-    "case": "Case 01",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h1>Sign in</h1><p role=\"alert\">Incorrect email or password.</p><label for=\"c1-email\">Email</label><input id=\"c1-email\" type=\"email\"><label for=\"c1-pw\">Password</label><input id=\"c1-pw\" type=\"password\"><button type=\"submit\">Sign in</button><a href=\"#reset\">Forgot your password?</a></form>"
-  },
-  {
-    "id": "calibration--case-27::primary_action_obvious",
+    "id": "calibration--case-27::button_labels_predictable",
     "case": "Case 27",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Upload a photo</h2><p role=\"alert\">That file is 14 MB. Photos must be 10 MB or smaller.</p><button type=\"button\">Choose a smaller photo</button></section>"
   },
   {
-    "id": "calibration--case-27::error_message_actionable",
-    "case": "Case 27",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<section><h2>Upload a photo</h2><p role=\"alert\">That file is 14 MB. Photos must be 10 MB or smaller.</p><button type=\"button\">Choose a smaller photo</button></section>"
-  },
-  {
-    "id": "calibration--case-27::button_label_quality",
-    "case": "Case 27",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Upload a photo</h2><p role=\"alert\">That file is 14 MB. Photos must be 10 MB or smaller.</p><button type=\"button\">Choose a smaller photo</button></section>"
-  },
-  {
-    "id": "calibration--case-27::purpose_clear_from_text",
-    "case": "Case 27",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Upload a photo</h2><p role=\"alert\">That file is 14 MB. Photos must be 10 MB or smaller.</p><button type=\"button\">Choose a smaller photo</button></section>"
-  },
-  {
-    "id": "calibration--case-19::primary_action_obvious",
+    "id": "calibration--case-19::competing_actions",
     "case": "Case 19",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<div role=\"dialog\" aria-labelledby=\"c19-t\"><h2 id=\"c19-t\">Discard unsaved changes?</h2><p>Your edits to \"Q3 roadmap\" will be lost.</p><button type=\"button\">Discard changes</button><button type=\"button\">Keep editing</button></div>"
   },
   {
-    "id": "calibration--case-19::button_label_quality",
+    "id": "calibration--case-19::button_labels_predictable",
     "case": "Case 19",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<div role=\"dialog\" aria-labelledby=\"c19-t\"><h2 id=\"c19-t\">Discard unsaved changes?</h2><p>Your edits to \"Q3 roadmap\" will be lost.</p><button type=\"button\">Discard changes</button><button type=\"button\">Keep editing</button></div>"
   },
   {
-    "id": "calibration--case-19::purpose_clear_from_text",
-    "case": "Case 19",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c19-t\"><h2 id=\"c19-t\">Discard unsaved changes?</h2><p>Your edits to \"Q3 roadmap\" will be lost.</p><button type=\"button\">Discard changes</button><button type=\"button\">Keep editing</button></div>"
-  },
-  {
-    "id": "calibration--case-19::destructive_action_guarded",
-    "case": "Case 19",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c19-t\"><h2 id=\"c19-t\">Discard unsaved changes?</h2><p>Your edits to \"Q3 roadmap\" will be lost.</p><button type=\"button\">Discard changes</button><button type=\"button\">Keep editing</button></div>"
-  },
-  {
-    "id": "calibration--case-17::primary_action_obvious",
+    "id": "calibration--case-17::competing_actions",
     "case": "Case 17",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<form><p>Step 2 of 4</p><h2>Shipping address</h2><label for=\"c17-street\">Street address</label><input id=\"c17-street\" type=\"text\"><label for=\"c17-city\">City</label><input id=\"c17-city\" type=\"text\"><button type=\"submit\">Next</button><button type=\"button\">Back</button></form>"
   },
   {
-    "id": "calibration--case-17::button_label_quality",
+    "id": "calibration--case-17::button_labels_predictable",
     "case": "Case 17",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><p>Step 2 of 4</p><h2>Shipping address</h2><label for=\"c17-street\">Street address</label><input id=\"c17-street\" type=\"text\"><label for=\"c17-city\">City</label><input id=\"c17-city\" type=\"text\"><button type=\"submit\">Next</button><button type=\"button\">Back</button></form>"
   },
   {
-    "id": "calibration--case-17::purpose_clear_from_text",
-    "case": "Case 17",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><p>Step 2 of 4</p><h2>Shipping address</h2><label for=\"c17-street\">Street address</label><input id=\"c17-street\" type=\"text\"><label for=\"c17-city\">City</label><input id=\"c17-city\" type=\"text\"><button type=\"submit\">Next</button><button type=\"button\">Back</button></form>"
-  },
-  {
-    "id": "calibration--case-20::primary_action_obvious",
+    "id": "calibration--case-20::button_labels_predictable",
     "case": "Case 20",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h3>Usage</h3><p>72%</p><button type=\"button\">Details</button></section>"
   },
   {
-    "id": "calibration--case-20::button_label_quality",
-    "case": "Case 20",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h3>Usage</h3><p>72%</p><button type=\"button\">Details</button></section>"
-  },
-  {
-    "id": "calibration--case-20::purpose_clear_from_text",
-    "case": "Case 20",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h3>Usage</h3><p>72%</p><button type=\"button\">Details</button></section>"
-  },
-  {
-    "id": "calibration--case-06::primary_action_obvious",
+    "id": "calibration--case-06::competing_actions",
     "case": "Case 06",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<section><h2>Payment</h2><p role=\"alert\">Payment error (code 402).</p><label for=\"c6-card\">Card number</label><input id=\"c6-card\" type=\"text\"><button type=\"submit\">Continue</button><button type=\"button\">Cancel</button></section>"
   },
   {
-    "id": "calibration--case-06::error_message_actionable",
+    "id": "calibration--case-06::button_labels_predictable",
     "case": "Case 06",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Payment</h2><p role=\"alert\">Payment error (code 402).</p><label for=\"c6-card\">Card number</label><input id=\"c6-card\" type=\"text\"><button type=\"submit\">Continue</button><button type=\"button\">Cancel</button></section>"
   },
   {
-    "id": "calibration--case-06::button_label_quality",
-    "case": "Case 06",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Payment</h2><p role=\"alert\">Payment error (code 402).</p><label for=\"c6-card\">Card number</label><input id=\"c6-card\" type=\"text\"><button type=\"submit\">Continue</button><button type=\"button\">Cancel</button></section>"
-  },
-  {
-    "id": "calibration--case-06::purpose_clear_from_text",
-    "case": "Case 06",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Payment</h2><p role=\"alert\">Payment error (code 402).</p><label for=\"c6-card\">Card number</label><input id=\"c6-card\" type=\"text\"><button type=\"submit\">Continue</button><button type=\"button\">Cancel</button></section>"
-  },
-  {
-    "id": "calibration--case-09::primary_action_obvious",
+    "id": "calibration--case-09::button_labels_predictable",
     "case": "Case 09",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Project files</h2><p>This folder is empty.</p><button type=\"button\">Upload</button></section>"
   },
   {
-    "id": "calibration--case-09::empty_state_actionable",
-    "case": "Case 09",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Project files</h2><p>This folder is empty.</p><button type=\"button\">Upload</button></section>"
-  },
-  {
-    "id": "calibration--case-09::button_label_quality",
-    "case": "Case 09",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Project files</h2><p>This folder is empty.</p><button type=\"button\">Upload</button></section>"
-  },
-  {
-    "id": "calibration--case-09::purpose_clear_from_text",
-    "case": "Case 09",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Project files</h2><p>This folder is empty.</p><button type=\"button\">Upload</button></section>"
-  },
-  {
-    "id": "calibration--case-15::primary_action_obvious",
+    "id": "calibration--case-15::competing_actions",
     "case": "Case 15",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<form><h2>Display settings</h2><label for=\"c15-theme\">Theme</label><select id=\"c15-theme\"><option>Light</option><option>Dark</option></select><button type=\"button\">Save</button><button type=\"button\">Save and close</button><button type=\"button\">Apply</button></form>"
   },
   {
-    "id": "calibration--case-15::button_label_quality",
+    "id": "calibration--case-15::button_labels_predictable",
     "case": "Case 15",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h2>Display settings</h2><label for=\"c15-theme\">Theme</label><select id=\"c15-theme\"><option>Light</option><option>Dark</option></select><button type=\"button\">Save</button><button type=\"button\">Save and close</button><button type=\"button\">Apply</button></form>"
   },
   {
-    "id": "calibration--case-15::purpose_clear_from_text",
-    "case": "Case 15",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h2>Display settings</h2><label for=\"c15-theme\">Theme</label><select id=\"c15-theme\"><option>Light</option><option>Dark</option></select><button type=\"button\">Save</button><button type=\"button\">Save and close</button><button type=\"button\">Apply</button></form>"
-  },
-  {
-    "id": "calibration--case-07::primary_action_obvious",
+    "id": "calibration--case-07::button_labels_predictable",
     "case": "Case 07",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Search results</h2><p>No results for \"blue velvet sofa\".</p><p>Try fewer words, or check the spelling.</p><a href=\"#browse\">Browse all sofas</a></section>"
   },
   {
-    "id": "calibration--case-07::empty_state_actionable",
-    "case": "Case 07",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Search results</h2><p>No results for \"blue velvet sofa\".</p><p>Try fewer words, or check the spelling.</p><a href=\"#browse\">Browse all sofas</a></section>"
-  },
-  {
-    "id": "calibration--case-07::button_label_quality",
-    "case": "Case 07",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Search results</h2><p>No results for \"blue velvet sofa\".</p><p>Try fewer words, or check the spelling.</p><a href=\"#browse\">Browse all sofas</a></section>"
-  },
-  {
-    "id": "calibration--case-07::purpose_clear_from_text",
-    "case": "Case 07",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Search results</h2><p>No results for \"blue velvet sofa\".</p><p>Try fewer words, or check the spelling.</p><a href=\"#browse\">Browse all sofas</a></section>"
-  },
-  {
-    "id": "calibration--case-25::primary_action_obvious",
+    "id": "calibration--case-25::button_labels_predictable",
     "case": "Case 25",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h2>Contact details</h2><label for=\"c25-name\">Full name</label><input id=\"c25-name\" type=\"text\"><label for=\"c25-phone\">Phone number</label><input id=\"c25-phone\" aria-describedby=\"c25-err\" type=\"tel\"><p id=\"c25-err\" role=\"alert\">Required.</p><button type=\"submit\">Save contact details</button></form>"
   },
   {
-    "id": "calibration--case-25::error_message_actionable",
-    "case": "Case 25",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<form><h2>Contact details</h2><label for=\"c25-name\">Full name</label><input id=\"c25-name\" type=\"text\"><label for=\"c25-phone\">Phone number</label><input id=\"c25-phone\" aria-describedby=\"c25-err\" type=\"tel\"><p id=\"c25-err\" role=\"alert\">Required.</p><button type=\"submit\">Save contact details</button></form>"
-  },
-  {
-    "id": "calibration--case-25::button_label_quality",
-    "case": "Case 25",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h2>Contact details</h2><label for=\"c25-name\">Full name</label><input id=\"c25-name\" type=\"text\"><label for=\"c25-phone\">Phone number</label><input id=\"c25-phone\" aria-describedby=\"c25-err\" type=\"tel\"><p id=\"c25-err\" role=\"alert\">Required.</p><button type=\"submit\">Save contact details</button></form>"
-  },
-  {
-    "id": "calibration--case-25::purpose_clear_from_text",
-    "case": "Case 25",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<form><h2>Contact details</h2><label for=\"c25-name\">Full name</label><input id=\"c25-name\" type=\"text\"><label for=\"c25-phone\">Phone number</label><input id=\"c25-phone\" aria-describedby=\"c25-err\" type=\"tel\"><p id=\"c25-err\" role=\"alert\">Required.</p><button type=\"submit\">Save contact details</button></form>"
-  },
-  {
-    "id": "calibration--case-18::primary_action_obvious",
+    "id": "calibration--case-18::competing_actions",
     "case": "Case 18",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<div role=\"dialog\" aria-labelledby=\"c18-t\"><h2 id=\"c18-t\">Are you sure?</h2><button type=\"button\">Yes</button><button type=\"button\">No</button></div>"
   },
   {
-    "id": "calibration--case-18::button_label_quality",
+    "id": "calibration--case-18::button_labels_predictable",
     "case": "Case 18",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<div role=\"dialog\" aria-labelledby=\"c18-t\"><h2 id=\"c18-t\">Are you sure?</h2><button type=\"button\">Yes</button><button type=\"button\">No</button></div>"
   },
   {
-    "id": "calibration--case-18::purpose_clear_from_text",
-    "case": "Case 18",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c18-t\"><h2 id=\"c18-t\">Are you sure?</h2><button type=\"button\">Yes</button><button type=\"button\">No</button></div>"
-  },
-  {
-    "id": "calibration--case-05::primary_action_obvious",
+    "id": "calibration--case-05::competing_actions",
     "case": "Case 05",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<section><h2>Payment</h2><p role=\"alert\">Your card was declined. Try another card, or contact your bank.</p><label for=\"c5-card\">Card number</label><input id=\"c5-card\" type=\"text\"><button type=\"submit\">Pay $42.00</button><button type=\"button\">Back to cart</button></section>"
   },
   {
-    "id": "calibration--case-05::error_message_actionable",
+    "id": "calibration--case-05::button_labels_predictable",
     "case": "Case 05",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Payment</h2><p role=\"alert\">Your card was declined. Try another card, or contact your bank.</p><label for=\"c5-card\">Card number</label><input id=\"c5-card\" type=\"text\"><button type=\"submit\">Pay $42.00</button><button type=\"button\">Back to cart</button></section>"
   },
   {
-    "id": "calibration--case-05::button_label_quality",
-    "case": "Case 05",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Payment</h2><p role=\"alert\">Your card was declined. Try another card, or contact your bank.</p><label for=\"c5-card\">Card number</label><input id=\"c5-card\" type=\"text\"><button type=\"submit\">Pay $42.00</button><button type=\"button\">Back to cart</button></section>"
-  },
-  {
-    "id": "calibration--case-05::purpose_clear_from_text",
-    "case": "Case 05",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Payment</h2><p role=\"alert\">Your card was declined. Try another card, or contact your bank.</p><label for=\"c5-card\">Card number</label><input id=\"c5-card\" type=\"text\"><button type=\"submit\">Pay $42.00</button><button type=\"button\">Back to cart</button></section>"
-  },
-  {
-    "id": "calibration--case-28::primary_action_obvious",
-    "case": "Case 28",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
-    "html": "<section><h2>Sign in</h2><p role=\"alert\">Too many attempts. Try again in 15 minutes.</p></section>"
-  },
-  {
-    "id": "calibration--case-28::error_message_actionable",
-    "case": "Case 28",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<section><h2>Sign in</h2><p role=\"alert\">Too many attempts. Try again in 15 minutes.</p></section>"
-  },
-  {
-    "id": "calibration--case-28::purpose_clear_from_text",
-    "case": "Case 28",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Sign in</h2><p role=\"alert\">Too many attempts. Try again in 15 minutes.</p></section>"
-  },
-  {
-    "id": "calibration--case-13::primary_action_obvious",
+    "id": "calibration--case-13::button_labels_predictable",
     "case": "Case 13",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Danger zone</h2><p>Deleting a project cannot be undone.</p><button type=\"button\">Delete project</button></section>"
   },
   {
-    "id": "calibration--case-13::button_label_quality",
-    "case": "Case 13",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Danger zone</h2><p>Deleting a project cannot be undone.</p><button type=\"button\">Delete project</button></section>"
-  },
-  {
-    "id": "calibration--case-13::purpose_clear_from_text",
-    "case": "Case 13",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Danger zone</h2><p>Deleting a project cannot be undone.</p><button type=\"button\">Delete project</button></section>"
-  },
-  {
-    "id": "calibration--case-13::destructive_action_guarded",
-    "case": "Case 13",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<section><h2>Danger zone</h2><p>Deleting a project cannot be undone.</p><button type=\"button\">Delete project</button></section>"
-  },
-  {
-    "id": "calibration--case-08::primary_action_obvious",
-    "case": "Case 08",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
-    "html": "<section><h2>Results</h2><p>No results.</p></section>"
-  },
-  {
-    "id": "calibration--case-08::empty_state_actionable",
-    "case": "Case 08",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Results</h2><p>No results.</p></section>"
-  },
-  {
-    "id": "calibration--case-08::purpose_clear_from_text",
-    "case": "Case 08",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Results</h2><p>No results.</p></section>"
-  },
-  {
-    "id": "calibration--case-24::primary_action_obvious",
+    "id": "calibration--case-24::button_labels_predictable",
     "case": "Case 24",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<section><h2>Something went wrong</h2><p role=\"alert\">We couldn't load your dashboard.</p><button type=\"button\">Retry</button></section>"
   },
   {
-    "id": "calibration--case-24::error_message_actionable",
-    "case": "Case 24",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<section><h2>Something went wrong</h2><p role=\"alert\">We couldn't load your dashboard.</p><button type=\"button\">Retry</button></section>"
-  },
-  {
-    "id": "calibration--case-24::button_label_quality",
-    "case": "Case 24",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Something went wrong</h2><p role=\"alert\">We couldn't load your dashboard.</p><button type=\"button\">Retry</button></section>"
-  },
-  {
-    "id": "calibration--case-24::purpose_clear_from_text",
-    "case": "Case 24",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
-    "html": "<section><h2>Something went wrong</h2><p role=\"alert\">We couldn't load your dashboard.</p><button type=\"button\">Retry</button></section>"
-  },
-  {
-    "id": "calibration--case-03::primary_action_obvious",
+    "id": "calibration--case-03::button_labels_predictable",
     "case": "Case 03",
-    "question_id": "primary_action_obvious",
-    "prompt": "Is it unclear which action is the main one you're supposed to take?",
-    "html": "<form><h1>Create your account</h1><label for=\"c3-email\">Email</label><input id=\"c3-email\" type=\"email\"><label for=\"c3-pw\">Password</label><input id=\"c3-pw\" aria-describedby=\"c3-err\" type=\"password\"><p id=\"c3-err\" role=\"alert\">Password must be at least 12 characters and include a number.</p><button type=\"submit\">Create account</button></form>"
-  },
-  {
-    "id": "calibration--case-03::error_message_actionable",
-    "case": "Case 03",
-    "question_id": "error_message_actionable",
-    "prompt": "Does the error message fail to tell you how to fix the problem?",
-    "html": "<form><h1>Create your account</h1><label for=\"c3-email\">Email</label><input id=\"c3-email\" type=\"email\"><label for=\"c3-pw\">Password</label><input id=\"c3-pw\" aria-describedby=\"c3-err\" type=\"password\"><p id=\"c3-err\" role=\"alert\">Password must be at least 12 characters and include a number.</p><button type=\"submit\">Create account</button></form>"
-  },
-  {
-    "id": "calibration--case-03::button_label_quality",
-    "case": "Case 03",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<form><h1>Create your account</h1><label for=\"c3-email\">Email</label><input id=\"c3-email\" type=\"email\"><label for=\"c3-pw\">Password</label><input id=\"c3-pw\" aria-describedby=\"c3-err\" type=\"password\"><p id=\"c3-err\" role=\"alert\">Password must be at least 12 characters and include a number.</p><button type=\"submit\">Create account</button></form>"
-  },
-  {
-    "id": "calibration--case-03::purpose_clear_from_text",
-    "case": "Case 03",
-    "question_id": "purpose_clear_from_text",
-    "prompt": "From the text alone, is it hard to tell what this is for?",
+    "question_id": "button_labels_predictable",
+    "prompt": "Is there a button or link whose effect you couldn't predict, even with the rest of the component to go on?",
     "html": "<form><h1>Create your account</h1><label for=\"c3-email\">Email</label><input id=\"c3-email\" type=\"email\"><label for=\"c3-pw\">Password</label><input id=\"c3-pw\" aria-describedby=\"c3-err\" type=\"password\"><p id=\"c3-err\" role=\"alert\">Password must be at least 12 characters and include a number.</p><button type=\"submit\">Create account</button></form>"
   }
 ]

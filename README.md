@@ -7,8 +7,9 @@ deterministically.
 
 > **Status: verified end to end against a real Storybook and the live Jev API**
 > (`jev-1.13.0`). On the example app it flags the deliberately-bad component on four
-> questions and leaves the good one completely clean. Calibrated against 96
-> blind human labels; see [Calibration results](#calibration-results).
+> questions and leaves the good one completely clean. Partly calibrated: two
+> questions were replaced after the first round of human labels and await a second
+> round. See [Calibration results](#calibration-results).
 
 ## The argument
 
@@ -315,17 +316,47 @@ questions:
 | :--- | --: | --: | :--- |
 | `error_message_actionable` | 11 | **0.94** | Excellent. Trust it. |
 | `purpose_clear_from_text` | 28 | 0.78 | Ranks well, but too lenient (said yes 1×, human 7×). More labels will fix the bias. |
-| `primary_action_obvious` | 28 | 0.61 | Near chance, and never once said yes (human: 10×). Needs rethinking. |
-| `button_label_quality` | 20 | 0.61 | Near chance. Jev calls "Submit" and "Yes/No" generic at 0.98+; the human judged them fine. A definitional disagreement, not noise. |
+| `primary_action_obvious` | 28 | 0.61 | Near chance, and never once said yes (human: 10×). **Retired.** |
+| `button_label_quality` | 20 | 0.61 | Near chance. Jev calls "Submit" and "Yes/No" generic at 0.98+; the human judged them fine. **Retired.** |
 | `empty_state_actionable` | 4 | — | Too few to judge. |
 | `destructive_action_guarded` | 5 | — | Too few to judge. |
 
-Pooled across questions, calibration error falls from **0.238 to 0.093** on 5-fold
-held-out data, and that correction is what `calibration.json` now applies. Per-question
+Pooled across all six questions, calibration error fell from 0.238 to 0.093 on 5-fold
+held-out data. **That figure was mostly the correction absorbing the two broken
+questions' bias**, and they have since been retired. Refitted on the four questions
+still in use (48 labels), the pooled correction moves held-out error only from 0.189
+to 0.171. That is the honest current state, and it is what `calibration.json` holds
+until the second round of labels arrives. Per-question
 fits were attempted wherever there were 20+ labels; the held-out guard kept the one for
 `button_label_quality` and refused the other two, because fitting them made held-out
 error *worse*. That guard is doing its job: with 28 points clustered at low
 probability, isotonic regression memorises noise.
+
+### Replacing the two weak questions
+
+Both were replaced rather than calibrated, because calibration rescales a signal and
+these had almost none. Their reasoning is kept in `questions.json` under `retired`.
+
+- **`primary_action_obvious` → `competing_actions`.** Which action is *visually* primary
+  is something the pipeline cannot see: Jev gets text and structure, never layout. The
+  part of the idea that text can answer is whether actions overlap with nothing in their
+  wording to separate them. Gated on a deterministic `has_multiple_actions` signal. Live,
+  it scores the one case built to fail it ("Save / Save and close / Apply") at 0.87 and
+  every other case at 0.33 or below.
+- **`button_label_quality` → `button_labels_predictable`.** The old question judged
+  labels against a fixed list; the labeler judged them in context, and was right to.
+  The new question asks what the labeler was actually judging: could you predict what
+  each button does, given the rest of the component? Live, it puts exactly the four
+  designed-confusing cases on top, but compresses every score into 0.17–0.46, so
+  nothing would be reported without calibration. A good ranking on a timid scale is
+  the case calibration exists for.
+
+Neither has fresh human labels yet. Against the first round's button-label answers,
+which were given to a differently worded question, the rewrite scores AUC 0.65 against
+the old 0.61. With only 5 positive labels, a single case moves that by 0.05, so it
+proves nothing either way. `import-labels` now leaves out labels for retired
+questions, and `build-label-set --only=` publishes a follow-up round for just the
+changed questions while keeping earlier predictions joinable.
 
 Two lessons came out of the labeling that no amount of unit testing would have found:
 
@@ -419,9 +450,9 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- **Two questions don't work yet.** `primary_action_obvious` and `button_label_quality`
-  rank components barely better than chance against human labels (AUC 0.61). They
-  need rewording or removing, not calibrating. See [Calibration results](#calibration-results).
+- **Two new questions have no human labels yet.** `competing_actions` and
+  `button_labels_predictable` replaced the two that ranked near chance; a 34-item second
+  round of labeling is published and waiting.
 - **One labeler, 96 labels.** The numbers below are indicative, not definitive, and
   the 28 cases were written by the same project that tests them.
 - **Stability is unmeasured.** The answers look decisive, but nobody has yet run the
