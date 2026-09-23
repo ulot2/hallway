@@ -62,6 +62,12 @@ export async function extractState(page, { url, name, rootSelector } = {}) {
           ''
         ).replace(/\s+/g, ' ').trim(),
         disabled: el.disabled === true,
+        // A styled app shows which action is the main one; text alone does not. Design
+        // systems usually say so in markup, and passing it on means Jev and a human
+        // reviewer judge hierarchy from the same information.
+        primary:
+          el.getAttribute('data-variant') === 'primary' ||
+          /(^|[\s_-])(primary|cta)([\s_-]|$)/i.test(el.getAttribute('class') || ''),
       }));
 
     // The rendered markup, so a human labeler sees the component rather than its
@@ -128,6 +134,7 @@ export function describe(state, { maxChars = 4000 } = {}) {
     ...state.controls.map(
       (c) =>
         `- <${c.tag}${c.type ? ` type=${c.type}` : ''}> "${c.label || '(no accessible name)'}"` +
+        (c.primary ? ' [primary]' : '') +
         (c.disabled ? ' [disabled]' : '')
     ),
   ];

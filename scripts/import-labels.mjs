@@ -11,6 +11,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { latestPerItem } from '../src/labels.js';
 
 const dir = process.argv[2];
 if (!dir || !fs.existsSync(dir)) {
@@ -31,13 +32,19 @@ function* files(d) {
   }
 }
 
-const rows = [];
-const counts = { yes: 0, no: 0, unsure: 0, unknown: 0, retired: 0 };
+const all = [];
 for (const file of files(dir)) {
   const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
   // Tolerate an export that wraps the body with its metadata.
   const body = raw.answer ? raw : raw.data ?? raw.body ?? raw;
-  const id = raw.id ?? raw.doc_id ?? path.basename(file, '.json');
+  all.push({ id: raw.id ?? raw.doc_id ?? path.basename(file, '.json'), body });
+}
+const latest = latestPerItem(all);
+const superseded = all.length - latest.length;
+
+const rows = [];
+const counts = { yes: 0, no: 0, unsure: 0, unknown: 0, retired: 0 };
+for (const { id, body } of latest) {
   const pred = predictions[id];
   if (!pred) {
     counts.unknown += 1;
@@ -62,5 +69,6 @@ for (const file of files(dir)) {
 fs.writeFileSync('calibration-set.jsonl', rows.map((r) => JSON.stringify(r)).join('\n') + '\n');
 console.log(`yes ${counts.yes} · no ${counts.no} · skipped ${counts.unsure}` +
   (counts.unknown ? ` · ${counts.unknown} not matched to a prediction` : '') +
-  (counts.retired ? ` · ${counts.retired} for retired questions, left out` : ''));
+  (counts.retired ? ` · ${counts.retired} for retired questions, left out` : '') +
+  (superseded ? ` · ${superseded} superseded by a later round` : ''));
 console.log(`Wrote ${rows.length} rows to calibration-set.jsonl. Next: npm run calibrate`);

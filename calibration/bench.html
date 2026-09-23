@@ -264,7 +264,7 @@
     </div>
 
     <figure class="specimen">
-      <figcaption>Specimen · rendered, styling stripped</figcaption>
+      <figcaption>Specimen · rendered, main action filled</figcaption>
       <div id="specimen-host"></div>
     </figure>
 
@@ -294,7 +294,7 @@
   <details class="about">
     <summary>Why can’t I see what Jev said?</summary>
     <p>This measures whether Jev’s confidence means what it says. If you saw “95% likely a problem” before answering, you’d lean toward agreeing, and Jev would look more accurate than it is. Your answers are compared with Jev’s afterwards, not here.</p>
-    <p>The component is shown without its styling because Jev only reads its text and structure. You both judge the same thing.</p>
+    <p>The component is shown without its styling, because Jev only reads its text and structure. The one exception: the main action is filled in, as it would be in a real app, and Jev is told which action that is. You both judge the same thing.</p>
   </details>
 </main>
 
@@ -342,6 +342,11 @@
       width: min(100%, 280px); box-sizing: border-box; }
     .s button { font: inherit; color: var(--sp-ink); background: var(--sp-btn);
       border: 1px solid var(--sp-line); border-radius: 6px; padding: 6px 12px; cursor: default; }
+    /* The one piece of styling kept: which action is the main one. A real app shows it,
+       and without it every button looks equal, which made unrelated actions read as
+       competing. Jev is told the same thing, as a [primary] marker in its input. */
+    .s [data-variant="primary"] { background: var(--sp-ink); color: var(--specimen);
+      border-color: var(--sp-ink); font-weight: 600; }
     .s a { color: inherit; text-decoration: underline; cursor: default; }
   `;
 

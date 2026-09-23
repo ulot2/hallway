@@ -441,6 +441,29 @@ is not a scale problem. The binding constraint on this kind of reviewer is whose
 definition of good UI it enforces — which is a decision for the team using it, and the
 next thing to settle for the two questions that remain advisory.
 
+### Settling the two definitions
+
+Round three showed the two remaining weak questions failing on definitions rather than
+scale, so the team (here, the labeler) chose the definitions:
+
+- **Destructive actions are safe if they are protected, not only if they are confirmed.**
+  A clear warning, an undo, or recoverability (a trash kept for a time, a cancellation
+  window) each count. `destructive_action_guarded` is retired in favour of
+  `destructive_action_protected`, whose label prompt drops the double negative: *"Could
+  you destroy something here by accident, without being warned first or able to undo
+  it?"* Live, it now flags only the bare actions ("Revoke" 0.94, "Wipe device" 0.93,
+  "Clear history" 0.79) and scores every warned, undoable or recoverable one at 0.34 or
+  below. Against the round-three answers it scores AUC 0.69, up from 0.51 — provisional,
+  since those answers were given to the old wording.
+- **A main action with a way out does not compete.** The question stays; the labeling
+  view was the problem. The specimen now fills in the main action, as a real app would,
+  and the extractor passes the same fact to Jev as a `[primary]` marker, read from
+  `data-variant="primary"` or a `primary`/`cta` class. Live, only the three cases built
+  with no clear main action score high (0.90, 0.83, 0.58).
+
+Labels given under the flawed conditions are **superseded, not mixed**: round four tags
+its items `case::question@r4`, and `src/labels.js` keeps only the latest round per item.
+
 Two lessons came out of the labeling that no amount of unit testing would have found:
 
 - **Asking about button labels on a component with no buttons.** Jev answered

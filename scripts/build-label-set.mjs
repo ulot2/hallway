@@ -24,6 +24,10 @@ const only = onlyArg ? new Set(onlyArg.slice(7).split(',')) : null;
 // Jev on old cases resamples its answers slightly, so a prediction that was current
 // when a human labeled it is kept, never overwritten by a later run.
 const newOnly = args.includes('--new-only');
+// --round=4 tags every published item `case::question@r4`, so it is labeled afresh and
+// its label supersedes any earlier one for the same item (see src/labels.js).
+const roundArg = args.find((a) => a.startsWith('--round='));
+const roundTag = roundArg ? `@r${Number(roundArg.slice(8))}` : '';
 const components = JSON.parse(fs.readFileSync(src, 'utf8'));
 const questions = JSON.parse(fs.readFileSync('questions.json', 'utf8')).questions;
 const promptFor = Object.fromEntries(questions.map((q) => [q.id, q.label_prompt]));
@@ -48,7 +52,7 @@ for (const c of order) {
     if (f.skipped || f.p == null) continue;
     if (only && !only.has(f.id)) continue;
     if (!promptFor[f.id]) throw new Error(`No label_prompt for question "${f.id}"`);
-    const id = `${c.storyId}::${f.id}`;
+    const id = `${c.storyId}::${f.id}${roundTag}`;
     if (newOnly && predictions[id]) continue;
     items.push({
       id,

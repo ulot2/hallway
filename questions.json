@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies, and ride along in the same call. Wire format: noul needs \"instructions\"; choice needs \"criteria\" as an object mapping each option to a description; score needs ordered \"levels\" (sent as criteria). See src/jev.js.",
   "questions": [
     {
@@ -30,7 +30,7 @@
       "id": "competing_actions",
       "type": "noul",
       "question": "Does this component offer two or more actions that compete for the same role, with nothing in their wording to say which one to use?",
-      "instructions": "Answer yes when actions overlap in purpose and their labels do not distinguish them, such as \"Save\", \"Save and close\" and \"Apply\" side by side, or \"Continue\" next to \"Next\". Answer no when the actions are clearly different in kind: a primary action with a cancel, a back link, or a secondary help link (\"Forgot your password?\") does not compete. Judge from the wording only; do not consider visual prominence.",
+      "instructions": "Answer yes when actions overlap in purpose and nothing distinguishes them, such as \"Save\", \"Save and close\" and \"Apply\" side by side, or \"Continue\" next to \"Next\". A control marked [primary] is the component's main action: a primary action alongside a secondary way out (cancel, back, a help link such as \"Forgot your password?\") does not compete. Several overlapping actions with none marked primary do compete.",
       "applies_when": "has_multiple_actions",
       "fail_when": "true",
       "label_prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
@@ -89,21 +89,22 @@
       "label_prompt": "From the text alone, is it hard to tell what this is for?"
     },
     {
-      "id": "destructive_action_guarded",
+      "id": "destructive_action_protected",
       "type": "noul",
-      "question": "Are destructive or irreversible actions in this component visually distinguished and guarded by a confirmation step?",
-      "fail_when": "false",
+      "question": "Could a user destroy something with this component by accident, without being warned first and without any way to undo or recover it?",
+      "instructions": "Answer yes only when a destructive action is unprotected. Any ONE of these counts as protection: the consequence is clearly stated before acting; a confirmation step is shown or promised; the action can be undone; or what is destroyed can be recovered (a trash kept for a time, a cancellation window, reactivation). A bare \"Delete\", \"Revoke\" or \"Wipe\" with no stated consequence, no confirmation and no undo is unprotected.",
       "applies_when": {
         "question": "offers_destructive_action",
         "min_probability": 0.5
       },
-      "rationale": "Requires reading intent from copy, which static analysis cannot do.",
-      "instructions": "Answer yes only if the component both marks the destructive action as dangerous and indicates a confirmation step before it takes effect. A bare button that deletes immediately is not guarded.",
-      "label_prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?"
+      "fail_when": "true",
+      "label_prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+      "rationale": "Replaces destructive_action_guarded. The team counts a warning, undo or recoverability as protection, not only confirmation."
     }
   ],
   "retired": {
     "primary_action_obvious": "Asked which action is visually primary, but the pipeline sends Jev text and structure, never layout or styling, so it cannot see prominence. Against 28 blind human labels it ranked barely above chance (AUC 0.61) and never once flagged a problem the human flagged 10 times. Replaced by competing_actions, the part of the idea that text can answer.",
-    "button_label_quality": "Judged labels against a fixed list (\"Submit\", \"OK\" and \"Yes\" are generic). The human labeler judged them in context: \"Submit\" on a sign-in form is clear. AUC 0.61. Replaced by button_labels_predictable, which asks what the labeler was actually judging."
+    "button_label_quality": "Judged labels against a fixed list (\"Submit\", \"OK\" and \"Yes\" are generic). The human labeler judged them in context: \"Submit\" on a sign-in form is clear. AUC 0.61. Replaced by button_labels_predictable, which asks what the labeler was actually judging.",
+    "destructive_action_guarded": "Required a confirmation step. The labeler judged warned, undoable or recoverable actions (a stated consequence, a 30-day trash, a cancellation window) as safe without one: AUC 0.51 over 16 labels. Its label prompt (\"isn't clearly warned about AND confirmed\") was also easy to answer backwards. Replaced by destructive_action_protected, per the team's definition."
   }
 }

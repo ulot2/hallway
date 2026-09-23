@@ -8,6 +8,10 @@
 // would hand it the answer. The comments here describe intent for maintainers only;
 // neither Jev nor the human labeler ever sees them.
 //
+// In cases with more than one action, the intended main action carries
+// data-variant="primary", as a design system's primary button would. Cases built to
+// have NO clear main action (15, 18, 53, 55) deliberately carry none.
+//
 // None of them import the shared Button, so the Button import-graph integration
 // check in scripts/example.mjs keeps its exact expected count.
 
@@ -21,7 +25,7 @@ export function Case01() {
       <input id="c1-email" type="email" />
       <label htmlFor="c1-pw">Password</label>
       <input id="c1-pw" type="password" />
-      <button type="submit">Sign in</button>
+      <button data-variant="primary" type="submit">Sign in</button>
       <a href="#reset">Forgot your password?</a>
     </form>
   );
@@ -80,7 +84,7 @@ export function Case05() {
       <p role="alert">Your card was declined. Try another card, or contact your bank.</p>
       <label htmlFor="c5-card">Card number</label>
       <input id="c5-card" type="text" />
-      <button type="submit">Pay $42.00</button>
+      <button data-variant="primary" type="submit">Pay $42.00</button>
       <button type="button">Back to cart</button>
     </section>
   );
@@ -94,7 +98,7 @@ export function Case06() {
       <p role="alert">Payment error (code 402).</p>
       <label htmlFor="c6-card">Card number</label>
       <input id="c6-card" type="text" />
-      <button type="submit">Continue</button>
+      <button data-variant="primary" type="submit">Continue</button>
       <button type="button">Cancel</button>
     </section>
   );
@@ -218,7 +222,7 @@ export function Case16() {
       <h2>Display settings</h2>
       <label htmlFor="c16-theme">Theme</label>
       <select id="c16-theme"><option>Light</option><option>Dark</option></select>
-      <button type="submit">Save display settings</button>
+      <button data-variant="primary" type="submit">Save display settings</button>
       <button type="button">Cancel</button>
     </form>
   );
@@ -234,7 +238,7 @@ export function Case17() {
       <input id="c17-street" type="text" />
       <label htmlFor="c17-city">City</label>
       <input id="c17-city" type="text" />
-      <button type="submit">Next</button>
+      <button data-variant="primary" type="submit">Next</button>
       <button type="button">Back</button>
     </form>
   );
@@ -257,7 +261,7 @@ export function Case19() {
     <div role="dialog" aria-labelledby="c19-t">
       <h2 id="c19-t">Discard unsaved changes?</h2>
       <p>Your edits to "Q3 roadmap" will be lost.</p>
-      <button type="button">Discard changes</button>
+      <button data-variant="primary" type="button">Discard changes</button>
       <button type="button">Keep editing</button>
     </div>
   );
@@ -543,7 +547,7 @@ export function Case44() {
     <div role="dialog" aria-labelledby="c44-t">
       <h2 id="c44-t">Reset all settings?</h2>
       <p>All 14 settings go back to their defaults. This can't be undone.</p>
-      <button type="button">Reset all settings</button>
+      <button data-variant="primary" type="button">Reset all settings</button>
       <button type="button">Keep my settings</button>
     </div>
   );
@@ -614,7 +618,7 @@ export function Case50() {
     <div role="dialog" aria-labelledby="c50-t">
       <h2 id="c50-t">Discard this draft?</h2>
       <p>Your draft "Launch announcement" will be deleted.</p>
-      <button type="button">Discard draft</button>
+      <button data-variant="primary" type="button">Discard draft</button>
       <button type="button">Keep draft</button>
     </div>
   );
@@ -660,7 +664,7 @@ export function Case54() {
     <section>
       <h2>Review your order</h2>
       <p>2 items, $58.00 including delivery.</p>
-      <button type="button">Place order</button>
+      <button data-variant="primary" type="button">Place order</button>
       <button type="button">Continue shopping</button>
     </section>
   );
@@ -687,7 +691,7 @@ export function Case56() {
       <h2>Job application</h2>
       <label htmlFor="c56-name">Full name</label>
       <input id="c56-name" type="text" />
-      <button type="submit">Submit application</button>
+      <button data-variant="primary" type="submit">Submit application</button>
       <button type="button">Save draft</button>
       <button type="button">Cancel</button>
     </form>

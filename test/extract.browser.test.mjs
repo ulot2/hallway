@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { launch } from '../src/browser.js';
-import { extractState, resolveRoot } from '../src/extract.js';
+import { extractState, resolveRoot, describe } from '../src/extract.js';
 
 const fixture = (f) => pathToFileURL(path.resolve('fixtures', f)).href;
 
@@ -60,4 +60,21 @@ test('keyword signals miss naturally-phrased empty states', async () => {
   await page.goto(fixture('good-component.html'));
   const { signals } = await extractState(page, { name: 'good' });
   assert.equal(signals.has_empty_state, false);
+});
+
+test('the primary action is marked for Jev', async () => {
+  await page.setContent(`
+    <div id="storybook-root">
+      <button data-variant="primary">Pay $42.00</button>
+      <button>Back to cart</button>
+      <a class="btn btn-primary" href="#">Checkout</a>
+    </div>`);
+  const state = await extractState(page, { name: 'primary' });
+  const byLabel = Object.fromEntries(state.controls.map((c) => [c.label, c.primary]));
+  assert.equal(byLabel['Pay $42.00'], true);
+  assert.equal(byLabel['Back to cart'], false);
+  assert.equal(byLabel.Checkout, true);
+  const text = describe(state);
+  assert.match(text, /"Pay \$42\.00" \[primary\]/);
+  assert.doesNotMatch(text, /"Back to cart" \[primary\]/);
 });

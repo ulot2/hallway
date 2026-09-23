@@ -1,212 +1,219 @@
 [
   {
-    "id": "calibration--case-33::empty_state_actionable",
-    "case": "Case 33",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Team</h2><p>No members.</p></section>"
-  },
-  {
-    "id": "calibration--case-32::empty_state_actionable",
-    "case": "Case 32",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Invoices</h2><p>No invoices match these filters.</p><button type=\"button\">Clear filters</button></section>"
-  },
-  {
-    "id": "calibration--case-36::empty_state_actionable",
-    "case": "Case 36",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Today</h2><p>No events scheduled.</p></section>"
-  },
-  {
-    "id": "calibration--case-34::empty_state_actionable",
-    "case": "Case 34",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Saved articles</h2><p>Nothing saved yet. Tap the bookmark icon on any article to save it for later.</p></section>"
-  },
-  {
-    "id": "calibration--case-44::competing_actions",
+    "id": "calibration--case-44::competing_actions@r4",
     "case": "Case 44",
     "question_id": "competing_actions",
     "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c44-t\"><h2 id=\"c44-t\">Reset all settings?</h2><p>All 14 settings go back to their defaults. This can't be undone.</p><button type=\"button\">Reset all settings</button><button type=\"button\">Keep my settings</button></div>"
+    "html": "<div role=\"dialog\" aria-labelledby=\"c44-t\"><h2 id=\"c44-t\">Reset all settings?</h2><p>All 14 settings go back to their defaults. This can't be undone.</p><button data-variant=\"primary\" type=\"button\">Reset all settings</button><button type=\"button\">Keep my settings</button></div>"
   },
   {
-    "id": "calibration--case-44::destructive_action_guarded",
+    "id": "calibration--case-44::destructive_action_protected@r4",
     "case": "Case 44",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c44-t\"><h2 id=\"c44-t\">Reset all settings?</h2><p>All 14 settings go back to their defaults. This can't be undone.</p><button type=\"button\">Reset all settings</button><button type=\"button\">Keep my settings</button></div>"
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<div role=\"dialog\" aria-labelledby=\"c44-t\"><h2 id=\"c44-t\">Reset all settings?</h2><p>All 14 settings go back to their defaults. This can't be undone.</p><button data-variant=\"primary\" type=\"button\">Reset all settings</button><button type=\"button\">Keep my settings</button></div>"
   },
   {
-    "id": "calibration--case-51::destructive_action_guarded",
+    "id": "calibration--case-13::destructive_action_protected@r4",
+    "case": "Case 13",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<section><h2>Danger zone</h2><p>Deleting a project cannot be undone.</p><button type=\"button\">Delete project</button></section>"
+  },
+  {
+    "id": "calibration--case-15::competing_actions@r4",
+    "case": "Case 15",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<form><h2>Display settings</h2><label for=\"c15-theme\">Theme</label><select id=\"c15-theme\"><option>Light</option><option>Dark</option></select><button type=\"button\">Save</button><button type=\"button\">Save and close</button><button type=\"button\">Apply</button></form>"
+  },
+  {
+    "id": "calibration--case-51::destructive_action_protected@r4",
     "case": "Case 51",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h3>Pixel 8</h3><button type=\"button\">Wipe device</button></section>"
   },
   {
-    "id": "calibration--case-31::empty_state_actionable",
-    "case": "Case 31",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h3>Weekly signups</h3><p>No data.</p></section>"
-  },
-  {
-    "id": "calibration--case-42::empty_state_actionable",
+    "id": "calibration--case-42::destructive_action_protected@r4",
     "case": "Case 42",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h2>Browsing history</h2><button type=\"button\">Clear history</button></section>"
   },
   {
-    "id": "calibration--case-42::destructive_action_guarded",
-    "case": "Case 42",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<section><h2>Browsing history</h2><button type=\"button\">Clear history</button></section>"
-  },
-  {
-    "id": "calibration--case-53::competing_actions",
+    "id": "calibration--case-53::competing_actions@r4",
     "case": "Case 53",
     "question_id": "competing_actions",
     "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<div role=\"toolbar\" aria-label=\"Document\"><button type=\"button\">Save</button><button type=\"button\">Save as</button><button type=\"button\">Save a copy</button><button type=\"button\">Export</button></div>"
   },
   {
-    "id": "calibration--case-37::empty_state_actionable",
-    "case": "Case 37",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Projects</h2><p>Create your first project to get started.</p><button type=\"button\">New project</button></section>"
+    "id": "calibration--case-19::competing_actions@r4",
+    "case": "Case 19",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<div role=\"dialog\" aria-labelledby=\"c19-t\"><h2 id=\"c19-t\">Discard unsaved changes?</h2><p>Your edits to \"Q3 roadmap\" will be lost.</p><button data-variant=\"primary\" type=\"button\">Discard changes</button><button type=\"button\">Keep editing</button></div>"
   },
   {
-    "id": "calibration--case-55::competing_actions",
+    "id": "calibration--case-19::destructive_action_protected@r4",
+    "case": "Case 19",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<div role=\"dialog\" aria-labelledby=\"c19-t\"><h2 id=\"c19-t\">Discard unsaved changes?</h2><p>Your edits to \"Q3 roadmap\" will be lost.</p><button data-variant=\"primary\" type=\"button\">Discard changes</button><button type=\"button\">Keep editing</button></div>"
+  },
+  {
+    "id": "calibration--case-55::competing_actions@r4",
     "case": "Case 55",
     "question_id": "competing_actions",
     "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
     "html": "<div role=\"dialog\" aria-labelledby=\"c55-t\"><h2 id=\"c55-t\">Add people to \"Q3 roadmap\"</h2><label for=\"c55-email\">Email address</label><input id=\"c55-email\" type=\"email\"><button type=\"button\">Share</button><button type=\"button\">Send</button><button type=\"button\">Invite</button></div>"
   },
   {
-    "id": "calibration--case-38::empty_state_actionable",
-    "case": "Case 38",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Activity</h2><p>No activity.</p><button type=\"button\">Refresh</button></section>"
+    "id": "calibration--case-12::competing_actions@r4",
+    "case": "Case 12",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<ul><li><span>Quarterly report.pdf</span><button type=\"button\">Remove</button></li><li><span>Budget 2026.xlsx</span><button type=\"button\">Remove</button></li></ul>"
   },
   {
-    "id": "calibration--case-47::destructive_action_guarded",
+    "id": "calibration--case-12::destructive_action_protected@r4",
+    "case": "Case 12",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<ul><li><span>Quarterly report.pdf</span><button type=\"button\">Remove</button></li><li><span>Budget 2026.xlsx</span><button type=\"button\">Remove</button></li></ul>"
+  },
+  {
+    "id": "calibration--case-47::destructive_action_protected@r4",
     "case": "Case 47",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h2>Order #4471</h2><p>You can cancel within 30 minutes of ordering. Refunds take 3 to 5 days.</p><button type=\"button\">Cancel order</button></section>"
   },
   {
-    "id": "calibration--case-52::destructive_action_guarded",
+    "id": "calibration--case-52::destructive_action_protected@r4",
     "case": "Case 52",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><p>3 files selected</p><p>Deleted files move to Trash and are kept for 30 days.</p><button type=\"button\">Delete 3 files</button></section>"
   },
   {
-    "id": "calibration--case-39::empty_state_actionable",
-    "case": "Case 39",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Uploads</h2><p>Empty</p></section>"
-  },
-  {
-    "id": "calibration--case-41::destructive_action_guarded",
+    "id": "calibration--case-41::destructive_action_protected@r4",
     "case": "Case 41",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h2>Delete workspace</h2><p>This deletes every project and file in the workspace, for everyone in it.</p><p>You will be asked to type the workspace name to confirm.</p><button type=\"button\">Delete workspace…</button></section>"
   },
   {
-    "id": "calibration--case-30::empty_state_actionable",
-    "case": "Case 30",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Your orders</h2><p>You haven't placed any orders yet.</p><button type=\"button\">Start shopping</button></section>"
+    "id": "calibration--case-05::competing_actions@r4",
+    "case": "Case 05",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<section><h2>Payment</h2><p role=\"alert\">Your card was declined. Try another card, or contact your bank.</p><label for=\"c5-card\">Card number</label><input id=\"c5-card\" type=\"text\"><button data-variant=\"primary\" type=\"submit\">Pay $42.00</button><button type=\"button\">Back to cart</button></section>"
   },
   {
-    "id": "calibration--case-50::competing_actions",
+    "id": "calibration--case-50::competing_actions@r4",
     "case": "Case 50",
     "question_id": "competing_actions",
     "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c50-t\"><h2 id=\"c50-t\">Discard this draft?</h2><p>Your draft \"Launch announcement\" will be deleted.</p><button type=\"button\">Discard draft</button><button type=\"button\">Keep draft</button></div>"
+    "html": "<div role=\"dialog\" aria-labelledby=\"c50-t\"><h2 id=\"c50-t\">Discard this draft?</h2><p>Your draft \"Launch announcement\" will be deleted.</p><button data-variant=\"primary\" type=\"button\">Discard draft</button><button type=\"button\">Keep draft</button></div>"
   },
   {
-    "id": "calibration--case-50::destructive_action_guarded",
+    "id": "calibration--case-50::destructive_action_protected@r4",
     "case": "Case 50",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
-    "html": "<div role=\"dialog\" aria-labelledby=\"c50-t\"><h2 id=\"c50-t\">Discard this draft?</h2><p>Your draft \"Launch announcement\" will be deleted.</p><button type=\"button\">Discard draft</button><button type=\"button\">Keep draft</button></div>"
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<div role=\"dialog\" aria-labelledby=\"c50-t\"><h2 id=\"c50-t\">Discard this draft?</h2><p>Your draft \"Launch announcement\" will be deleted.</p><button data-variant=\"primary\" type=\"button\">Discard draft</button><button type=\"button\">Keep draft</button></div>"
   },
   {
-    "id": "calibration--case-48::destructive_action_guarded",
+    "id": "calibration--case-48::destructive_action_protected@r4",
     "case": "Case 48",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h3>Design review notes</h3><p>After you delete a note, you have 10 seconds to undo.</p><button type=\"button\">Delete note</button></section>"
   },
   {
-    "id": "calibration--case-46::destructive_action_guarded",
+    "id": "calibration--case-46::destructive_action_protected@r4",
     "case": "Case 46",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<ul><li><span>prod-key-3</span><span>Last used 2 minutes ago</span><button type=\"button\">Revoke</button></li></ul>"
   },
   {
-    "id": "calibration--case-43::destructive_action_guarded",
+    "id": "calibration--case-14::destructive_action_protected@r4",
+    "case": "Case 14",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<section><h2>Your plan</h2><p>Pro plan, renews on June 30.</p><p>If you cancel, you keep Pro features until June 30 and can resubscribe any time.</p><button type=\"button\">Cancel subscription</button></section>"
+  },
+  {
+    "id": "calibration--case-43::destructive_action_protected@r4",
     "case": "Case 43",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h3>Priya Shah</h3><p>Editor</p><p>Removing a member takes away their access immediately.</p><button type=\"button\">Remove member</button></section>"
   },
   {
-    "id": "calibration--case-56::competing_actions",
+    "id": "calibration--case-56::competing_actions@r4",
     "case": "Case 56",
     "question_id": "competing_actions",
     "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
-    "html": "<form><h2>Job application</h2><label for=\"c56-name\">Full name</label><input id=\"c56-name\" type=\"text\"><button type=\"submit\">Submit application</button><button type=\"button\">Save draft</button><button type=\"button\">Cancel</button></form>"
+    "html": "<form><h2>Job application</h2><label for=\"c56-name\">Full name</label><input id=\"c56-name\" type=\"text\"><button data-variant=\"primary\" type=\"submit\">Submit application</button><button type=\"button\">Save draft</button><button type=\"button\">Cancel</button></form>"
   },
   {
-    "id": "calibration--case-45::destructive_action_guarded",
+    "id": "calibration--case-11::destructive_action_protected@r4",
+    "case": "Case 11",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
+    "html": "<section><h2>Delete account</h2><p>This permanently deletes your account and all of your data.</p><p>You will be asked to type your email address to confirm.</p><button type=\"button\">Delete my account…</button></section>"
+  },
+  {
+    "id": "calibration--case-01::competing_actions@r4",
+    "case": "Case 01",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<form><h1>Sign in</h1><p role=\"alert\">Incorrect email or password.</p><label for=\"c1-email\">Email</label><input id=\"c1-email\" type=\"email\"><label for=\"c1-pw\">Password</label><input id=\"c1-pw\" type=\"password\"><button data-variant=\"primary\" type=\"submit\">Sign in</button><a href=\"#reset\">Forgot your password?</a></form>"
+  },
+  {
+    "id": "calibration--case-18::competing_actions@r4",
+    "case": "Case 18",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<div role=\"dialog\" aria-labelledby=\"c18-t\"><h2 id=\"c18-t\">Are you sure?</h2><button type=\"button\">Yes</button><button type=\"button\">No</button></div>"
+  },
+  {
+    "id": "calibration--case-45::destructive_action_protected@r4",
     "case": "Case 45",
-    "question_id": "destructive_action_guarded",
-    "prompt": "Is there a destructive action that isn't clearly warned about AND confirmed first?",
+    "question_id": "destructive_action_protected",
+    "prompt": "Could you destroy something here by accident, without being warned first or able to undo it?",
     "html": "<section><h2>Trash</h2><p>12 items</p><p>Items you empty from the trash are deleted permanently.</p><button type=\"button\">Empty trash</button></section>"
   },
   {
-    "id": "calibration--case-54::competing_actions",
+    "id": "calibration--case-54::competing_actions@r4",
     "case": "Case 54",
     "question_id": "competing_actions",
     "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
-    "html": "<section><h2>Review your order</h2><p>2 items, $58.00 including delivery.</p><button type=\"button\">Place order</button><button type=\"button\">Continue shopping</button></section>"
+    "html": "<section><h2>Review your order</h2><p>2 items, $58.00 including delivery.</p><button data-variant=\"primary\" type=\"button\">Place order</button><button type=\"button\">Continue shopping</button></section>"
   },
   {
-    "id": "calibration--case-35::empty_state_actionable",
-    "case": "Case 35",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Reports</h2><p>No reports available.</p><a href=\"#docs\">Learn about reports</a></section>"
+    "id": "calibration--case-17::competing_actions@r4",
+    "case": "Case 17",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<form><p>Step 2 of 4</p><h2>Shipping address</h2><label for=\"c17-street\">Street address</label><input id=\"c17-street\" type=\"text\"><label for=\"c17-city\">City</label><input id=\"c17-city\" type=\"text\"><button data-variant=\"primary\" type=\"submit\">Next</button><button type=\"button\">Back</button></form>"
   },
   {
-    "id": "calibration--case-29::empty_state_actionable",
-    "case": "Case 29",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Inbox</h2><p>No messages yet.</p><p>Messages from your team will appear here.</p></section>"
+    "id": "calibration--case-16::competing_actions@r4",
+    "case": "Case 16",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<form><h2>Display settings</h2><label for=\"c16-theme\">Theme</label><select id=\"c16-theme\"><option>Light</option><option>Dark</option></select><button data-variant=\"primary\" type=\"submit\">Save display settings</button><button type=\"button\">Cancel</button></form>"
   },
   {
-    "id": "calibration--case-40::empty_state_actionable",
-    "case": "Case 40",
-    "question_id": "empty_state_actionable",
-    "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>API keys</h2><p>You don't have any API keys. API keys let other apps access your account.</p><button type=\"button\">Create API key</button></section>"
+    "id": "calibration--case-06::competing_actions@r4",
+    "case": "Case 06",
+    "question_id": "competing_actions",
+    "prompt": "Do two or more actions compete, with nothing in their wording to tell you which one to use?",
+    "html": "<section><h2>Payment</h2><p role=\"alert\">Payment error (code 402).</p><label for=\"c6-card\">Card number</label><input id=\"c6-card\" type=\"text\"><button data-variant=\"primary\" type=\"submit\">Continue</button><button type=\"button\">Cancel</button></section>"
   }
 ]
