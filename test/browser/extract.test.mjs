@@ -4,8 +4,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { launch } from '../src/browser.js';
-import { extractState, resolveRoot, describe } from '../src/extract.js';
+import { launch } from '../../src/browser.js';
+import { extractState, resolveRoot, describe } from '../../src/extract.js';
 
 const fixture = (f) => pathToFileURL(path.resolve('fixtures', f)).href;
 

@@ -1,3 +1,7 @@
+# TEMPLATE: copy into .github/workflows/ of the repository you want reviewed.
+# It lives here, not in this repo's .github/workflows, because this repo has no
+# root Storybook to review; its own CI exercises Hallway against example/ instead.
+#
 # Phase 2 of 2. Holds the Jev key, never checks out or runs pull request code.
 #
 # `workflow_run` runs from the default branch with access to secrets. It reads only the
@@ -24,7 +28,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
 
       - run: npm ci

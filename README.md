@@ -44,8 +44,8 @@ pipeline is runnable and reproducible offline.
 npm install
 npm run extract:demo   # what the components look like as state
 npm run review:demo    # the full pipeline, prints the PR comment it would post
-npm test               # 44 unit tests
-npm run test:browser   # 5 browser-backed tests
+npm test               # 67 unit tests
+npm run test:browser   # 6 browser-backed tests
 ```
 
 Against a real Storybook:
@@ -144,12 +144,13 @@ Pull requests from forks cannot read repository secrets. The usual workaround,
 checking out the PR head there hands those secrets to anyone who can open a pull
 request.
 
-This repo uses the two-workflow pattern instead:
+Hallway uses the two-workflow pattern instead. Both are templates in `docs/workflows/`,
+to copy into the `.github/workflows/` of the repository being reviewed:
 
 | Phase | Trigger | Runs PR code | Has secrets |
 |---|---|---|---|
-| `hallway.yml` | `pull_request` | yes | **no** |
-| `hallway-report.yml` | `workflow_run` | **no** | yes |
+| `docs/workflows/hallway.yml` | `pull_request` | yes | **no** |
+| `docs/workflows/hallway-report.yml` | `workflow_run` | **no** | yes |
 
 Phase 1 builds Storybook, renders the components and writes a JSON artifact. Phase 2
 runs from the default branch, downloads only that JSON, calls Jev and posts. There is no

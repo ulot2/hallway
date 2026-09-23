@@ -1,3 +1,7 @@
+# TEMPLATE: copy into .github/workflows/ of the repository you want reviewed.
+# It lives here, not in this repo's .github/workflows, because this repo has no
+# root Storybook to review; its own CI exercises Hallway against example/ instead.
+#
 # Phase 1 of 2. Runs PR code, holds NO secrets.
 #
 # This is the fork-safe half of the pattern. Do NOT add `pull_request_target` here and
@@ -25,7 +29,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
 
       - run: npm ci

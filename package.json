@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Judgment-level UI review for pull requests, powered by Jev's typed, calibrated decisions.",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "extract:demo": "node --env-file-if-exists=.env scripts/extract-demo.mjs",
@@ -14,7 +14,7 @@
     "label": "node --env-file-if-exists=.env scripts/label.mjs",
     "stability": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/stability.mjs",
     "test": "node --test \"test/*.test.mjs\"",
-    "test:browser": "node --test \"test/*.browser.test.mjs\"",
+    "test:browser": "node --test \"test/browser/*.test.mjs\"",
     "example": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/example.mjs",
     "check-key": "NODE_USE_ENV_PROXY=1 node --env-file-if-exists=.env scripts/check-key.mjs"
   },
