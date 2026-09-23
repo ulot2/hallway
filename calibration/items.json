@@ -217,13 +217,6 @@
     "html": "<section><h2>Notifications</h2><p>You're all caught up.</p></section>"
   },
   {
-    "id": "calibration--case-10::button_label_quality",
-    "case": "Case 10",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Notifications</h2><p>You're all caught up.</p></section>"
-  },
-  {
     "id": "calibration--case-10::purpose_clear_from_text",
     "case": "Case 10",
     "question_id": "purpose_clear_from_text",
@@ -602,13 +595,6 @@
     "html": "<section><h2>Sign in</h2><p role=\"alert\">Too many attempts. Try again in 15 minutes.</p></section>"
   },
   {
-    "id": "calibration--case-28::button_label_quality",
-    "case": "Case 28",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
-    "html": "<section><h2>Sign in</h2><p role=\"alert\">Too many attempts. Try again in 15 minutes.</p></section>"
-  },
-  {
     "id": "calibration--case-28::purpose_clear_from_text",
     "case": "Case 28",
     "question_id": "purpose_clear_from_text",
@@ -655,13 +641,6 @@
     "case": "Case 08",
     "question_id": "empty_state_actionable",
     "prompt": "Is the empty state a dead end, with no clear next step?",
-    "html": "<section><h2>Results</h2><p>No results.</p></section>"
-  },
-  {
-    "id": "calibration--case-08::button_label_quality",
-    "case": "Case 08",
-    "question_id": "button_label_quality",
-    "prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
     "html": "<section><h2>Results</h2><p>No results.</p></section>"
   },
   {

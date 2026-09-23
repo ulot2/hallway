@@ -13,7 +13,9 @@ import { fitIsotonic, applyIsotonic, ece, brier, asciiDiagram } from '../src/cal
 const args = process.argv.slice(2);
 const demo = args.includes('--demo');
 const file = args.find((a) => !a.startsWith('--')) ?? 'calibration-set.jsonl';
-const MIN_SAMPLES = 30;
+// Isotonic fits on this few points are noisy, but every fit must also beat the raw
+// probabilities on 5-fold held-out data before it is saved, which is the real guard.
+const MIN_SAMPLES = 20;
 
 function loadSamples() {
   if (demo) {

@@ -2,14 +2,14 @@
   "calibration--case-12::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 12",
-    "p": 0.09000000000000001,
-    "rawP": 0.09000000000000001
+    "p": 0.06999999999999999,
+    "rawP": 0.06999999999999999
   },
   "calibration--case-12::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 12",
-    "p": 0.03,
-    "rawP": 0.03
+    "p": 0.04,
+    "rawP": 0.04
   },
   "calibration--case-12::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -26,8 +26,8 @@
   "calibration--case-26::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 26",
-    "p": 0.13,
-    "rawP": 0.13
+    "p": 0.16,
+    "rawP": 0.16
   },
   "calibration--case-26::error_message_actionable": {
     "question_id": "error_message_actionable",
@@ -38,20 +38,20 @@
   "calibration--case-26::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 26",
-    "p": 0.28,
-    "rawP": 0.28
+    "p": 0.21,
+    "rawP": 0.21
   },
   "calibration--case-26::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 26",
-    "p": 0.08,
-    "rawP": 0.08
+    "p": 0.07,
+    "rawP": 0.07
   },
   "calibration--case-16::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 16",
-    "p": 0.33,
-    "rawP": 0.33
+    "p": 0.38,
+    "rawP": 0.38
   },
   "calibration--case-16::button_label_quality": {
     "question_id": "button_label_quality",
@@ -62,8 +62,8 @@
   "calibration--case-16::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 16",
-    "p": 0.11,
-    "rawP": 0.11
+    "p": 0.12,
+    "rawP": 0.12
   },
   "calibration--case-04::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -80,8 +80,8 @@
   "calibration--case-04::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 04",
-    "p": 0.02,
-    "rawP": 0.02
+    "p": 0.03,
+    "rawP": 0.03
   },
   "calibration--case-04::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -92,8 +92,8 @@
   "calibration--case-11::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 11",
-    "p": 0.060000000000000005,
-    "rawP": 0.060000000000000005
+    "p": 0.08,
+    "rawP": 0.08
   },
   "calibration--case-11::button_label_quality": {
     "question_id": "button_label_quality",
@@ -110,20 +110,20 @@
   "calibration--case-11::destructive_action_guarded": {
     "question_id": "destructive_action_guarded",
     "component": "Calibration / Case 11",
-    "p": 0.15000000000000002,
-    "rawP": 0.15000000000000002
+    "p": 0.14,
+    "rawP": 0.14
   },
   "calibration--case-22::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 22",
-    "p": 0.09000000000000001,
-    "rawP": 0.09000000000000001
+    "p": 0.06999999999999999,
+    "rawP": 0.06999999999999999
   },
   "calibration--case-22::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 22",
-    "p": 0.39,
-    "rawP": 0.39
+    "p": 0.48,
+    "rawP": 0.48
   },
   "calibration--case-22::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -134,8 +134,8 @@
   "calibration--case-23::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 23",
-    "p": 0.06999999999999999,
-    "rawP": 0.06999999999999999
+    "p": 0.08,
+    "rawP": 0.08
   },
   "calibration--case-23::button_label_quality": {
     "question_id": "button_label_quality",
@@ -152,14 +152,14 @@
   "calibration--case-02::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 02",
-    "p": 0.16,
-    "rawP": 0.16
+    "p": 0.15,
+    "rawP": 0.15
   },
   "calibration--case-02::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 02",
-    "p": 0.9299999999999999,
-    "rawP": 0.9299999999999999
+    "p": 0.94,
+    "rawP": 0.94
   },
   "calibration--case-02::button_label_quality": {
     "question_id": "button_label_quality",
@@ -176,8 +176,8 @@
   "calibration--case-10::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 10",
-    "p": 0.1,
-    "rawP": 0.1
+    "p": 0.09,
+    "rawP": 0.09
   },
   "calibration--case-10::empty_state_actionable": {
     "question_id": "empty_state_actionable",
@@ -185,23 +185,17 @@
     "p": 0.9299999999999999,
     "rawP": 0.9299999999999999
   },
-  "calibration--case-10::button_label_quality": {
-    "question_id": "button_label_quality",
-    "component": "Calibration / Case 10",
-    "p": 0.98,
-    "rawP": 0.98
-  },
   "calibration--case-10::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 10",
-    "p": 0.09,
-    "rawP": 0.09
+    "p": 0.08,
+    "rawP": 0.08
   },
   "calibration--case-21::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 21",
-    "p": 0.12,
-    "rawP": 0.12
+    "p": 0.09000000000000001,
+    "rawP": 0.09000000000000001
   },
   "calibration--case-21::button_label_quality": {
     "question_id": "button_label_quality",
@@ -212,8 +206,8 @@
   "calibration--case-21::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 21",
-    "p": 0.29,
-    "rawP": 0.29
+    "p": 0.27,
+    "rawP": 0.27
   },
   "calibration--case-14::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -230,14 +224,14 @@
   "calibration--case-14::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 14",
-    "p": 0.03,
-    "rawP": 0.03
+    "p": 0.02,
+    "rawP": 0.02
   },
   "calibration--case-14::destructive_action_guarded": {
     "question_id": "destructive_action_guarded",
     "component": "Calibration / Case 14",
-    "p": 0.95,
-    "rawP": 0.95
+    "p": 0.94,
+    "rawP": 0.94
   },
   "calibration--case-01::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -248,32 +242,32 @@
   "calibration--case-01::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 01",
-    "p": 0.92,
-    "rawP": 0.92
+    "p": 0.9299999999999999,
+    "rawP": 0.9299999999999999
   },
   "calibration--case-01::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 01",
-    "p": 0.12,
-    "rawP": 0.12
+    "p": 0.13999999999999999,
+    "rawP": 0.13999999999999999
   },
   "calibration--case-01::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 01",
-    "p": 0.09,
-    "rawP": 0.09
+    "p": 0.1,
+    "rawP": 0.1
   },
   "calibration--case-27::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 27",
-    "p": 0.03,
-    "rawP": 0.03
+    "p": 0.04,
+    "rawP": 0.04
   },
   "calibration--case-27::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 27",
-    "p": 0.09999999999999998,
-    "rawP": 0.09999999999999998
+    "p": 0.10999999999999999,
+    "rawP": 0.10999999999999999
   },
   "calibration--case-27::button_label_quality": {
     "question_id": "button_label_quality",
@@ -290,8 +284,8 @@
   "calibration--case-19::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 19",
-    "p": 0.02,
-    "rawP": 0.02
+    "p": 0.01,
+    "rawP": 0.01
   },
   "calibration--case-19::button_label_quality": {
     "question_id": "button_label_quality",
@@ -308,20 +302,20 @@
   "calibration--case-19::destructive_action_guarded": {
     "question_id": "destructive_action_guarded",
     "component": "Calibration / Case 19",
-    "p": 0.41000000000000003,
-    "rawP": 0.41000000000000003
+    "p": 0.4,
+    "rawP": 0.4
   },
   "calibration--case-17::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 17",
-    "p": 0.04,
-    "rawP": 0.04
+    "p": 0.05,
+    "rawP": 0.05
   },
   "calibration--case-17::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 17",
-    "p": 0.68,
-    "rawP": 0.68
+    "p": 0.58,
+    "rawP": 0.58
   },
   "calibration--case-17::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -332,26 +326,26 @@
   "calibration--case-20::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 20",
-    "p": 0.26,
-    "rawP": 0.26
+    "p": 0.23,
+    "rawP": 0.23
   },
   "calibration--case-20::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 20",
-    "p": 0.89,
-    "rawP": 0.89
+    "p": 0.78,
+    "rawP": 0.78
   },
   "calibration--case-20::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 20",
-    "p": 0.54,
-    "rawP": 0.54
+    "p": 0.5700000000000001,
+    "rawP": 0.5700000000000001
   },
   "calibration--case-06::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 06",
-    "p": 0.15,
-    "rawP": 0.15
+    "p": 0.14,
+    "rawP": 0.14
   },
   "calibration--case-06::error_message_actionable": {
     "question_id": "error_message_actionable",
@@ -368,8 +362,8 @@
   "calibration--case-06::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 06",
-    "p": 0.08,
-    "rawP": 0.08
+    "p": 0.09,
+    "rawP": 0.09
   },
   "calibration--case-09::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -386,8 +380,8 @@
   "calibration--case-09::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 09",
-    "p": 0.03,
-    "rawP": 0.03
+    "p": 0.05,
+    "rawP": 0.05
   },
   "calibration--case-09::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -398,26 +392,26 @@
   "calibration--case-15::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 15",
-    "p": 0.41,
-    "rawP": 0.41
+    "p": 0.38,
+    "rawP": 0.38
   },
   "calibration--case-15::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 15",
-    "p": 0.2,
-    "rawP": 0.2
+    "p": 0.15,
+    "rawP": 0.15
   },
   "calibration--case-15::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 15",
-    "p": 0.11000000000000001,
-    "rawP": 0.11000000000000001
+    "p": 0.09,
+    "rawP": 0.09
   },
   "calibration--case-07::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 07",
-    "p": 0.05,
-    "rawP": 0.05
+    "p": 0.04,
+    "rawP": 0.04
   },
   "calibration--case-07::empty_state_actionable": {
     "question_id": "empty_state_actionable",
@@ -440,14 +434,14 @@
   "calibration--case-25::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 25",
-    "p": 0.37,
-    "rawP": 0.37
+    "p": 0.33999999999999997,
+    "rawP": 0.33999999999999997
   },
   "calibration--case-25::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 25",
-    "p": 0.75,
-    "rawP": 0.75
+    "p": 0.76,
+    "rawP": 0.76
   },
   "calibration--case-25::button_label_quality": {
     "question_id": "button_label_quality",
@@ -458,8 +452,8 @@
   "calibration--case-25::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 25",
-    "p": 0.12000000000000001,
-    "rawP": 0.12000000000000001
+    "p": 0.11000000000000001,
+    "rawP": 0.11000000000000001
   },
   "calibration--case-18::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -476,8 +470,8 @@
   "calibration--case-18::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 18",
-    "p": 0.04,
-    "rawP": 0.04
+    "p": 0.07,
+    "rawP": 0.07
   },
   "calibration--case-05::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -488,20 +482,20 @@
   "calibration--case-05::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 05",
-    "p": 0.050000000000000044,
-    "rawP": 0.050000000000000044
+    "p": 0.06000000000000005,
+    "rawP": 0.06000000000000005
   },
   "calibration--case-05::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 05",
-    "p": 0.01,
-    "rawP": 0.01
+    "p": 0.02,
+    "rawP": 0.02
   },
   "calibration--case-05::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
     "component": "Calibration / Case 05",
-    "p": 0.14,
-    "rawP": 0.14
+    "p": 0.15,
+    "rawP": 0.15
   },
   "calibration--case-28::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -512,14 +506,8 @@
   "calibration--case-28::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 28",
-    "p": 0.09999999999999998,
-    "rawP": 0.09999999999999998
-  },
-  "calibration--case-28::button_label_quality": {
-    "question_id": "button_label_quality",
-    "component": "Calibration / Case 28",
-    "p": 0.97,
-    "rawP": 0.97
+    "p": 0.10999999999999999,
+    "rawP": 0.10999999999999999
   },
   "calibration--case-28::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -530,8 +518,8 @@
   "calibration--case-13::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 13",
-    "p": 0.05,
-    "rawP": 0.05
+    "p": 0.04,
+    "rawP": 0.04
   },
   "calibration--case-13::button_label_quality": {
     "question_id": "button_label_quality",
@@ -548,8 +536,8 @@
   "calibration--case-13::destructive_action_guarded": {
     "question_id": "destructive_action_guarded",
     "component": "Calibration / Case 13",
-    "p": 0.92,
-    "rawP": 0.92
+    "p": 0.9,
+    "rawP": 0.9
   },
   "calibration--case-08::primary_action_obvious": {
     "question_id": "primary_action_obvious",
@@ -560,14 +548,8 @@
   "calibration--case-08::empty_state_actionable": {
     "question_id": "empty_state_actionable",
     "component": "Calibration / Case 08",
-    "p": 0.9299999999999999,
-    "rawP": 0.9299999999999999
-  },
-  "calibration--case-08::button_label_quality": {
-    "question_id": "button_label_quality",
-    "component": "Calibration / Case 08",
-    "p": 0.97,
-    "rawP": 0.97
+    "p": 0.94,
+    "rawP": 0.94
   },
   "calibration--case-08::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -584,14 +566,14 @@
   "calibration--case-24::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 24",
-    "p": 0.45999999999999996,
-    "rawP": 0.45999999999999996
+    "p": 0.51,
+    "rawP": 0.51
   },
   "calibration--case-24::button_label_quality": {
     "question_id": "button_label_quality",
     "component": "Calibration / Case 24",
-    "p": 0.38,
-    "rawP": 0.38
+    "p": 0.32,
+    "rawP": 0.32
   },
   "calibration--case-24::purpose_clear_from_text": {
     "question_id": "purpose_clear_from_text",
@@ -602,14 +584,14 @@
   "calibration--case-03::primary_action_obvious": {
     "question_id": "primary_action_obvious",
     "component": "Calibration / Case 03",
-    "p": 0.11,
-    "rawP": 0.11
+    "p": 0.14,
+    "rawP": 0.14
   },
   "calibration--case-03::error_message_actionable": {
     "question_id": "error_message_actionable",
     "component": "Calibration / Case 03",
-    "p": 0.18000000000000005,
-    "rawP": 0.18000000000000005
+    "p": 0.16000000000000003,
+    "rawP": 0.16000000000000003
   },
   "calibration--case-03::button_label_quality": {
     "question_id": "button_label_quality",

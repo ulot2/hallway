@@ -7,8 +7,8 @@ deterministically.
 
 > **Status: verified end to end against a real Storybook and the live Jev API**
 > (`jev-1.13.0`). On the example app it flags the deliberately-bad component on four
-> questions and leaves the good one completely clean. Not yet calibrated — see
-> [What is not done yet](#what-is-not-done-yet).
+> questions and leaves the good one completely clean. Calibrated against 96
+> blind human labels; see [Calibration results](#calibration-results).
 
 ## The argument
 
@@ -300,6 +300,47 @@ sometimes (error messages, empty states) rarely get that many. So `calibrate` al
 one **pooled** correction across all questions, and `tier.js` uses it for any question
 without a model of its own.
 
+### Calibration results
+
+One person labeled 101 findings blind on the Calibration Bench (5 skipped as unsure),
+compared against Jev (`jev-1.13.0`). Two measures matter, and they answer different
+questions:
+
+- **Discrimination (AUC)**: does Jev rank problem components above fine ones? 0.5 is
+  a coin flip, 1.0 is perfect. Calibration cannot improve this.
+- **Calibration (ECE)**: when Jev says 80%, is it right 80% of the time? This is what
+  the isotonic correction fixes, and only if there is a signal to rescale.
+
+| Question | n | AUC | Verdict |
+| :--- | --: | --: | :--- |
+| `error_message_actionable` | 11 | **0.94** | Excellent. Trust it. |
+| `purpose_clear_from_text` | 28 | 0.78 | Ranks well, but too lenient (said yes 1×, human 7×). More labels will fix the bias. |
+| `primary_action_obvious` | 28 | 0.61 | Near chance, and never once said yes (human: 10×). Needs rethinking. |
+| `button_label_quality` | 20 | 0.61 | Near chance. Jev calls "Submit" and "Yes/No" generic at 0.98+; the human judged them fine. A definitional disagreement, not noise. |
+| `empty_state_actionable` | 4 | — | Too few to judge. |
+| `destructive_action_guarded` | 5 | — | Too few to judge. |
+
+Pooled across questions, calibration error falls from **0.238 to 0.093** on 5-fold
+held-out data, and that correction is what `calibration.json` now applies. Per-question
+fits were attempted wherever there were 20+ labels; the held-out guard kept the one for
+`button_label_quality` and refused the other two, because fitting them made held-out
+error *worse*. That guard is doing its job: with 28 points clustered at low
+probability, isotonic regression memorises noise.
+
+Two lessons came out of the labeling that no amount of unit testing would have found:
+
+- **Asking about button labels on a component with no buttons.** Jev answered
+  "ambiguous or unlabeled" at 0.97 for components with no controls at all, and the human
+  said, correctly, that there was no problem. Whether a component has controls is
+  something the extractor knows for certain, so `button_label_quality` is now gated on
+  a deterministic `has_controls` signal rather than asked of everything.
+- **The main-action question may be unanswerable from this setup.** The labeler sees
+  unstyled components in which every button looks identical, so "which action is the
+  main one?" is often genuinely unclear to a human in a way it would not be in the real,
+  styled app. Jev, reading only the wording, doesn't share that problem. The
+  disagreement is partly an artefact of showing styling-free specimens, which is worth
+  fixing before relabeling.
+
 ### Stability
 
 If a finding flips on and off across pushes of identical code, developers stop trusting
@@ -378,8 +419,11 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- **No calibration data yet**, so the default thresholds (0.85 / 0.55) are guesses.
-  They are marked as such in every uncalibrated comment. This is now the biggest gap.
+- **Two questions don't work yet.** `primary_action_obvious` and `button_label_quality`
+  rank components barely better than chance against human labels (AUC 0.61). They
+  need rewording or removing, not calibrating. See [Calibration results](#calibration-results).
+- **One labeler, 96 labels.** The numbers below are indicative, not definitive, and
+  the 28 cases were written by the same project that tests them.
 - **Stability is unmeasured.** The answers look decisive, but nobody has yet run the
   same component ten times to see whether they hold still.
 - **One live sample proves nothing about the distribution.** The example app has two

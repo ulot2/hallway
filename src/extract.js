@@ -80,6 +80,9 @@ export async function extractState(page, { url, name, rootSelector } = {}) {
 
   const joined = text.join(' ');
   const signals = {
+    // Certain, not guessed: the extractor has the control list in hand. Asking Jev to
+    // judge button labels on a component with no buttons produced confident nonsense.
+    has_controls: controls.length > 0,
     has_error_text: ERROR_HINT.test(joined),
     has_empty_state: EMPTY_HINT.test(joined),
     has_destructive_action:

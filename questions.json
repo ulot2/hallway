@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "note": "Deterministic a11y rules (labels, heading order, contrast, roles) are handled by axe-core, not by Jev. Only add questions here that a linter genuinely cannot answer. Questions marked \"gate\": true never produce findings; they only decide whether another question applies, and ride along in the same call. Wire format: noul needs \"instructions\"; choice needs \"criteria\" as an object mapping each option to a description; score needs ordered \"levels\" (sent as criteria). See src/jev.js.",
   "questions": [
     {
@@ -87,7 +87,8 @@
         "generic": "Labels are non-specific defaults such as \"Submit\", \"OK\", \"Continue\" or \"Yes\". They say a button exists but not what it does.",
         "ambiguous or unlabeled": "Labels are missing, are icons with no accessible name, or are so vague that the effect cannot be guessed."
       },
-      "label_prompt": "Are the button or link labels generic or unclear, rather than saying what they do?"
+      "label_prompt": "Are the button or link labels generic or unclear, rather than saying what they do?",
+      "applies_when": "has_controls"
     },
     {
       "id": "purpose_clear_from_text",
