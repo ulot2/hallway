@@ -50,3 +50,12 @@ test('axe findings are labelled as certain and kept separate', () => {
 test('a skipped-stories cap is disclosed', () => {
   assert.match(renderReport([component('A', 'silent')], { skipped: 4 }), /4 further affected story/);
 });
+
+test('a capped finding says why it is advisory', () => {
+  const c = component('A', 'look');
+  c.findings[0].capped = true;
+  c.findings[0].trust = { n: 25, auc: 0.65, blocking: false };
+  const body = renderReport([c]);
+  assert.match(body, /advisory: agrees with human review at AUC 0.65 over 25 labels/);
+  assert.equal(checkConclusion([c]), 'success');
+});

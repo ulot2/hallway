@@ -119,10 +119,43 @@ if (all.length >= MIN_SAMPLES) {
   }
 }
 
+// Which questions have earned the right to fail a build. Calibration rescales a signal;
+// this asks whether there is one. A question may block only once it has been measured
+// against enough human labels and ranks them well. Below that bar its findings still
+// appear, collapsed, as advice — they just never fail the check.
+const TRUST_MIN_N = 10;
+const TRUST_MIN_AUC = 0.75;
+function auc(rows) {
+  const pos = rows.filter((r) => r.y);
+  const neg = rows.filter((r) => !r.y);
+  if (!pos.length || !neg.length) return null;
+  let s = 0;
+  for (const a of pos) for (const b of neg) s += a.p > b.p ? 1 : a.p === b.p ? 0.5 : 0;
+  return s / (pos.length * neg.length);
+}
+const trust = {};
+console.log(`\n${'='.repeat(72)}\nBLOCKING ELIGIBILITY  (needs n >= ${TRUST_MIN_N} and AUC >= ${TRUST_MIN_AUC})\n${'='.repeat(72)}`);
+for (const [id, rows] of byQuestion) {
+  const a = auc(rows);
+  const blocking = rows.length >= TRUST_MIN_N && a != null && a >= TRUST_MIN_AUC;
+  trust[id] = { n: rows.length, auc: a == null ? null : Number(a.toFixed(3)), blocking };
+  console.log(
+    `  ${id.padEnd(30)} n=${String(rows.length).padStart(3)}  AUC ${a == null ? ' n/a' : a.toFixed(2)}  ` +
+      (blocking ? 'may block' : 'advisory only')
+  );
+}
+if (!demo) calibration._trust = trust;
+
 if (Object.keys(calibration).length) {
   fs.writeFileSync('calibration.json', JSON.stringify(calibration, null, 2));
-  console.log(`\nWrote calibration.json for ${Object.keys(calibration).length} question(s).`);
+  const models = Object.keys(calibration).filter((k) => k !== '_trust').length;
+  console.log(`\nWrote calibration.json: ${models} correction model(s), blocking eligibility for ${Object.keys(trust).length} question(s).`);
   if (demo) console.log('(--demo data: do not commit this calibration.json)');
 } else {
   console.log('\nNothing fitted. Label more findings.');
+  // Don't leave an earlier, now-contradicted correction in place.
+  if (fs.existsSync('calibration.json')) {
+    fs.unlinkSync('calibration.json');
+    console.log('Removed the previous calibration.json.');
+  }
 }

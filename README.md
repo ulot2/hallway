@@ -7,9 +7,9 @@ deterministically.
 
 > **Status: verified end to end against a real Storybook and the live Jev API**
 > (`jev-1.13.0`). On the example app it flags the deliberately-bad component on four
-> questions and leaves the good one completely clean. Partly calibrated: two
-> questions were replaced after the first round of human labels and await a second
-> round. See [Calibration results](#calibration-results).
+> questions and leaves the good one completely clean. Measured against two rounds
+> of blind human labels: only questions that agree well with human review may fail a
+> build. See [Calibration results](#calibration-results).
 
 ## The argument
 
@@ -358,6 +358,43 @@ proves nothing either way. `import-labels` now leaves out labels for retired
 questions, and `build-label-set --only=` publishes a follow-up round for just the
 changed questions while keeping earlier predictions joinable.
 
+### Round two, and who gets to block
+
+The second round labeled the two replacement questions (34 items). With the retired
+questions set aside, 82 labels cover the six questions in use:
+
+| Question | n | AUC | May block? |
+| :--- | --: | --: | :--- |
+| `error_message_actionable` | 11 | **0.94** | yes |
+| `purpose_clear_from_text` | 28 | **0.78** | yes |
+| `competing_actions` | 9 | 0.72 | no, too few labels |
+| `button_labels_predictable` | 25 | 0.65 | no |
+| `empty_state_actionable` | 4 | 0.75 | no, too few labels |
+| `destructive_action_guarded` | 5 | 0.50 | no |
+
+Two things changed the approach.
+
+**The labeler agreed with themselves only 75% of the time on button labels.** The
+round-one and round-two button questions are near neighbours, and 5 of 20 answers
+flipped between them. Two unexplained "Remove" buttons read as generic when you ask
+about generic labels, and as predictable when you ask whether you can tell what they do,
+since each sits beside the file it removes. Both answers are defensible. When the human
+reference is that uncertain, no model can agree with it much better, and rewording the
+question again would be chasing noise.
+
+**No probability correction survived held-out testing.** With the weak questions
+retired, every per-question and pooled fit made held-out error worse, so none is
+applied, and the stale `calibration.json` from the previous round was removed rather
+than left contradicting the data.
+
+So the lever moved from *rescaling* scores to *deciding which questions may fail a
+build*. `calibrate` now writes a `_trust` table: a question may block only with at
+least 10 labels and AUC ≥ 0.75. Every other question's findings still appear, collapsed
+under "Worth a look", marked advisory with the measured reason, and can never fail the
+check. The bar is a policy choice in `scripts/calibrate.mjs`; the verdicts come from the
+labels. On the example app this leaves exactly one blocking finding, the non-actionable
+error message, on the question the labeler agreed with at 0.94.
+
 Two lessons came out of the labeling that no amount of unit testing would have found:
 
 - **Asking about button labels on a component with no buttons.** Jev answered
@@ -450,9 +487,9 @@ truncates a run the PR comment says so rather than silently reviewing less.
 
 ## What is not done yet
 
-- **Two new questions have no human labels yet.** `competing_actions` and
-  `button_labels_predictable` replaced the two that ranked near chance; a 34-item second
-  round of labeling is published and waiting.
+- **Four of six questions are advisory only**, because they haven't yet agreed well
+  enough with human review to be trusted with blocking. More labels, especially for
+  the gated questions, are the way to promote them.
 - **One labeler, 96 labels.** The numbers below are indicative, not definitive, and
   the 28 cases were written by the same project that tests them.
 - **Stability is unmeasured.** The answers look decisive, but nobody has yet run the

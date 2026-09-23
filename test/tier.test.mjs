@@ -161,3 +161,30 @@ test("a question's own calibration beats the pooled one", () => {
   const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration });
   assert.equal(f.p, 0.9);
 });
+
+test('a question not trusted to block is capped at "worth a look"', () => {
+  const calibration = { _trust: { q: { n: 25, auc: 0.65, blocking: false } } };
+  const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration });
+  assert.equal(f.p, 1);
+  assert.equal(f.tier, 'look');
+  assert.equal(f.capped, true);
+});
+
+test('a trusted question may still block', () => {
+  const calibration = { _trust: { q: { n: 28, auc: 0.94, blocking: true } } };
+  const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration });
+  assert.equal(f.tier, 'blocking');
+  assert.equal(f.capped, false);
+});
+
+test('once any trust data exists, an unmeasured question cannot block', () => {
+  const calibration = { _trust: { other: { n: 30, auc: 0.9, blocking: true } } };
+  const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {}, calibration });
+  assert.equal(f.tier, 'look');
+});
+
+test('with no calibration at all, blocking is unchanged', () => {
+  const [f] = assess({ answers: { q: { value: 0 } }, specs: [noul], signals: {} });
+  assert.equal(f.tier, 'blocking');
+  assert.equal(f.capped, false);
+});

@@ -110,6 +110,14 @@ function line(f) {
   if (f.confidence != null) bits.push(` · model confidence ${pct(Number(f.confidence))}`);
   if (f.basis === 'point-estimate') bits.push(' · _approximated from a point estimate_');
   if (f.calibrated) bits.push(' · _calibrated_');
+  if (f.capped) {
+    const t = f.trust;
+    bits.push(
+      t
+        ? ` · _advisory: agrees with human review at AUC ${t.auc ?? 'n/a'} over ${t.n} labels, below the bar to block_`
+        : ' · _advisory: not yet measured against human review_'
+    );
+  }
   return bits.join('');
 }
 
@@ -118,16 +126,19 @@ const format = (v) => (typeof v === 'number' ? v.toFixed(2) : String(v));
 function footer(meta, components) {
   const lines = [];
   const calibrated = components.some((c) => c.findings.some((f) => f.calibrated));
+  const measured = components.some((c) => c.findings.some((f) => f.trust));
   lines.push(
     `Question set v${meta.questionSetVersion ?? '?'} · ` +
       `thresholds: blocking ≥ ${meta.thresholds?.blockingAt ?? 0.85}, ` +
       `worth a look ≥ ${meta.thresholds?.lookAt ?? 0.55}`
   );
-  lines.push(
-    calibrated
-      ? '\nProbabilities are corrected by a fitted isotonic calibration.'
-      : '\n⚠️ Uncalibrated: thresholds are defaults, not measured on this repo. Run `npm run calibrate`.'
-  );
+  if (calibrated) {
+    lines.push('\nProbabilities are corrected by a fitted isotonic calibration.');
+  } else if (measured) {
+    lines.push('\nQuestions are measured against human labels; only those that agree well may block. No probability correction beat the raw scores on held-out data, so none is applied.');
+  } else {
+    lines.push('\n⚠️ Uncalibrated: thresholds are defaults, not measured on this repo. Run `npm run calibrate`.');
+  }
   if (meta.skipped) {
     lines.push(`\n${meta.skipped} further affected story(ies) skipped by the per-run cap.`);
   }

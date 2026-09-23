@@ -117,6 +117,12 @@ export function assess({ answers, specs, signals, calibration = {}, thresholds =
     // A question's own model if it has enough labels, else the pooled one.
     const model = calibration[spec.id] ?? calibration['*'];
     const p = raw == null ? null : applyIsotonic(model, raw);
+    let tier = tierWithHysteresis(p, previous[spec.id], thresholds);
+    // Once questions have been measured against human labels, only the ones that earned
+    // it may fail the check. Unmeasured or weak questions still surface, as advice.
+    const trust = calibration._trust;
+    const capped = Boolean(trust) && tier === 'blocking' && !trust[spec.id]?.blocking;
+    if (capped) tier = 'look';
     findings.push({
       id: spec.id,
       question: spec.question,
@@ -127,7 +133,9 @@ export function assess({ answers, specs, signals, calibration = {}, thresholds =
       p,
       calibrated: Boolean(model?.knots?.length),
       basis,
-      tier: tierWithHysteresis(p, previous[spec.id], thresholds),
+      tier,
+      capped,
+      trust: trust?.[spec.id] ?? null,
     });
   }
   return findings;
