@@ -30,6 +30,18 @@ export function decodeState(body) {
   }
 }
 
+const HEADING = '## Hallway · UI review';
+
+// The check run already shows its name, so the report's own heading would repeat it.
+// Promote the counts line to the check title and drop both from the summary.
+export function checkOutput(body) {
+  const lines = body.split('\n').filter((l) => !l.startsWith('<!-- hallway'));
+  while (lines.length && (lines[0] === HEADING || lines[0] === '')) lines.shift();
+  const title = (lines.shift() ?? 'Hallway').replace(/\*\*/g, '');
+  while (lines.length && lines[0] === '') lines.shift();
+  return { title, summary: lines.join('\n').slice(0, 65_000) || title };
+}
+
 export function checkConclusion(components) {
   const blocking = components.some((c) => c.findings.some((f) => f.tier === 'blocking'));
   return blocking ? 'failure' : 'success';
@@ -49,7 +61,7 @@ export function renderReport(components, meta = {}) {
     0
   );
 
-  const out = [MARKER, '## Hallway · UI review', ''];
+  const out = [MARKER, HEADING, ''];
 
   if (!blocking.length && !look.length && !axeCount) {
     out.push(`No findings across ${components.length} component(s).`, '');

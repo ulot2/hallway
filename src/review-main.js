@@ -8,7 +8,7 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { evaluate } from './jev.js';
 import { assess } from './tier.js';
-import { renderReport, decodeState, checkConclusion, MARKER } from './report.js';
+import { renderReport, decodeState, checkConclusion, checkOutput, MARKER } from './report.js';
 
 const env = (k, d) => process.env[k] ?? d;
 
@@ -116,7 +116,7 @@ async function main() {
       head_sha: sha,
       status: 'completed',
       conclusion: checkConclusion(components),
-      output: { title: 'Hallway', summary: body.slice(0, 65_000) },
+      output: checkOutput(body),
     });
   }
 }
