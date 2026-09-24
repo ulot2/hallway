@@ -9,15 +9,18 @@ inputs:
   mode:
     description: 'extract (no secrets, runs PR code) | review (has secrets, no PR code) | both'
     default: 'both'
+  working-directory:
+    description: 'Directory of the Storybook project, relative to the repository root. Changed files, stories and output are resolved from here.'
+    default: '.'
   storybook-dir:
-    description: 'Directory containing the built Storybook'
+    description: 'Built Storybook, relative to working-directory'
     default: 'storybook-static'
   questions:
-    description: 'Path to the question set'
-    default: 'questions.json'
+    description: "Path to a question set. Empty uses Hallway's own, measured set."
+    default: ''
   calibration:
-    description: 'Path to a fitted calibration produced by npm run calibrate'
-    default: 'calibration.json'
+    description: "Path to calibration and blocking eligibility. Empty uses Hallway's own."
+    default: ''
   max-stories:
     description: 'Cost control: most stories to review in one run'
     default: '25'
@@ -51,16 +54,23 @@ runs:
       shell: bash
       run: npm ci --omit=dev --prefix ${{ github.action_path }}
 
+    - name: Install Chromium
+      if: inputs.mode == 'extract' || inputs.mode == 'both'
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npx playwright install --with-deps chromium
+
     - name: Extract component state
       if: inputs.mode == 'extract' || inputs.mode == 'both'
       shell: bash
+      working-directory: ${{ inputs.working-directory }}
       env:
         HALLWAY_STORYBOOK_DIR: ${{ inputs.storybook-dir }}
         HALLWAY_MAX_STORIES: ${{ inputs.max-stories }}
         HALLWAY_BASE_REF: ${{ inputs.base-ref }}
         HALLWAY_PR_NUMBER: ${{ github.event.pull_request.number }}
         HALLWAY_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        HALLWAY_ROOT: ${{ github.workspace }}
+        HALLWAY_ROOT: '.'
       run: node ${{ github.action_path }}/src/extract-main.js
 
     - name: Review and post
@@ -69,8 +79,8 @@ runs:
       env:
         JEV_API_KEY: ${{ inputs.jev-api-key }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        HALLWAY_QUESTIONS: ${{ inputs.questions }}
-        HALLWAY_CALIBRATION: ${{ inputs.calibration }}
+        HALLWAY_QUESTIONS: ${{ inputs.questions || format('{0}/questions.json', github.action_path) }}
+        HALLWAY_CALIBRATION: ${{ inputs.calibration || format('{0}/calibration.json', github.action_path) }}
         HALLWAY_BLOCKING_AT: ${{ inputs.blocking-at }}
         HALLWAY_LOOK_AT: ${{ inputs.look-at }}
         HALLWAY_SET_CHECK: ${{ inputs.set-check }}

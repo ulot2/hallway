@@ -1,0 +1,52 @@
+# Hallway reviewing its own example app: phase 1 of 2, the fork-safe half.
+#
+# Runs pull request code (it builds and renders the example components), so it holds
+# NO secrets. It writes component state to an artifact for phase 2. This is the
+# docs/workflows/hallway.yml template, adapted to a Storybook in example/.
+
+name: Hallway demo (extract)
+
+on:
+  pull_request:
+    paths:
+      - 'example/src/**'
+      - 'action.yml'
+      - 'src/**'
+      - 'questions.json'
+      - '.github/workflows/hallway-demo.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: example/package-lock.json
+
+      - name: Build the example Storybook
+        working-directory: example
+        run: |
+          npm ci
+          npm run build-storybook
+
+      - uses: ./
+        with:
+          mode: extract
+          working-directory: example
+          base-ref: origin/${{ github.base_ref }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hallway-state
+          path: example/.hallway/
+          include-hidden-files: true
+          retention-days: 7

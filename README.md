@@ -137,6 +137,22 @@ module that knows the endpoint, the request body or the response field names; ev
 downstream consumes a normalized shape. If the API moves, fix `toWire()` and
 `normalizeAnswer()` and nothing else changes.
 
+## Use it in your repository
+
+1. Copy `docs/workflows/hallway.yml` and `docs/workflows/hallway-report.yml` into your
+   repository's `.github/workflows/`.
+2. Add your Jev key as a repository secret named `JEV_API_KEY`.
+3. If your Storybook isn't at the repository root, set `working-directory` in the
+   extract workflow (for example `working-directory: packages/web`) and point the
+   artifact upload at that directory's `.hallway/`.
+
+Phase 2 is a `workflow_run` workflow, and GitHub only runs those from the default
+branch, so reviews start on pull requests opened after both files are merged.
+
+This repository runs exactly that setup on its own example app —
+`.github/workflows/hallway-demo.yml` and `hallway-demo-report.yml` — with
+`working-directory: example`.
+
 ## Fork pull requests and the API key
 
 Pull requests from forks cannot read repository secrets. The usual workaround,
@@ -585,8 +601,10 @@ precondition pointing at a **gate question**: a cheap yes/no question, marked
 its own. Gates cost no extra latency, since every question for a component goes in one
 request.
 
-Action inputs: `mode`, `storybook-dir`, `questions`, `calibration`, `max-stories`,
-`blocking-at`, `look-at`, `base-ref`, `set-check`, `jev-api-key`, `github-token`.
+Action inputs: `mode`, `working-directory`, `storybook-dir`, `questions`, `calibration`,
+`max-stories`, `blocking-at`, `look-at`, `base-ref`, `set-check`, `jev-api-key`,
+`github-token`. Leave `questions` and `calibration` empty to use Hallway's own measured
+question set and blocking table.
 
 Cost control is explicit: `max-stories` caps reviewed stories per run, and when the cap
 truncates a run the PR comment says so rather than silently reviewing less.
