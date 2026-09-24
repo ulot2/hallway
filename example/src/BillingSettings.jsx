@@ -1,23 +1,28 @@
 // Billing settings: payment method, invoices, and plan preferences.
 export function BillingSettings() {
   return (
-    <section>
-      <h2>Billing</h2>
-      <p role="alert">Something went wrong.</p>
+    <main>
+      <h1>Billing</h1>
+      <p>Manage the card you pay with, download invoices, and choose where receipts go.</p>
+      <p role="alert">
+        We couldn't charge your Visa ending in 4242. Update the card below or add a
+        different payment method to keep your plan active.
+      </p>
 
-      <h3>Payment method</h3>
+      <h2>Payment method</h2>
       <p>Visa ending in 4242</p>
-      <button type="button">Remove</button>
+      <button type="button">Update card</button>
+      <button type="button">Remove card…</button>
+      <p>You'll be asked to confirm before the card is removed.</p>
 
-      <h3>Invoices</h3>
-      <p>No invoices.</p>
+      <h2>Invoices</h2>
+      <p>No invoices yet. Your first invoice will appear here after your first payment.</p>
 
-      <h3>Preferences</h3>
-      <label htmlFor="billing-email">Billing email</label>
+      <h2>Receipts</h2>
+      <label htmlFor="billing-email">Send receipts to</label>
       <input id="billing-email" type="email" />
-      <button type="button">Save</button>
-      <button type="button">Save changes</button>
-      <button type="button">Apply</button>
-    </section>
+      <button type="button" data-variant="primary">Save receipt email</button>
+      <button type="button">Cancel</button>
+    </main>
   );
 }
