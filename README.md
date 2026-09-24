@@ -15,6 +15,30 @@ deterministically.
 > questions agree with human review well enough to fail a build; the sixth appears
 > as advice only. See [Calibration results](#calibration-results).
 
+## See it live
+
+[Pull request #3](https://github.com/ulot2/hallway/pull/3) is a real run against the live Jev API.
+Its first commit adds a billing screen with three copy problems:
+
+- **Save**, **Save changes** and **Apply** sit side by side, with nothing saying which to use.
+- The error reads "Something went wrong." and nothing more.
+- "No invoices." is a dead end.
+
+Hallway fails the check on all three, and axe-core adds three certain landmark and
+heading violations. The second commit rewrites the screen, and the same comment is
+updated in place to a clean review.
+
+[![Commit history: the first commit fails the Hallway check, the fix passes](docs/images/demo-commits.png)](https://github.com/ulot2/hallway/pull/3/commits)
+
+<table>
+<tr>
+<td width="50%" valign="top"><b>Before:</b> the check fails on three blocking findings<br><br>
+<a href="https://github.com/ulot2/hallway/pull/3/checks"><img src="docs/images/demo-red-check.png" alt="Hallway check run: 3 blocking findings on BillingSettings"></a></td>
+<td width="50%" valign="top"><b>After the fix:</b> the sticky comment is updated in place<br><br>
+<a href="https://github.com/ulot2/hallway/pull/3"><img src="docs/images/demo-green-comment.png" alt="Hallway PR comment: no findings across 1 component"></a></td>
+</tr>
+</table>
+
 ## The argument
 
 Most "AI reviews your PR" tools ask a language model questions that a linter already

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { renderReport, encodeState, decodeState, checkConclusion, MARKER } from '../src/report.js';
+import { renderReport, encodeState, decodeState, checkConclusion, checkOutput, MARKER } from '../src/report.js';
 
 const component = (name, tier) => ({
   name,
@@ -58,4 +58,18 @@ test('a capped finding says why it is advisory', () => {
   const body = renderReport([c]);
   assert.match(body, /advisory: agrees with human review at AUC 0.65 over 25 labels/);
   assert.equal(checkConclusion([c]), 'success');
+});
+
+test('check output titles with the counts and does not repeat the heading', () => {
+  const body = renderReport([component('A', 'blocking')]) + '\n' + encodeState([component('A', 'blocking')]);
+  const { title, summary } = checkOutput(body);
+  assert.match(title, /^1 blocking · 0 worth a look/);
+  assert.doesNotMatch(title, /\*\*/);
+  assert.doesNotMatch(summary, /Hallway · UI review|<!-- hallway|1 blocking · /);
+  assert.match(summary, /A/);
+});
+
+test('check output for a clean run', () => {
+  const { title } = checkOutput(renderReport([component('A', 'silent')]));
+  assert.equal(title, 'No findings across 1 component(s).');
 });
