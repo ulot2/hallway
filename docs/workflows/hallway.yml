@@ -43,7 +43,8 @@ jobs:
       - run: npx storybook build --quiet
         # The build, not the Jev calls, is this workflow's bottleneck. Measure it.
 
-      - uses: ./
+      # Pin to a release tag once one exists.
+      - uses: ulot2/hallway@main
         with:
           mode: extract
           base-ref: origin/${{ github.base_ref }}
@@ -52,4 +53,5 @@ jobs:
         with:
           name: hallway-state
           path: .hallway/
+          include-hidden-files: true   # .hallway/ is hidden; v4 skips hidden files by default
           retention-days: 7

@@ -1,0 +1,40 @@
+# Hallway reviewing its own example app: phase 2 of 2.
+#
+# workflow_run runs from the default branch with secrets in scope, and never checks out
+# pull request code: it reads only the JSON artifact phase 1 produced. GitHub runs
+# workflow_run workflows only from the default branch, so this takes effect once merged.
+
+name: Hallway demo (report)
+
+on:
+  workflow_run:
+    workflows: ['Hallway demo (extract)']
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read          # download the artifact from the extract run
+  pull-requests: write   # post and update the sticky comment
+  checks: write          # publish the pass/fail check
+
+jobs:
+  report:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: hallway-state
+          path: .hallway
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./
+        with:
+          mode: review
+          jev-api-key: ${{ secrets.JEV_API_KEY }}
+          set-check: 'true'

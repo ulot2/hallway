@@ -5,6 +5,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { evaluate } from './jev.js';
 import { assess } from './tier.js';
 import { renderReport, decodeState, checkConclusion, MARKER } from './report.js';
@@ -46,6 +47,15 @@ async function main() {
     lookAt: Number(env('HALLWAY_LOOK_AT', '0.55')),
   };
 
+  // In CI, a missing key must never fall back to the mock: it would post invented
+  // findings on a real pull request. Skip with a visible warning instead.
+  const inActions = process.env.GITHUB_ACTIONS === 'true';
+  const explicitlyMocked = process.env.JEV_MOCK === '1' || process.env.JEV_LIVE === '1';
+  if (inActions && !process.env.JEV_API_KEY && !explicitlyMocked) {
+    console.log('::warning::Hallway skipped the review: no Jev API key. Set the JEV_API_KEY secret.');
+    return;
+  }
+
   const token = process.env.GITHUB_TOKEN;
   const prNumber = Number(env('HALLWAY_PR_NUMBER', '0')) || state.meta?.prNumber || 0;
   let previous = {};
@@ -84,6 +94,13 @@ async function main() {
     return;
   }
 
+  // Nothing this PR touched renders a story: don't open a comment just to say so, but
+  // do update an existing one, so a stale review never lingers after a fix.
+  if (!components.length && !existingId) {
+    console.log('No affected stories; no comment posted.');
+    return;
+  }
+
   // One sticky comment, updated in place.
   if (existingId) {
     await octokit.rest.issues.updateComment({ ...repo, comment_id: existingId, body });
@@ -104,7 +121,7 @@ async function main() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.error(err);
     process.exit(1);

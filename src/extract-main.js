@@ -6,6 +6,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { launch } from './browser.js';
 import { serve } from './serve.js';
@@ -14,11 +15,20 @@ import { extractState, runAxe, describe } from './extract.js';
 
 const env = (k, d) => process.env[k] ?? d;
 
-function changedFiles(baseRef) {
+/**
+ * Files changed on this branch, relative to `cwd`. `--relative` matters when the
+ * Storybook project lives in a subdirectory: Storybook's importPaths are relative to
+ * that project, so repository-root paths ("example/src/Button.jsx") would never match
+ * them, and files outside the project are dropped rather than mismatched.
+ */
+export function changedFiles(baseRef, cwd = process.cwd()) {
   if (process.env.HALLWAY_CHANGED_FILES) {
     return process.env.HALLWAY_CHANGED_FILES.split(/[\n,]/).map((s) => s.trim()).filter(Boolean);
   }
-  const out = execFileSync('git', ['diff', '--name-only', `${baseRef}...HEAD`], { encoding: 'utf8' });
+  const out = execFileSync('git', ['diff', '--name-only', '--relative', `${baseRef}...HEAD`], {
+    encoding: 'utf8',
+    cwd,
+  });
   return out.split('\n').map((s) => s.trim()).filter(Boolean);
 }
 
@@ -93,7 +103,9 @@ async function main() {
   console.log(`Wrote ${outDir}/state.json`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
