@@ -173,6 +173,9 @@ downstream consumes a normalized shape. If the API moves, fix `toWire()` and
 Phase 2 is a `workflow_run` workflow, and GitHub only runs those from the default
 branch, so reviews start on pull requests opened after both files are merged.
 
+The templates use `ulot2/hallway@v1`, which moves to each new 1.x release. To freeze
+the version, pin a full tag such as `@v1.0.0` or a commit SHA instead.
+
 This repository runs exactly that setup on its own example app —
 `.github/workflows/hallway-demo.yml` and `hallway-demo-report.yml` — with
 `working-directory: example`.
@@ -651,8 +654,15 @@ truncates a run the PR comment says so rather than silently reviewing less.
   finished its own async work". Components that fetch on mount may be captured mid-load.
 - The example app is three components on one Storybook version. Nothing has been tried
   against Vue, Svelte, Storybook 7/8, or a repo with hundreds of stories.
-- No published Marketplace release. That waits until it has run green on a repo that
-  isn't this one.
+- Released as `v1`, but not listed on the Marketplace. That waits until it has run
+  green on a repo that isn't this one.
+
+## Releasing
+
+Push a version tag, for example `git tag v1.0.1 && git push origin v1.0.1`.
+`.github/workflows/release.yml` runs the unit tests, publishes the GitHub release
+with generated notes, and moves the major tag (`v1`) to the new version. A breaking
+change gets a new major tag (`v2`), so nobody on `@v1` picks it up by accident.
 
 ## Layout
 
